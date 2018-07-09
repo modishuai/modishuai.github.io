@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="JNI （Java Native Interface)JNI（Java Native Interface） Java 本地接口,实现 Java 和本地已编译代码之间的双向交互。 JNI 是 Java 平台的一部分可以，它允许 Java 代码和其他编程语言编写的代码进行交互（最初是为了本地已编译语言比如C和C++而设计）但并不妨碍使用其他编程，只要调用约定支持就行。使用 Java 与本地已编译代码进">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="链表">
+<meta property="og:url" content="http://yoursite.com/2018/06/06/Java调用本地方法/index.html">
+<meta property="og:site_name" content="i云哲">
+<meta property="og:description" content="JNI （Java Native Interface)JNI（Java Native Interface） Java 本地接口,实现 Java 和本地已编译代码之间的双向交互。 JNI 是 Java 平台的一部分可以，它允许 Java 代码和其他编程语言编写的代码进行交互（最初是为了本地已编译语言比如C和C++而设计）但并不妨碍使用其他编程，只要调用约定支持就行。使用 Java 与本地已编译代码进">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/06/06/Java调用本地方法/JNI%20实现流程示意图.jpg">
+<meta property="og:updated_time" content="2018-06-07T11:40:46.428Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="链表">
+<meta name="twitter:description" content="JNI （Java Native Interface)JNI（Java Native Interface） Java 本地接口,实现 Java 和本地已编译代码之间的双向交互。 JNI 是 Java 平台的一部分可以，它允许 Java 代码和其他编程语言编写的代码进行交互（最初是为了本地已编译语言比如C和C++而设计）但并不妨碍使用其他编程，只要调用约定支持就行。使用 Java 与本地已编译代码进">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/06/Java调用本地方法/JNI%20实现流程示意图.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/06/06/Java调用本地方法/"/>
+
+
+
+
+
+  <title>链表 | i云哲</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">i云哲</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sitemap">
+          <a href="/sitemap.xml" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-sitemap"></i> <br />
+            
+            站点地图
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/06/Java调用本地方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="i云哲">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/author.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="i云哲">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">链表</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-06T21:16:24+08:00">
+                2018-06-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="JNI-（Java-Native-Interface"><a href="#JNI-（Java-Native-Interface" class="headerlink" title="JNI （Java Native Interface)"></a>JNI （Java Native Interface)</h1><p>JNI（Java Native Interface） Java 本地接口,实现 Java 和本地已编译代码之间的双向交互。</p>
+<p>JNI 是 Java 平台的一部分可以，它允许 Java 代码和其他编程语言编写的代码进行交互（最初是为了本地已编译语言比如C和C++而设计）但并不妨碍使用其他编程，只要调用约定支持就行。使用 Java 与本地已编译代码进行交互，通常会丧失跨平台特性。</p>
+<h2 id="初识-native"><a href="#初识-native" class="headerlink" title="初识 native"></a>初识 native</h2><p>初识 native 是在 Java 中的<code>java.lang.Object</code> 类中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">registerNatives</span><span class="params">()</span></span>;</div><div class="line">   <span class="keyword">static</span> &#123;</div><div class="line">       registerNatives();</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>native 关键字表示这是一个本地方法。</p>
+<h2 id="JNI-实现流程"><a href="#JNI-实现流程" class="headerlink" title="JNI 实现流程"></a>JNI 实现流程</h2><p><img src="/2018/06/06/Java调用本地方法/JNI 实现流程示意图.jpg" alt="Images\JNI 实现流程示意图"></p>
+<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><h2 id="编写-Java-代码"><a href="#编写-Java-代码" class="headerlink" title="编写 Java 代码"></a>编写 Java 代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloNative</span></span>&#123;</div><div class="line">    <span class="keyword">static</span>&#123;</div><div class="line">        System.loadLibrary(<span class="string">"HelloNative"</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">double</span> <span class="title">sum</span><span class="params">(<span class="keyword">double</span> a, <span class="keyword">double</span> b)</span></span>;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</div><div class="line">        <span class="keyword">new</span> HelloNative().sayHello();</div><div class="line">        System.out.println(<span class="keyword">new</span> HelloNative().sum(<span class="number">3.5</span>, <span class="number">4.0</span>));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>该类声明了两个本地方法，且没有实现方法体。加载动态库<code>System.loadLibrary(&quot;HelloNative&quot;);</code> 其中的参数就是我们的动态库名称。</p>
+<h2 id="编译成字节码"><a href="#编译成字节码" class="headerlink" title="编译成字节码"></a>编译成字节码</h2><p>javac  HelloNative.java</p>
+<h2 id="生成头文件"><a href="#生成头文件" class="headerlink" title="生成头文件"></a>生成头文件</h2><p>javah HelloNative</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* DO NOT EDIT THIS FILE - it is machine generated */</span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;jni.h&gt;</span></span></div><div class="line"><span class="comment">/* Header for class HelloNative */</span></div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _Included_HelloNative</span></div><div class="line"><span class="meta">#<span class="meta-keyword">define</span> _Included_HelloNative</span></div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></div><div class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment"> * Class:     HelloNative</span></div><div class="line"><span class="comment"> * Method:    sayHello</span></div><div class="line"><span class="comment"> * Signature: ()V</span></div><div class="line"><span class="comment"> */</span></div><div class="line">JNIEXPORT <span class="keyword">void</span> JNICALL Java_HelloNative_sayHello</div><div class="line">  (JNIEnv *, jobject);</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line"><span class="comment"> * Class:     HelloNative</span></div><div class="line"><span class="comment"> * Method:    sum</span></div><div class="line"><span class="comment"> * Signature: (DD)D</span></div><div class="line"><span class="comment"> */</span></div><div class="line">JNIEXPORT jdouble JNICALL Java_HelloNative_sum</div><div class="line">  (JNIEnv *, jobject, jdouble, jdouble);</div><div class="line"></div><div class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></div><div class="line">&#125;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div></pre></td></tr></table></figure>
+<h2 id="编写C的实现"><a href="#编写C的实现" class="headerlink" title="编写C的实现"></a>编写C的实现</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;jni.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"HelloNative.h"</span>    </span></div><div class="line">JNIEXPORT <span class="keyword">void</span> JNICALL Java_HelloNative_sayHello</div><div class="line">  (JNIEnv *env, jobject ojb)</div><div class="line">  &#123;</div><div class="line">      <span class="built_in">printf</span>(<span class="string">"Hello JNI"</span>);</div><div class="line">      <span class="keyword">return</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  JNIEXPORT jdouble JNICALL Java_HelloNative_sum</div><div class="line">  (JNIEnv *env, jobject obj, jdouble a, jdouble b)</div><div class="line">  &#123;</div><div class="line">      <span class="keyword">return</span> a + b;</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<h2 id="编译成动态链接库文件"><a href="#编译成动态链接库文件" class="headerlink" title="编译成动态链接库文件"></a>编译成动态链接库文件</h2><p>安装 GCC 64位的编译器 或者用Visual Studio 生成 64 位文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">gcc -c -I"D:\Program Files\Java\jdk1.8\jdk1.8.0_102\include" -I"D:\Program Files\Java\jdk1.8\jdk1.8.0_102\include\win32" HelloNative.c  </div><div class="line"></div><div class="line"> gcc -Wl,--add-stdcall-alias -shared -o HelloNative.dll HelloNative.o</div></pre></td></tr></table></figure>
+<p>将 HelloNative.dll 文件拷贝至java项目根目录</p>
+<h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>输出：</p>
+<p>7.5</p>
+<p>Hello JNI </p>
+<p>异常信息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Exception in thread "main" java.lang.UnsatisfiedLinkError: E:\repository\java\eclipse-workspace\jni\HelloNative.dll: Can't load IA 32-bit .dll on a AMD 64-bit platform</div></pre></td></tr></table></figure>
+<p>错误原因是因为我们 gcc 编译出来的HelloNative.dll 是32位的，而我们的Jdk 版本是64位的。</p>
+<h2 id="JNI-的副作用"><a href="#JNI-的副作用" class="headerlink" title="JNI 的副作用"></a>JNI 的副作用</h2><ul>
+<li><p>可移植性，也就是说当你要实现跨平台就必须重新编辑本地代码。</p>
+</li>
+<li><p>不稳定性，可能会因为本地代码的使用不当导致整个系统崩盘。</p>
+</li>
+</ul>
+<p>参考文献：</p>
+<p><a href="https://www.jianshu.com/p/44cbe11e5d35" target="_blank" rel="external">https://www.jianshu.com/p/44cbe11e5d35</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"># Java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/03/散列表/" rel="next" title="散列表">
+                <i class="fa fa-chevron-left"></i> 散列表
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/06/链表/" rel="prev" title="链表">
+                链表 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/author.png"
+               alt="i云哲" />
+          <p class="site-author-name" itemprop="name">i云哲</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/modishuai" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://git.oschina.net/mods" target="_blank" title="Oschina">
+                  
+                    <i class="fa fa-fw fa-jsfiddle"></i>
+                  
+                  Oschina
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/576380600" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.jianshu.com/u/7c72da9b8085" target="_blank" title="Jianshu">
+                  
+                    <i class="fa fa-fw fa-book"></i>
+                  
+                  Jianshu
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/modishuai/activities" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-question-circle"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JNI-（Java-Native-Interface"><span class="nav-number">1.</span> <span class="nav-text">JNI （Java Native Interface)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#初识-native"><span class="nav-number">1.1.</span> <span class="nav-text">初识 native</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JNI-实现流程"><span class="nav-number">1.2.</span> <span class="nav-text">JNI 实现流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例代码"><span class="nav-number">1.3.</span> <span class="nav-text">示例代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写-Java-代码"><span class="nav-number">1.4.</span> <span class="nav-text">编写 Java 代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译成字节码"><span class="nav-number">1.5.</span> <span class="nav-text">编译成字节码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成头文件"><span class="nav-number">1.6.</span> <span class="nav-text">生成头文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写C的实现"><span class="nav-number">1.7.</span> <span class="nav-text">编写C的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译成动态链接库文件"><span class="nav-number">1.8.</span> <span class="nav-text">编译成动态链接库文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行"><span class="nav-number">1.9.</span> <span class="nav-text">运行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JNI-的副作用"><span class="nav-number">1.10.</span> <span class="nav-text">JNI 的副作用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">i云哲</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
