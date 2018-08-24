@@ -15,7 +15,7 @@ tags:
 
 ## 生成SSH Key
 
-`ssh-keygen -t rsa -C  "mo_dishuai@126.com"
+`ssh-keygen -t rsa -C  "mo_dishuai@126.com"`
 
 ## 找到刚生成Key值所在目录
 
