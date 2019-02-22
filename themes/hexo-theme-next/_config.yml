@@ -92,9 +92,6 @@ scheme: Pisces
 social:
   GitHub: https://github.com/modishuai
   Oschina: https://git.oschina.net/mods
-  Weibo: http://weibo.com/576380600
-  Jianshu: http://www.jianshu.com/u/7c72da9b8085
-  Zhihu: https://www.zhihu.com/people/modishuai/activities
 
 # Social Links Icons
 # Icon Mapping:
@@ -107,10 +104,6 @@ social_icons:
   # KeyMapsToSocialItemKey: NameOfTheIconFromFontAwesome
   GitHub: github
   Oschina: jsfiddle
-  Twitter: twitter
-  Weibo: weibo
-  Jianshu: book
-  Zhihu: question-circle
 
 # Blog rolls
 #links_title: Links
