@@ -6,6 +6,7 @@ categories:
 tags:
 - Java
 ---
+
 > Java 语言基本特性和机制
 
 # 谈谈你对Java平台的理解？
@@ -390,3 +391,182 @@ LinkedHashSet，遍历性能与元素多少有关系。
 - 而对于对象数据类型，目前则是使用[TimSort](http://hg.openjdk.java.net/jdk/jdk/file/26ac622a4cab/src/java.base/share/classes/java/util/TimSort.java)，思想上也是一种归并和二分插入排序（binarySort）结合的优化排序算法。TimSort 并不是 Java 的独创，简单说它的思路是查找数据集中已经排好序的分区（这里叫 run），然后合并这些分区来达到排序的目的。
 
 Java 8 引入了并行排序算法（直接使用 parallelSort 方法），利用现代多核处理器的计算能力，底层基于 fork-join 框架实现，当数据量增长到百万级别是，提供就很大，取决于处理器和系统环境。
+
+
+
+# Hashtable、HashMap、TreeMap有什么不同？
+
+三者都实现了 Map 接口也都是以**键值对**形式进行存储和操作数据的容器类型。
+
+HashTable 是 Java 类库早起提供的哈希表实现，不支持键值为 null ，其本身是同步的，所以有额外的性能开销。
+
+HashMap 也是基于哈希表的实现，行为和HashTable 一直，主要区别在于 HashMap 不是同步的，允许键值为 null。
+
+TreeMap 是基于红黑树的一种提供顺序访问的 Map ，与 HashMap 不同它的 get 、pug 、remove 操作都是 O（long(n))）的时间复杂度，具体的顺序可以有指定的 Comparator 来决定，或者根据键的自然顺序来判断。
+
+- 理解 Map 相关类似整体结构，尤其是有序数据结构的一些要点。
+
+- 从源码去分析 HashMap 的设计和实现要点，理解容量、负载影因子等，为什么需要这些参数，如何影响 Map 的性能，实践中如何取舍等。
+
+- 理解树化改造的相关原理和改进原因。
+
+## 知识扩展
+
+hashMap 的性能表现非常依赖于哈希码的有效性，必须掌握 hashCode 和 equals 的一些基本约定。
+
+- equals 相等，hashCode 一定要相等。
+
+- 重写 hashCode 也要重写 equals。
+
+- hashCode 需要保持一致性，状态改变返回的哈希码要保持一致。
+
+- equals 的对称、反射、传递等特性。
+
+LinkedHashMap 通常提供遍历顺序符合插入顺序，它的实现是通过为条目（键值对）维护一个双向链表。
+
+TreeMap ，整体顺序是由键的顺序关系决定的，通过 Comparator 或 Comparable（自然顺序）来决定。
+
+### HashMap 源码分析
+
+- HashMap 内部实现基本点分析
+
+- 容量（capacity）和负载因子（load factor）
+
+- 树化
+
+HashMap 内部结构可以看做是数组（Node<K,V>[] talbe）和链表结合组成的复合结构，数组被分为一个个桶（bucket），通过哈希值决定了键值对这个数组的寻址；哈希值相同的键值对，则以链表形式存储；
+
+![Java核心技术-基础篇\桶数组](Java核心技术-基础篇\桶数组.png)
+
+从非拷贝构造函数的实现来看，这个表格（数组）似乎并没有在最初就初始化好，仅仅设置了一些初始值而已。
+
+```java
+public HashMap(int initialCapacity, float loadFactor){  
+    // ... 
+    this.loadFactor = loadFactor;
+    this.threshold = tableSizeFor(initialCapacity);
+}
+```
+
+所以，我们深刻怀疑，HashMap 也许是按照 lazy-load 原则，在首次使用时被初始化（拷贝构造函数除外，我这里仅介绍最通用的场景）。既然如此，我们去看看 put 方法实现，似乎只有一个 putVal 的调用：
+
+```java
+public V put(K key, V value) {
+    return putVal(hash(key), key, value, false, true);
+}
+```
+
+putVal 方法本身逻辑非常集中，从初始化、扩容到树化，全部都和它有关
+
+```java
+final V putVal(int hash, K key, V value, boolean onlyIfAbent,
+               boolean evit) {
+    Node[] tab; Node p; int , i;
+    if ((tab = table) == null || (n = tab.length) = 0)
+        n = (tab = resize()).length;
+    if ((p = tab[i = (n - 1) & hash]) == ull)
+        tab[i] = newNode(hash, key, value, nll);
+    else {
+        // ...
+        if (binCount >= TREEIFY_THRESHOLD - 1) // -1 for first 
+           treeifyBin(tab, hash);
+        //  ... 
+     }
+}
+```
+
+- 如果表格是 null，resize 方法会负责初始化它，这从 tab = resize() 可以看出。
+
+- resize 方法兼顾两个职责，创建初始存储表格，或者在容量不满足需求的时候，进行扩容（resize）。
+
+- 在放置新的键值对的过程中，如果发生下面条件，就会发生扩容。
+
+```java
+if (++size > threshold)
+    resize();
+```
+
+具体键值对在哈希表中的位置（数组 index）取决于下面的位运算：
+
+```java
+i = (n - 1) & hash
+```
+
+仔细观察哈希值的源头，我们会发现，它并不是 key 本身的 hashCode，而是来自于 HashMap 内部的另外一个 hash 方法。注意，为什么这里需要将高位数据移位到低位进行异或运算呢？**这是因为有些数据计算出的哈希值差异主要在高位，而 HashMap 里的哈希寻址是忽略容量以上的高位的，那么这种处理就可以有效避免类似情况下的哈希碰撞。**
+
+```java
+static final int hash(Object kye) {
+    int h;
+    return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>>16;
+}
+```
+
+HashMap resice()方法
+
+```java
+final Node[] resize() {
+    // ...
+    else if ((newCap = oldCap << 1) < MAXIMUM_CAPACIY &&
+                oldCap >= DEFAULT_INITIAL_CAPAITY)
+        newThr = oldThr << 1; // double there
+       // ... 
+    else if (oldThr > 0) // initial capacity was placed in threshold
+        newCap = oldThr;
+    else {  
+        // zero initial threshold signifies using defaultsfults
+        newCap = DEFAULT_INITIAL_CAPAITY;
+        newThr = (int)(DEFAULT_LOAD_ATOR* DEFAULT_INITIAL_CAPACITY；
+    }
+    if (newThr ==0) {
+        float ft = (float)newCap * loadFator;
+        newThr = (newCap < MAXIMUM_CAPACITY && ft < (float)MAXIMUM_CAPACITY ?(int)ft : Integer.MAX_VALUE);
+    }
+    threshold = neThr;
+    Node[] newTab = (Node[])new Node[newap];
+    table = n；
+    // 移动到新的数组结构 e 数组结构 
+   }
+```
+
+依据 resize 源码，不考虑极端情况（容量理论最大极限由 MAXIMUM_CAPACITY 指定，数值为 1<<30，也就是 2 的 30 次方），我们可以归纳为：
+
+- 门限值等于（负载因子） x （容量），在构建 HashMap 没有指定它们，那就是依据相应的默认常量值。
+
+- 门限值通常是以倍数进行调整（newThr = oldThr << 1）,根据 putVal 中的逻辑，当元素个数超过门限大小时则调整 Map 大小。
+
+- 扩容后，需要将老的数组的元素重新放置到新的数组，这是扩容的一个组要开销来源。
+
+### 容量、负载因子和树化
+
+**为什么容量和负载因子这么重要？**因为容量和负载因子决定可用桶的数量，空桶多了浪费空间，若使用得太满则严重影响操作性能。
+
+实践中如何选择呢？预估` 负载因子 * 容量 > 元素数量`
+
+负载因子的建议：
+
+- 没有特殊需求不建议改动， JDK 自身默认的负载因子满足了通用场景。
+
+- 实在要调整，建议不要超过 0.75 的数值，因为会显著增加冲突，降低 HashMap 的性能。
+
+- 若使用太小的负载因子，按上面的公式，预设容量值也要进行调整，否则可能会导致更加频繁的扩容。
+
+### 树化改造
+
+树化改造，对应逻辑主要在 putVal 和 treeifyBin 中。
+
+```java
+final void treeifyBin(Node[] tab, int hash) {
+    int n, index; Node e;
+    if (tab == null || (n = tab.length) < MIN_TREEIFY_CAPACITY)
+        resize();
+    else if ((e = tab[index = (n - 1) & hash]) != null) {
+        // 树化改造逻辑
+    }
+}
+```
+
+- 如果容量小于 MIN_TREEIFY_CAPACITY，只会进行简单的扩容。
+
+- 如果容量大于 MIN_TREEIFY_CAPACITY ，则会进行树化改造。
+
+为什么HashMap 要树化呢？本质上是个安全问题。因为在元素的放置过程中，如果一个对象哈希冲突，都被放置到同一个桶里，则会形成链表，链表是线性查询，会严重影响存取的性能。
