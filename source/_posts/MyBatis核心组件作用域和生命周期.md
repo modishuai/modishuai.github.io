@@ -1,12 +1,13 @@
 ---
 title: MyBatis核心组件作用域和生命周期
-date: 2019-04-21 21:28:22
+date: 2019-04-21 22:21:19
 categories:
 - MyBatis
 tags:
 - Java
 - MyBatis
 ---
+
 # MyBatis 核心组件
 
 - SqlSessionFactoryBuilder（构建器）使用配置和 Java 代码创建 SqlSessionFactory，之后就不再需要它了，因此他作为方法作用域（局部方法变量）。
