@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="来自极客时间，《Java 核心技术36讲》整理笔记。  谈谈你对Java平台的理解？Java 是众多面向对象编程语言中多其中一种，其显著的两个特点就是“跨平台” 和“垃圾收集”。 跨平台是指“书写一次，到处执行” 与 JVM 的存在密不可分；垃圾收集是指 Java 通过垃圾收集器回收分配内存，大部分情况下，程序员无需关心内存的分配和回收，更多的关注到技术编程上面。  JRE（Java Runti">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 核心技术-基础篇">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;03&#x2F;10&#x2F;Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87&#x2F;index.html">
+<meta property="og:site_name" content="莫非的技术笔记">
+<meta property="og:description" content="来自极客时间，《Java 核心技术36讲》整理笔记。  谈谈你对Java平台的理解？Java 是众多面向对象编程语言中多其中一种，其显著的两个特点就是“跨平台” 和“垃圾收集”。 跨平台是指“书写一次，到处执行” 与 JVM 的存在密不可分；垃圾收集是指 Java 通过垃圾收集器回收分配内存，大部分情况下，程序员无需关心内存的分配和回收，更多的关注到技术编程上面。  JRE（Java Runti">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;03&#x2F;10&#x2F;Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87&#x2F;Java核心技术-基础篇&#x2F;accba531a365e6ae39614ebfa3273900.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;03&#x2F;10&#x2F;Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87&#x2F;Java核心技术-基础篇&#x2F;异常处理流程.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;03&#x2F;10&#x2F;Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87&#x2F;Java核心技术-基础篇&#x2F;36d3c7b158eda9421ef32463cb4d4fb0.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;03&#x2F;10&#x2F;Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87&#x2F;Java核心技术-基础篇&#x2F;gcroots.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;03&#x2F;10&#x2F;Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87&#x2F;Java核心技术-基础篇&#x2F;java集合.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;03&#x2F;10&#x2F;Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87&#x2F;Java核心技术-基础篇&#x2F;Map结构.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;03&#x2F;10&#x2F;Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87&#x2F;Java核心技术-基础篇&#x2F;桶数组.png">
+<meta property="article:published_time" content="2019-03-10T14:59:22.000Z">
+<meta property="article:modified_time" content="2019-06-18T12:47:59.534Z">
+<meta property="article:author" content="mofei">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;03&#x2F;10&#x2F;Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87&#x2F;Java核心技术-基础篇&#x2F;accba531a365e6ae39614ebfa3273900.png">
+
+<link rel="canonical" href="http://yoursite.com/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Java 核心技术-基础篇 | 莫非的技术笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">莫非的技术笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mofei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="莫非的技术笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java 核心技术-基础篇
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-10 22:59:22" itemprop="dateCreated datePublished" datetime="2019-03-10T22:59:22+08:00">2019-03-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-06-18 20:47:59" itemprop="dateModified" datetime="2019-06-18T20:47:59+08:00">2019-06-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>来自极客时间，《Java 核心技术36讲》整理笔记。</p>
+</blockquote>
+<h1 id="谈谈你对Java平台的理解？"><a href="#谈谈你对Java平台的理解？" class="headerlink" title="谈谈你对Java平台的理解？"></a>谈谈你对Java平台的理解？</h1><p>Java 是众多面向对象编程语言中多其中一种，其显著的两个特点就是<strong>“跨平台”</strong> 和<strong>“垃圾收集”</strong>。</p>
+<p>跨平台是指<strong>“书写一次，到处执行”</strong> 与 JVM 的存在密不可分；垃圾收集是指 Java 通过垃圾收集器回收分配内存，大部分情况下，程序员无需关心内存的分配和回收，更多的关注到技术编程上面。</p>
+<p> JRE（Java Runtime Enviroment）:  Java 运行环境，包含 JVM 和 Java 类库和模块等。</p>
+<p> JDK（Java Development Kit）: JDK 是 JRE 的超级，包含很多工具，比如编译器、诊断工具等；</p>
+<h2 id="Java-是解释执行吗？"><a href="#Java-是解释执行吗？" class="headerlink" title="Java 是解释执行吗？"></a>Java 是解释执行吗？</h2><p>Java 源代码（<em>.java）先是通过 javac 编译成为字节码（bytecode）然后在运行时通过 Java 虚拟机（JVM）内嵌的解释器将字节码转换成为对应的机器码。常见的 JVM 多数使用 Oracle JDK 提供的 Hotspot JVM，提供的 JIT（Just-In-Time）动态编译器，JIT 能够在运行时将热点代码编译成机器码，这种情况下部分热点代码就属于*</em>“编译执行”**，而不是解释执行。</p>
+<p>Java 分为编译期和运行时：编译期是将 Java 源代码通过 javac 编译成字节码；运行时 JVM 通过类加载器（Class-Loader）加载字节码，解释或者编译执行。Oracle Hotspot JVM 内置了两个不同的 JIT compiler， C1 对应 client 模式，适用于启动速度敏感的桌面应用；C2 对应 server 模式，为长时间运行的服务端应用设计。默认采用分层编译（TieredCompilation）。</p>
+<p>Java 虚拟机启动时，可手动指定不同参数对运行模式选择。</p>
+<p> “-Xint” 开启解释执行，关闭编译执行。</p>
+<p>“-Xcomp” 表示开启编译执行，关闭解释执行。</p>
+<p>参数 “-Xint”，抛弃了可能带来的性能优势（解释器（interpreter） 是逐条读入，逐条解释运行。）“-Xcomp” 会导致 JVM 启动缓慢；</p>
+<p>JDK 9 引入新的编译方式即 AOT（Ahead-of-Time Compilation）直接将字节码编译成机器代码，避免了 JIT 预热等方面的开销。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>Java 特性</p>
+<p>平台无关性：依赖 JVM 完成二次编译，将 .class 编译成适合操作系统的机器码。</p>
+<p>面向对象：封装、继承、多态、抽象。</p>
+<p>垃圾回收（GC机制）：JVM 内存结构，堆、栈、方法区。</p>
+<p>语言特性：泛型、lambda、Stream、类型推断</p>
+<p>基础类库：集合、IO/NIO、网络、并发、安全</p>
+<p>常见垃圾收集器：SerialGC、ParallerGC、CMS、G1</p>
+<h1 id="Exception-和-Error有什么区别？"><a href="#Exception-和-Error有什么区别？" class="headerlink" title="Exception 和 Error有什么区别？"></a>Exception 和 Error有什么区别？</h1><p>Exception 和 Error 都是Throwable 的子类，只有 Throwable 类实例才能被抛出（throw）或则捕获（catch），它是异常处理机制的基本组成类型。</p>
+<p>Exception 是程序正常运行中，可以预料的意外情况，可以进行捕获并处理。Error 是指在正常运行中，不太可能出现的情况，一旦出现就不可恢复，不能被捕获比如 OOM（OutOfMemoryError）</p>
+<p>Exception 分<strong>检查（checked）</strong> 和 <strong>未检查（unchecked）</strong>异常，检查异常在源代码里必须显示的进行捕获处理，是编译器检查的一部分。未检查异常就是所谓的运行时异常（RuntimeException），比如 NullPointerException、ArrayIndexOutOfBoundsException 、 ClassCastException、DateTimeException、SystemException，通过编码避免逻辑错误，按需要来判断是否需要进行捕获处理，并不会在编译器强制要求。</p>
+<h2 id="知识扩展"><a href="#知识扩展" class="headerlink" title="知识扩展"></a>知识扩展</h2><p><img src="/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-基础篇\accba531a365e6ae39614ebfa3273900.png" alt="Java核心技术-基础篇\accba531a365e6ae39614ebfa3273900"></p>
+<h3 id="RuntimeException-与-Exception-有什么区别？"><a href="#RuntimeException-与-Exception-有什么区别？" class="headerlink" title="RuntimeException 与 Exception 有什么区别？"></a>RuntimeException 与 Exception 有什么区别？</h3><p>Exception 是 RuntimeException 的父类，所有继承RuntimeException 的子类都属于<strong>不检查（unchecked）</strong>异常即运行时异常。</p>
+<p>Exception 定义的异常必须处理，RuntimeException 定义的异常可选择处理。</p>
+<h3 id="NoClassDefFoundError-和-ClassNotFoundException-有什么区别？"><a href="#NoClassDefFoundError-和-ClassNotFoundException-有什么区别？" class="headerlink" title="NoClassDefFoundError 和 ClassNotFoundException 有什么区别？"></a>NoClassDefFoundError 和 ClassNotFoundException 有什么区别？</h3><p>NoClassDefFoundError 是指 JVM 或者 ClassLoader 实例尝试加载类的时候，去找不到类的定义。</p>
+<p>ClassNotFoundException 是指试图通过类名称或全限定名加载对应的 class 时，找不到对应的 class  文件抛出的异常。 </p>
+<h3 id="异常处理基本原则"><a href="#异常处理基本原则" class="headerlink" title="异常处理基本原则"></a>异常处理基本原则</h3><p>一、捕获相匹配的异常，避免捕获 Exception 类似的通用异常。</p>
+<p>二、不要生吞（swallo）异常。</p>
+<p>生吞异常，往往是基于假设这段代码可能不会发生，或者忽略异常。在产品代码中最好不要有这种假设，如果没把异常抛出来或输出到日志文件，后续没法判断异常出现在那里。</p>
+<p>printStackTrace()，也不要出现在产品代码中，尤其是分布式系统，如果发生异常，就无法找到堆栈轨迹（StackTrace）</p>
+<h3 id="从性能角度看-Java-的异常处理机制"><a href="#从性能角度看-Java-的异常处理机制" class="headerlink" title="从性能角度看 Java 的异常处理机制"></a>从性能角度看 Java 的异常处理机制</h3><ul>
+<li><p>try-catch 代码会产生额外的性能开销，影响 JVM 对代码进行优化，建议仅捕获必要的代码段，尽量不要一个try 包住一大堆代码；也不建议使用异常控制代码流程，还不如选择（if/else、switch）</p>
+</li>
+<li><p>Java 实例化一个 Exception 都会对当前堆进行快照，这是一个相对比较重的操作。若发生非常频繁，这个开销就不能被忽略了。</p>
+</li>
+</ul>
+<h3 id="异常处理流程"><a href="#异常处理流程" class="headerlink" title="异常处理流程"></a>异常处理流程</h3><p><img src="/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-基础篇\异常处理流程.png" alt="Java核心技术-基础篇\异常处理流程"></p>
+<h2 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h2><p>捕获匹配异常，不要直接捕获 Exception</p>
+<p>不要生吞异常，避免在分布式系统和生产系统用printStackTrace() 。</p>
+<p>Checked Exception 不兼容 function 编程</p>
+<p>try-catch 捕获必要代码，尽量避免 JVM 对于代码进行优化，不要使用异常来控制代码流程</p>
+<p>try-catch 也是性能优化的考察点。</p>
+<h1 id="谈谈final、finally、finalize-有什么不同？"><a href="#谈谈final、finally、finalize-有什么不同？" class="headerlink" title="谈谈final、finally、finalize 有什么不同？"></a>谈谈final、finally、finalize 有什么不同？</h1><p>final 修饰类表示不可继承；方法不可重写；变量不可修改，只是引用不可再被赋值。</p>
+<p>finally 是 Java 用来保证代码一定要被执行的一种机制。使用 try-finally 或者 try-catch-finally 来保证连接或资源关闭、保证 unlock 锁等动作。</p>
+<p>finalize 是基础类 java.lang.Object 的一个方法，最初的设计目的是用来保证对象在被垃圾收集前完成特定资源回收。不再推荐，JDK 9 已经标记为 deprecated。</p>
+<p>对于 finally 的使用有些偏门的情况：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    System.exit(<span class="number">1</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;<span class="keyword">finally</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    System.out.println(<span class="string">"print from finally!"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>以上代码中的 finally 模块中的代码就不会执行。</p>
+<h2 id="知识扩展-1"><a href="#知识扩展-1" class="headerlink" title="知识扩展"></a>知识扩展</h2><p>final 不是 immutable</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> List&lt;String&gt; strList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">strList.add(<span class="string">"Hello"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">strList.add(<span class="string">"world"</span>);  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; unmodifiableStrList = List.of(<span class="string">"hello"</span>, <span class="string">"world"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">unmodifiableStrList.add(<span class="string">"again"</span>);</span></pre></td></tr></table></figure>
+
+<p>fianl 只能约束 strList 引用不能够被赋值，但 strList 的行为不受 final 影响，添加元素操作是正常的。</p>
+<p>如果需要对象本身不可变，需要相应的类支持不可变行为，在上面例子中 List.of()  方法创建的本身就是不可变的List，最后的添加操作在运行时将抛出异常。</p>
+<p>实现 immutable 的类，需要做到以下几点：</p>
+<ul>
+<li><p>将 class 声明为 final</p>
+</li>
+<li><p>将所有成员定义为 private 和 final，不要实现 setter 方法。</p>
+</li>
+<li><p>通常构造对象时，成员变量使用深度拷贝来初始化，而非直接赋值，这是一种防御措施，因为你无法确定输入对象不被其他人修改。</p>
+</li>
+<li><p>如果确实需要实现 setter 方法，或者其他可能返回内部状态的方法，使用 copy-on-write 原则，创建私有 copy。</p>
+</li>
+</ul>
+<p>java 平台逐步使用 java.lang.ref.Cleaner 来替换原有的 finalize 方法。Cleaner 的实现利用了幻想引用也称虚引用（PhantomReference）。利用幻想引用和引用队列，我们可以保证对象被彻底销毁前做一些资源回收工作。每个 Cleaner 的操作都是独立的，有自己的运行线程，所以可以避免以为死锁问题。</p>
+<h2 id="小结-2"><a href="#小结-2" class="headerlink" title="小结"></a>小结</h2><p>推荐使用 final 关键字来明确代码的语义，也是保证平台安全的必要手段，数据的一致性。</p>
+<p>finally 总是执行，特殊情况除外，比如程序或线程被中断情况。</p>
+<p>对于关闭连接或资源，推荐使用 Java 7 添加的 try-with-resource 语句。</p>
+<p>finallize 并不能真正完成资源回收可参考《Java 编程思想》第四版。</p>
+<p>Java 平台逐步使用 java.lang.ref.Cleaner 来替换原有的 finalize 方法。</p>
+<h1 id="强引用、软引用、弱引用、幻象引用有什么区别？"><a href="#强引用、软引用、弱引用、幻象引用有什么区别？" class="headerlink" title="强引用、软引用、弱引用、幻象引用有什么区别？"></a>强引用、软引用、弱引用、幻象引用有什么区别？</h1><p>不同的引用类型，主要体现的是<strong>对象不同的可达性（Reachable）状态和垃圾收集的影响。</strong></p>
+<h2 id="强引用（StrongReference）"><a href="#强引用（StrongReference）" class="headerlink" title="强引用（StrongReference）"></a>强引用（StrongReference）</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">Object obj = <span class="keyword">new</span> Object();   <span class="comment">//  强引用</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">obj = <span class="keyword">null</span>; <span class="comment">// 帮助垃圾收集器回收。</span></span></pre></td></tr></table></figure>
+
+<p>常见的普通对象引用，只要强引用指向一个对象，就表明对象还“活着”，垃圾收集器不会回收它。</p>
+<p>如果没有其他引用关系，或超出引用的作用域或者显示地将相应强引用赋值为 null， 就可以被垃圾收集。至于什么时候回收要看垃圾收集策略。</p>
+<h2 id="软引用（SoftReference）"><a href="#软引用（SoftReference）" class="headerlink" title="软引用（SoftReference）"></a>软引用（SoftReference）</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">String str = <span class="keyword">new</span> String(<span class="string">"HelloWorld"</span>); <span class="comment">// 强引用</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">SoftReference&lt;String&gt; softRef=<span class="keyword">new</span> SoftReference&lt;String&gt;(str);     <span class="comment">// 软引用</span></span></pre></td></tr></table></figure>
+
+<p>软引用是相对强引用弱化了些的引用，只有 JVM 认为内存空间不足是，垃圾收集器才会回收它。</p>
+<p>软引用通常用来实现内存敏感的缓存，如果还有空闲内存，就可以暂时保留缓存，当内存不足时清理掉，这样就保证了缓存的同时，不会耗尽内存。</p>
+<p>软引用可以和一个引用队列（ReferenceQueue）联合使用，如果软引用所引用的对象被垃圾收集器回收，Java虚拟机就会把这个软引用加入到与之关联的引用队列中。</p>
+<h2 id="弱引用（WeakReference"><a href="#弱引用（WeakReference" class="headerlink" title="弱引用（WeakReference)"></a>弱引用（WeakReference)</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">String str = <span class="keyword">new</span> String(<span class="string">"HelloWorld"</span>);    </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">WeakReference&lt;String&gt; strWeakRef = <span class="keyword">new</span> WeakReference&lt;String&gt;(str);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">str = <span class="keyword">null</span>;</span></pre></td></tr></table></figure>
+
+<p>弱引用并不能使对象豁免垃圾收集，仅仅是提供一种访问弱引用状态下对象的途径。如果试图获取时对象还在，就使用它，否则重现实例化。同样也是很多缓存实现的选择。</p>
+<p>垃圾收集器线程一旦发现具有弱引用的对象，无论内存空间是否足够，都要回收它。由于垃圾回收器是一个优先级很低的线程，因此不一定很快就发现了它。</p>
+<h2 id="虚引用（PhantomReference）"><a href="#虚引用（PhantomReference）" class="headerlink" title="虚引用（PhantomReference）"></a>虚引用（PhantomReference）</h2><p>虚引用（也称幻想引用），形同虚设，并不会决定对象的生命周期。如果一个对象持有虚引用和没有任何引用是一样的，任何时候都可能被垃圾收集器回收。</p>
+<p>虚引用主要用来跟踪对象被垃圾收集状态，可以通过检查与虚引用关联的引用队列中是否已经包含指定的虚引用，从而来判断虚引用引用的对象是否将被回收。</p>
+<p>虚引用、幻象引用都是说的同一个，仅仅是提供了一种确保对象被 finalize 以后，做某些事情的机制。比如：通常用来做 Post-Mortem 清理机制；也有人利用幻象引用监控对象的创建和销毁。</p>
+<h2 id="知识扩展-2"><a href="#知识扩展-2" class="headerlink" title="知识扩展"></a>知识扩展</h2><h3 id="对象可达性状态流转分析"><a href="#对象可达性状态流转分析" class="headerlink" title="对象可达性状态流转分析"></a>对象可达性状态流转分析</h3><p><img src="/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-基础篇\36d3c7b158eda9421ef32463cb4d4fb0.png" alt="Java核心技术-基础篇\36d3c7b158eda9421ef32463cb4d4fb0"></p>
+<p>这是 Java 定义的不同可达级别（reachability level），具体如下：</p>
+<ul>
+<li><p>强可达（Strongly Reachable）,当一个对象可以有一个或多个线程可以不通过各种引用访问到的情况。比如，我们创建一个对象，那么创建他的线程对它就是强可达。</p>
+</li>
+<li><p>软可达（Softly Reachable），当我们只能通过软引用才能访问到对象的状态。</p>
+</li>
+<li><p>弱可达（Weakly Reachable），无法通过强引用或弱引用访问，只能通过弱引用访问时的状态。这是十分临近 finalize 状态时机，当弱引用被清除的时候，就符合 finalize 的条件了。</p>
+</li>
+<li><p>幻象可达（Phantom Reachable），就是没有强、软、弱引用关联，并且 finalize 过了，只有幻象引用指向这个对象的时候。</p>
+</li>
+<li><p>不可达（unreachable），意味着对象被清除了。</p>
+</li>
+</ul>
+<p>所有引用类型都是抽象类 java.lang.ref.Reference 的子类，它提供了 get() 方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> T <span class="title">get</span><span class="params">()</span></span></span></pre></td></tr></table></figure>
+
+<p>除了幻象引用（因为 get 永远返回 null），如果对象还没有被销毁，都可以通过 get 方法获取原有对象。这意味着，利用软引用和弱引用，我们可以将访问到的对象，重新指向强引用，也就是 人为的改变了对象的可达性状态！</p>
+<p>对于软引用、弱引用之类，垃圾收集器可能会存在二次确认的问题，以保证处于弱引用状 态的对象，没有改变为强引用。 </p>
+<p><strong>但是，你觉得这里有没有可能出现什么问题呢？</strong></p>
+<p>不错，如果我们错误的保持了强引用（比如，赋值给了 static 变量），那么对象可能就没有机会变回类似弱引用的可达性状态了，就会产生内存泄漏。所以，检查弱引用指向对象是否被垃圾收 集，也是诊断是否有特定内存泄漏的一个思路，如果我们的框架使用到弱引用又怀疑有内存泄 漏，就可以从这个角度检查。</p>
+<h3 id="ReferenceQueue-引用队列"><a href="#ReferenceQueue-引用队列" class="headerlink" title="ReferenceQueue 引用队列"></a>ReferenceQueue 引用队列</h3><p>ReferenceQueue 可以和软引用、弱引用、幻想引用组合使用。</p>
+<p>谈到各种引用的编程，就必然要提到引用队列。我们在创建各种引用并关联到响应对象时，可以选择是否需要关联引用队列，JVM 会在特定时机将引用 enqueue 到队列里，我们可以从队列里 获取引用（remove 方法在这里实际是有获取的意思）进行相关后续逻辑。尤其是幻象引用，get 方法只返回 null，如果再不指定引用队列，基本就没有意义了。看看下面的示例代码。利用引用 队列，我们可以在对象处于相应状态时（对于幻象引用，就是前面说的被 finalize 了，处于幻象 可达状态），执行后期处理逻辑。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">Object counter = <span class="keyword">new</span> Object();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">ReferenceQueue refQueue = <span class="keyword">new</span> ReferenceQueue&lt;&gt;();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">PhantomReference&lt;Object&gt; p = <span class="keyword">new</span> PhantomReference&lt;&gt;(counter, refQueue);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">counter = <span class="keyword">null</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">System.gc();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// Remove 是一个阻塞方法，可以指定 timeout，或者选择一直阻塞</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    Reference&lt;Object&gt; ref = refQueue.remove(<span class="number">1000L</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span> (ref != <span class="keyword">null</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">// do something</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// Handle it</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<h3 id="显示地影响软引用垃圾收集影响"><a href="#显示地影响软引用垃圾收集影响" class="headerlink" title="显示地影响软引用垃圾收集影响"></a>显示地影响软引用垃圾收集影响</h3><p>使用什么方法来影响软引用的垃圾收集呢？</p>
+<p>软引用通常会在最后一次引用后，还能保持一段时间，默认值是根据堆剩余空间计算的（以 M bytes 为单位）。从 Java 1.3.1 开始，提供了 -XX:SoftRefLRUPolicyMSPerMB 参 数，我们可以以毫秒（milliseconds）为单位设置。比如，下面这个示例就是设置为 3 秒（3000 毫秒）。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">-XX:SoftRefLRUPolicyMSPerMB=<span class="number">3000</span></span></pre></td></tr></table></figure>
+
+<p>这个剩余空间，其实会受不同 JVM 模式影响，对于 Client 模式，比如通常的 Windows 32 bit JDK，剩余空间是计算当前堆里空闲的大小，所以更加倾向于回收；而对于 server 模式 JVM， 则是根据 -Xmx 指定的最大值来计算。</p>
+<h3 id="诊断-JVM-引用情况"><a href="#诊断-JVM-引用情况" class="headerlink" title="诊断 JVM 引用情况"></a>诊断 JVM 引用情况</h3><p>HotSpot JVM 自身便提供了明确的选项（PrintReferenceGC）去获取相关信息</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">-XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintReferenceGC</span></pre></td></tr></table></figure>
+
+<p>这是 JDK 8 使用 ParrallelGC 收集的垃圾收集日志，各种引用数量非常清晰.</p>
+<p>注意：JDK 9 对 JVM 和垃圾收集日志进行了广泛的重构。（PrintGCTimeStamps &amp; PrintReferenceGC 已经移除）</p>
+<h3 id="Reachability-Fence"><a href="#Reachability-Fence" class="headerlink" title="Reachability Fence"></a>Reachability Fence</h3><p>除了我前面介绍的几种基本引用类型，还可以通过底层 API 来达到强引用的效果，这就是所 谓的设置reachability fence。</p>
+<p>为什么需要这种机制呢？考虑一下这样的场景，按照 Java 语言规范，如果一个对象没有指向强 引用，就符合垃圾收集的标准，有些时候，对象本身并没有强引用，但是也许它的部分属性还在 被使用，这样就导致诡异的问题，所以我们需要一个方法，在没有强引用情况下，通知 JVM 对 象是在被使用的。说起来有点绕，我们来看看 Java 9 中提供的案例。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Resource</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">private</span> <span class="keyword">static</span> ExternalResource[] externalResourceArray = ...</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">int</span> myIndex; </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"> Resource(...) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">     myIndex = ...</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">     externalResourceArray[myIndex] = ...;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">     ...</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">     externalResourceArray[myIndex] = <span class="keyword">null</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">     ...</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">action</span><span class="params">()</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">try</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">     <span class="comment">// 需要被保护的代码</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">     <span class="keyword">int</span> i = myIndex;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">     Resource.update(externalResourceArray[i]);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"> &#125; <span class="keyword">finally</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">     <span class="comment">// 调用 reachbilityFence，明确保障对象 strongly reachable</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">     Reference.reachabilityFence(<span class="keyword">this</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(ExternalResource ext)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">    ext.status = ...;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line"> &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>参考（<a href="http://mail.openjdk.java.net/pipermail/jdk-dev/2018-October/002067.html" target="_blank" rel="noopener">http://mail.openjdk.java.net/pipermail/jdk-dev/2018-October/002067.html</a>）</p>
+<h3 id="Reference-的四种状态"><a href="#Reference-的四种状态" class="headerlink" title="Reference 的四种状态"></a>Reference 的四种状态</h3><ul>
+<li>active 一般来说内存一开始被分配的状态，而当被引用的对象的可达性发生变化后gc就会将引用放入pending队列并将其状态改为pending状态。</li>
+<li>pending 指的是准备要被放进pending队列的对象。</li>
+<li>enqueue 指的是对象的内存已经被回收了。</li>
+<li>inactive 这是最终的状态，不能再变为其它状态。</li>
+</ul>
+<h3 id="JVM怎么知道引用在不在"><a href="#JVM怎么知道引用在不在" class="headerlink" title="JVM怎么知道引用在不在?"></a>JVM怎么知道引用在不在?</h3><p>涉及到了JVM的可达性分析算法了 JVM的可达性分析算法的简单思路就是通过一系列GC Roots作为出发点，向下搜索，搜索所走过的路径称为引用链，当一个对象到GC Roots没有任何引用链，即表明从GC Roots到这个对象不可达时，证明此对象不可用，可被回收。如下图所示</p>
+<p><img src="/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-基础篇\gcroots.png" alt="Java核心技术-基础篇\gcroots"></p>
+<h3 id="哪些对象可以作为-GC-Roots呢"><a href="#哪些对象可以作为-GC-Roots呢" class="headerlink" title="哪些对象可以作为 GC Roots呢"></a>哪些对象可以作为 GC Roots呢</h3><ul>
+<li><p>虚拟机栈中引用的对象</p>
+</li>
+<li><p>方法区中类静态属性引用的对象 和 常量引用的对象</p>
+</li>
+<li><p>本地方法栈 JNI 引用的对象</p>
+</li>
+</ul>
+<h1 id="String、StringBuffer、StringBuilder"><a href="#String、StringBuffer、StringBuilder" class="headerlink" title="String、StringBuffer、StringBuilder"></a>String、StringBuffer、StringBuilder</h1><p>String 是 Immutable 类，类和属性的声明都是 fianl 。对字符串的操作拼接、分割等都会产生新的 String 对象。</p>
+<p>StringBuffer 是为解决 String 拼接操作产生太多的中间对象而提供的。StringBuffer 是线程安全的，有额外的性能开销。</p>
+<p>StringBuilder 是 Java1.5 提供，与 StringBuffer 作用一样，不同的是为了减少额外的性能开销去掉了线程安全。</p>
+<h2 id="知识扩展-3"><a href="#知识扩展-3" class="headerlink" title="知识扩展"></a>知识扩展</h2><h3 id="字符串设计"><a href="#字符串设计" class="headerlink" title="字符串设计"></a>字符串设计</h3><p>StringBuffer 和 StringBuilder 底层是利用可修改的（char，JDK9 以后是 byte）数组，二者继承了 AbstractStringBuilder，区别仅在于最终方法是否加入了 synchronized</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringConcat</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">concat</span><span class="params">(String str)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">       <span class="keyword">return</span> str + “aa” + “bb”;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">     &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>以上代码在 JDK1.8 编译后采用 StringBuilder 替代</p>
+<h3 id="字符串缓存"><a href="#字符串缓存" class="headerlink" title="字符串缓存"></a>字符串缓存</h3><p>String 在 Java6 提供了 intern() 方法，目的是提示 JVM 把相应字符串缓存起来，便于重复使用。调用 intern() 方法，如果有缓存的字符串就直接返回缓存中的实例，否则就将其缓存起来。使用 new 创建的 String 对象需要手动调用 intern() 方法进行缓存。</p>
+<p>历史版本 Java 6 中不推荐 大量使用 intern()？是因为被缓存的字符串是存在 PermGen （永久代），此空间容量有限，基本上不会被 FullGC 之外的垃圾收集。所以使用不当就会造成 OOM。</p>
+<p>后续版本，这个缓存被放在了堆中，如此一来就避免了永久代占满的问题，甚至永久代在 Java 8 中被 MetaSpace（元数据）替代了。默认的缓存大小也在不断的扩大中。使用如下代码打印查看</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">-XX:+PrintStringTableStatistics</span></pre></td></tr></table></figure>
+
+<h1 id="动态代理是基于什么原理？"><a href="#动态代理是基于什么原理？" class="headerlink" title="动态代理是基于什么原理？"></a>动态代理是基于什么原理？</h1><p>反射机制，可以直接操作类或者对象。比如：获取对象的类定义，类声明的属性和方法，调用方法或者构造对象，甚至可以运行时修改类定义。</p>
+<p>动态代理，一种方便运行时动态构建代理、动态处理代理方法调用的机制。比如：AOP 面向切面编程等。</p>
+<p>实现动态代理的方式：jdk Proxy、ASM、cglig（基于 ASM）、Javassist</p>
+<h2 id="知识扩展-4"><a href="#知识扩展-4" class="headerlink" title="知识扩展"></a>知识扩展</h2><h3 id="反射机制及其演进"><a href="#反射机制及其演进" class="headerlink" title="反射机制及其演进"></a>反射机制及其演进</h3><p>Java 反射机制，java.lang 和 java.lang.reflect 包。利用 Class、Field、Method、Constructor 操作类和对象的元数据对应。值得注意的是反射提供了 <strong>AccessibleObject.setAccessible（boolean flag）</strong>它的子类也都重写了该方法，accessible 可以绕过 public 、protected、private 成员访问限制。 </p>
+<p>Java 9 对其进行了改进 ，原因是 Jigsaw 项目新增的模块化系统，出于强封装的考虑，对反射访问进行了限制。 Jigsaw 引入了 Open 概念，只有当被反射操作的模块和指定的包对反射调用者模块 Open，才能使用 setAccessible；否则被认为是不合法的操作。</p>
+<h3 id="动态代理"><a href="#动态代理" class="headerlink" title="动态代理"></a>动态代理</h3><p>通过代理可与实现调用者与实践者之间解耦。比如 RPC 调用，框架内部的寻址、序列化、反序列化，对于调用者没得太大意义，动过代理，提供更加友善的界面。</p>
+<p>Jdk 自身的动态代理是以接口为中心才能生成代理对象。</p>
+<h3 id="jdk-Proxy-优势？"><a href="#jdk-Proxy-优势？" class="headerlink" title="jdk Proxy 优势？"></a>jdk Proxy 优势？</h3><p>jdk 本身就支持；最小化依赖关系，减少依赖意味着简化开发和维护；平滑升级</p>
+<h3 id="cglib-优势？"><a href="#cglib-优势？" class="headerlink" title="cglib 优势？"></a>cglib 优势？</h3><p>没有接口实现类，实现接口是有侵入性质。</p>
+<h3 id="小结-3"><a href="#小结-3" class="headerlink" title="小结"></a>小结</h3><p>静态代理：需要手动或借助工具来生成代理类，缺点是每个业务类都需要一个代理类，缺乏灵活性。</p>
+<p>动态代理：运行时自动生成代理对象，缺点是生成代理对象和调用代理方法需要额外时间。</p>
+<p>JDK 动态代理：基于 Java 反射机制实现，必须实现接口的业务类才能生成代理对象。</p>
+<p>cglib 动态代理：基于 ASM 实现，通过生成业务类子类作为代理类。</p>
+<h1 id="int和Integer有什么区别？"><a href="#int和Integer有什么区别？" class="headerlink" title="int和Integer有什么区别？"></a>int和Integer有什么区别？</h1><p>Java 的 8 个原始数据类型：long、double、float、int、byte、short、char、boolean</p>
+<p>Integer 是 int 的包装类，Java 5 中引入自动装箱和自动拆箱工功能，Java 可以根据上下文自动进行转换。</p>
+<p>Integer 值缓存，Java 5 中新增静态工厂方法 valueOf，在调用时利用一个缓存机制，带来性能改进，这个值默认缓存范围是 -128 到 127 之间。</p>
+<h2 id="知识扩展-5"><a href="#知识扩展-5" class="headerlink" title="知识扩展"></a>知识扩展</h2><h3 id="理解自动装箱、拆箱"><a href="#理解自动装箱、拆箱" class="headerlink" title="理解自动装箱、拆箱"></a>理解自动装箱、拆箱</h3><p>自动装箱算是一种语法糖。 Java 平台为我们自动进行了一些转换，保证不同的写法在运行时等价，发生在编译阶段，也就是生成的字节码是一致的。</p>
+<p>javac 把装箱替换成 Integer.valueOf() ，把拆箱替换成 Integer.intValue() 。</p>
+<p><strong>原则上建议避免无意中的装箱和拆箱行为，特别是性能敏感场景。</strong>创建 10 万个 Java 对象和 10 万个整数的开销可不是一个数量级的，不管是内存使用还是处理速度，光是对象头的空间占用就已经是数量级的差距了。</p>
+<p><strong>Java 对象保存在内存中由三部分组成：对象头、实例数据、对齐填充字节；</strong></p>
+<p><strong>对象头的组成：Mark Word 、指向类的指针、数组长度（对象数组才有）；</strong></p>
+<p>计算对象大小可以利用：jol、jmap 或者 instrument api（java agent）等；</p>
+<h3 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h3><h4 id="缓存机制"><a href="#缓存机制" class="headerlink" title="缓存机制"></a>缓存机制</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title">valueOf</span><span class="params">(<span class="keyword">int</span> i)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span> (i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">return</span> IntegerCache.cache[i + (-IntegerCache.low)];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> Integer(i);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>Integer 缓存策略仅在自动装箱（autoboxing）时候有用，使用构造器创建的 Integer 对象不能不缓存。Integer.valueOf() 就是缓存执行的地方。</p>
+<p>Integer 缓存范围是 -128 到 127 ,特殊场景也可以通过 JVM 启动参数 <code>-XX:AutoBoxCacheMax=N</code> 调整缓存上限值。</p>
+<p>其他包装类的缓存机制：</p>
+<ul>
+<li>Boolean，缓存了 true/false 对应实例，确切说，只会返回两个常量实例 Boolean.TRUE/FALSE。</li>
+<li>Short，同样是缓存了 -128 到 127 之间的数值。</li>
+<li>Byte，数值有限，所以全部都被缓存。</li>
+<li>Character，缓存范围’\u0000’ 到 ‘\u007F’。</li>
+</ul>
+<p>Integer 同样是不可变类型。</p>
+<p>Integer 等包装类定义了类似 SIZE 和 BYTES 常量，开发人员无需关心 32 位和 64 位平台上的数据位数差异。</p>
+<p>其他缓存的对象：</p>
+<p>这种缓存行为不仅适用于Integer对象。我们针对所有的整数类型的类都有类似的缓存机制。</p>
+<p>ByteCache 用于缓存 Byte 对象</p>
+<p>ShortCache 用于缓存 Short 对象</p>
+<p>LongCache 用于缓存 Long 对象</p>
+<p>CharacterCache 用于缓存 Character 对象</p>
+<p><code>Byte</code>, <code>Short</code>, <code>Long</code>有固定范围: -128 到 127。对于<code>Character</code>, 范围是 0 到 127。除了<code>Integer</code>以外，这个范围都不能改变。</p>
+<h4 id="Java-原始数据类型和引用类型局限性"><a href="#Java-原始数据类型和引用类型局限性" class="headerlink" title="Java 原始数据类型和引用类型局限性"></a>Java 原始数据类型和引用类型局限性</h4><ul>
+<li><p>原始数据类型并不能和泛型配合使用。Java 中的泛型，完全是一种编译阶段使用的技巧，Java 编译器会自动将类型转换为对应的特定类型，这就决定了使用泛型，必须保证相应类型必须转换成 Object。</p>
+</li>
+<li><p>无法高效的表达数据，也不便于表达复杂的数据结构，如 vector 和 tuple</p>
+<p>我们知道 Java 的对象都是引用类型，如果是一个原始数据类型数组，它在内存里是一段连续的内存，而对象数组则不然，数据存储的是引用，对象往往是分散地存储在堆的不同位置。这种设计虽然带来了极大灵活性，但是也导致了数据操作的低效，尤其是无法充分利用现代 CPU 缓存机制。</p>
+</li>
+</ul>
+<h1 id="对比Vector、ArrayList、LinkedList有何区别？"><a href="#对比Vector、ArrayList、LinkedList有何区别？" class="headerlink" title="对比Vector、ArrayList、LinkedList有何区别？"></a>对比Vector、ArrayList、LinkedList有何区别？</h1><p>Vector、ArrayList、LinkedList 都实现了集合框架中的 List（有序集合），都是按照位置进行定位、添加、删除操作、提供迭代器遍历内容等；<strong>Vector 是 Java 早起提供的线程安全的动态数组</strong>，Vector 内部使用对象数组保存数据，可根据需要自动增加容量，当数组满时，则创建新的数组，并拷贝原有的数组数据。</p>
+<p>ArrayList 是应用更加广泛的<strong>动态数组</strong>实现，非线程安全，性能好。与Vector 的区别在于扩容，Vector 在扩容是提高 1 倍，ArrayList 则是增加 50%；</p>
+<p>LinkedList 是 Java 提供的双向链表，非线程安全，不需要像上面两个那样扩容。</p>
+<p>Vector 和 ArrayLIst 作为动态数组，很适合随机访问的场景，除了尾部插入和删除元素，性能较差，比如在中间插入一个元素，需要移动后续所有元素。LinkedList 弥补了前两个在插入和删除上的性能差，但是随机访问性能慢。</p>
+<h2 id="问题延伸"><a href="#问题延伸" class="headerlink" title="问题延伸"></a>问题延伸</h2><ul>
+<li>Java 集合框架设计结构</li>
+<li>Java 容器（集合 &amp; Map）类型，了解或掌握对应的数据结构、算法、思考具体技术选择。</li>
+<li>将问题延伸到并发和性能领域。</li>
+<li>集合框架的演进与发展。</li>
+</ul>
+<h2 id="知识扩展-6"><a href="#知识扩展-6" class="headerlink" title="知识扩展"></a>知识扩展</h2><p>排序算法</p>
+<p>内部排序：归并排序、交换排序（冒泡、快排）、选择排序、插入排序等；</p>
+<p>外部排序：利用内存和外部存储处理超大数据集</p>
+<p>Java 集合框架</p>
+<p><img src="/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-基础篇\java集合.png" alt="Java核心技术-基础篇\java集合"></p>
+<p>Coolection 是所有集合的根，扩展开提供三大类集合：</p>
+<ul>
+<li><p>List，有序集合</p>
+</li>
+<li><p>Set，不允许元素重复</p>
+</li>
+<li><p>Queue/Deque，Java 提供的标准队列结构的实现，除了集合的基本功能，还支持类似先入先出（FIFO，First-in-First-Out）或后进先出（LIFO，Last-in-First-Out）</p>
+</li>
+</ul>
+<p>每种集合的通用逻辑，都被抽象到了抽象类之中。比如：AbastractList。</p>
+<p>TreeSet 实际上是利用 TreeMap 实现的；HashSet 也是基于 HashMap 来实现的；</p>
+<p>Set</p>
+<ul>
+<li><p>TreeSet，支持自然顺序访问，但添加、删除、包含等操作相对低效。</p>
+</li>
+<li><p>HashSet，利用哈希算法，如果哈希散列正常，可以提供常数时间的添加、删除、包含等操作，不保证有序。</p>
+</li>
+<li><p>LinkedHashSet，内部构件一个记录插入顺序的双向链表，提供按照插入顺序遍历的能力，也保证常数时间的添加、删除、包含操作，性能略低于 HashSet，需要维护链表的开销。</p>
+</li>
+<li><p>遍历元素时 HashSet 性能受自身容量影响，所以初始化的时候，除非有必要，不然不要将其背后的 HashMap 容量设置过大。而 LinkedhashSet 由其内部链表方式，遍历性能和元素多少有关系。</p>
+</li>
+</ul>
+<p>以上的集合类都不是线程安全的，不像  java.util.concurrent 包内提供的线程安全容器，但是在 java.util.Collections 类中却提供了一系列 synchronized 方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> &lt;T&gt; <span class="function">List&lt;T&gt; <span class="title">synchronizedList</span><span class="params">(List&lt;T&gt; list)</span></span></span></pre></td></tr></table></figure>
+
+<p>利用类似的方法来实现线程安全集合：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">List list = Collections.synchronizedList(<span class="keyword">new</span> ArrayList());</span></pre></td></tr></table></figure>
+
+<p><strong>Java 提供的默认排序算法，具体是什么排序方式以及设计思路？</strong></p>
+<p>这个问题本身就是有点陷阱的意味，因为需要区分是 Arrays.sort() 还是 Collections.sort() （底层是调用 Arrays.sort()）；什么数据类型；多大的数据集（太小的数据集，复杂排序是没必要的，Java 会直接进行二分插入排序）等。</p>
+<ul>
+<li><p>对于原始数据类型，目前使用的是所谓双轴快速排序（Dual-Pivot QuickSort），是一种改进的快速排序算法，早期版本是相对传统的快速排序。</p>
+</li>
+<li><p>而对于对象数据类型，目前则是使用<a href="http://hg.openjdk.java.net/jdk/jdk/file/26ac622a4cab/src/java.base/share/classes/java/util/TimSort.java" target="_blank" rel="noopener">TimSort</a>，思想上也是一种归并和二分插入排序（binarySort）结合的优化排序算法。TimSort 并不是 Java 的独创，简单说它的思路是查找数据集中已经排好序的分区（这里叫 run），然后合并这些分区来达到排序的目的。</p>
+</li>
+</ul>
+<p>Java 8 引入了并行排序算法（直接使用 parallelSort 方法），利用现代多核处理器的计算能力，底层基于 fork-join 框架实现，当数据量增长到百万级别是，提供就很大，取决于处理器和系统环境。</p>
+<p>Java 9 中新增了一系列静态工厂方法：比如 List.of()、Set.of() 用来简化构建容器较小容器实例的代码量。</p>
+<h1 id="Hashtable、HashMap、TreeMap有什么不同？"><a href="#Hashtable、HashMap、TreeMap有什么不同？" class="headerlink" title="Hashtable、HashMap、TreeMap有什么不同？"></a>Hashtable、HashMap、TreeMap有什么不同？</h1><p>三者都实现了 Map 接口也都是以<strong>键值对</strong>形式进行存储和操作数据的容器类型。</p>
+<p>HashTable 是 Java 类库早起提供的哈希表实现，不支持键值为 null ，其本身是同步的，所以有额外的性能开销。</p>
+<p>HashMap 也是基于哈希表的实现，行为和HashTable 一直，主要区别在于 HashMap 不是同步的，允许键值为 null。</p>
+<p>TreeMap 是基于红黑树的一种提供顺序访问的 Map ，与 HashMap 不同它的 get 、put  、remove 操作都是 O（long(n))）的时间复杂度，具体的顺序可以有指定的 Comparator 来决定，或者根据键的自然顺序来判断。</p>
+<h2 id="知识扩展-7"><a href="#知识扩展-7" class="headerlink" title="知识扩展"></a>知识扩展</h2><ul>
+<li><p>理解 Map 相关类似整体结构，尤其是有序数据结构的一些要点。</p>
+</li>
+<li><p>从源码去分析 HashMap 的设计和实现要点，理解容量、负载影因子等，为什么需要这些参数，如何影响 Map 的性能，实践中如何取舍等。</p>
+</li>
+<li><p>理解树化改造的相关原理和改进原因。</p>
+</li>
+</ul>
+<h3 id="Map-整体结构"><a href="#Map-整体结构" class="headerlink" title="Map 整体结构"></a>Map 整体结构</h3><p>Map 虽然包含在 Java 集合框架中，但本身并不是狭义的集合类型。</p>
+<p><img src="/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-基础篇\Map结构.png" alt="Java核心技术-基础篇\Map结构"></p>
+<p>HashTable 比较特殊，作为类似 Vector 、 Stack 的早期集合相关类型，它继承至 Dictionary 类，类结构上和 HashMap 明显不同。</p>
+<p>HashMap、EnumMap、TreeMap 继承至 AbstractMap 类，包含了通用的操作方法。</p>
+<p>大部分使用 Map 场景通常都是插入、访问、删除而且对顺序没有要求的 HashMap 作为首选。</p>
+<p>hashMap 的性能表现非常依赖于哈希码的有效性，必须掌握 hashCode 和 equals 的一些基本约定。</p>
+<ul>
+<li><p>equals 相等，hashCode 一定要相等。</p>
+</li>
+<li><p>重写 hashCode 也要重写 equals。</p>
+</li>
+<li><p>hashCode 需要保持一致性，状态改变返回的哈希码要保持一致。</p>
+</li>
+<li><p>equals 的对称、反射、传递等特性。</p>
+</li>
+</ul>
+<p>LinkedHashMap 和 TreeMap 都可以保证某种顺序，但二者还是非常不同的。</p>
+<ul>
+<li>LinkedHashMap 通常提供遍历顺序符合插入顺序，它的实现是通过为键值对维护一个双向链表。注意，通过特定构造函数，我们可以创建反映访问顺序的实例，所谓的 put、get、compute 等，都算作“访问”。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.LinkedHashMap;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Map;  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LinkedHashMapSample</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        LinkedHashMap&lt;String, String&gt; accessOrderedMap = <span class="keyword">new</span> LinkedHashMap&lt;String, String&gt;(<span class="number">16</span>, <span class="number">0.75F</span>, <span class="keyword">true</span>)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">            <span class="meta">@Override</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">            <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">removeEldestEntry</span><span class="params">(Map.Entry&lt;String, String&gt; eldest)</span> </span>&#123; <span class="comment">// 实现自定义删除策略，否则行为就和普遍 Map 没有区别</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">                <span class="keyword">return</span> size() &gt; <span class="number">3</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        &#125;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        accessOrderedMap.put(<span class="string">"Project1"</span>, <span class="string">"Valhalla"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        accessOrderedMap.put(<span class="string">"Project2"</span>, <span class="string">"Panama"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        accessOrderedMap.put(<span class="string">"Project3"</span>, <span class="string">"Loom"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">        accessOrderedMap.forEach( (k,v) -&gt; &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">            System.out.println(k +<span class="string">":"</span> + v);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">        &#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">// 模拟访问</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">        accessOrderedMap.get(<span class="string">"Project2"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">        accessOrderedMap.get(<span class="string">"Project2"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">        accessOrderedMap.get(<span class="string">"Project3"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">        System.out.println(<span class="string">"Iterate over should be not affected:"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">        accessOrderedMap.forEach( (k,v) -&gt; &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">            System.out.println(k +<span class="string">":"</span> + v);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">        &#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">// 触发删除</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">        accessOrderedMap.put(<span class="string">"Project4"</span>, <span class="string">"Mission Control"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">        System.out.println(<span class="string">"Oldest entry should be removed:"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">        accessOrderedMap.forEach( (k,v) -&gt; &#123;<span class="comment">// 遍历顺序不变</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">            System.out.println(k +<span class="string">":"</span> + v);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">        &#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<ul>
+<li>TreeMap ，整体顺序是由键的顺序关系决定的，通过 Comparator 或 Comparable（自然顺序）来决定。</li>
+</ul>
+<h3 id="HashMap-源码分析"><a href="#HashMap-源码分析" class="headerlink" title="HashMap 源码分析"></a>HashMap 源码分析</h3><ul>
+<li><p>HashMap 内部实现基本点分析</p>
+</li>
+<li><p>容量（capacity）和负载因子（load factor）</p>
+</li>
+<li><p>树化</p>
+</li>
+</ul>
+<p><strong>HashMap 内部结构可以看做是数组（Node&lt;K,V&gt;[] talbe）和链表结合组成的复合结构，数组被分为一个个桶（bucket），通过哈希值决定了键值对这个数组的寻址；哈希值相同的键值对，则以链表形式存储；</strong>参考如下示意图。需要注意的是，<strong>如果链表大小超过阈值（TREEIFY_THRESHOLD,8）,图中的链表就会被改造成树形结构。</strong></p>
+<p><img src="/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-基础篇\桶数组.png" alt="Java核心技术-基础篇\桶数组"></p>
+<p>从非拷贝构造函数的实现来看，这个表格（数组）似乎并没有在最初就初始化好，仅仅设置了一些初始值而已。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">HashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity, <span class="keyword">float</span> loadFactor)</span></span>&#123;  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// ... </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">this</span>.loadFactor = loadFactor;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">this</span>.threshold = tableSizeFor(initialCapacity);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>所以，我们深刻怀疑，HashMap 也许是按照 lazy-load 原则，在首次使用时被初始化（拷贝构造函数除外，我这里仅介绍最通用的场景）。既然如此，我们去看看 put 方法实现，似乎只有一个 putVal 的调用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> putVal(hash(key), key, value, <span class="keyword">false</span>, <span class="keyword">true</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>看来主要的密码似乎藏在 putVal 里面，到底有什么秘密呢？为了节省空间，我这里只截取了 putVal 比较关键的几部分。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> V <span class="title">putVal</span><span class="params">(<span class="keyword">int</span> hash, K key, V value, <span class="keyword">boolean</span> onlyIfAbent,</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="params">               <span class="keyword">boolean</span> evit)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    Node&lt;K,V&gt;[] tab; Node&lt;K,V&gt; p; <span class="keyword">int</span> , i;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span> ((tab = table) == <span class="keyword">null</span> || (n = tab.length) = <span class="number">0</span>)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        n = (tab = resize()).length;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span> ((p = tab[i = (n - <span class="number">1</span>) &amp; hash]) == ull)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        tab[i] = newNode(hash, key, value, nll);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">else</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">// ...</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">if</span> (binCount &gt;= TREEIFY_THRESHOLD - <span class="number">1</span>) <span class="comment">// -1 for first </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">           treeifyBin(tab, hash);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">//  ... </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">     &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<ul>
+<li><p>如果表格是 null，resize 方法会负责初始化它，这从 tab = resize() 可以看出。</p>
+</li>
+<li><p>resize 方法兼顾两个职责，创建初始存储表格，或者在容量不满足需求的时候，进行扩容（resize）。</p>
+</li>
+<li><p>在放置新的键值对的过程中，如果发生下面条件，就会发生扩容。</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (++size &gt; threshold)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    resize();</span></pre></td></tr></table></figure>
+
+<p>具体键值对在哈希表中的位置（数组 index）取决于下面的位运算：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">i = (n - <span class="number">1</span>) &amp; hash</span></pre></td></tr></table></figure>
+
+<p>仔细观察哈希值的源头，我们会发现，它并不是 key 本身的 hashCode，而是来自于 HashMap 内部的另外一个 hash 方法。注意，为什么这里需要将高位数据移位到低位进行异或运算呢？<strong>这是因为有些数据计算出的哈希值差异主要在高位，而 HashMap 里的哈希寻址是忽略容量以上的高位的，那么这种处理就可以有效避免类似情况下的哈希碰撞。</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object kye)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">int</span> h;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt;<span class="number">16</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<p>HashMap resice()方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> Node&lt;K,V&gt;[] resize() &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// ...</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ((newCap = oldCap &lt;&lt; <span class="number">1</span>) &lt; MAXIMUM_CAPACIY &amp;&amp;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">                oldCap &gt;= DEFAULT_INITIAL_CAPAITY)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        newThr = oldThr &lt;&lt; <span class="number">1</span>; <span class="comment">// double there</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">       <span class="comment">// ... </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (oldThr &gt; <span class="number">0</span>) <span class="comment">// initial capacity was placed in threshold</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">        newCap = oldThr;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">else</span> &#123;  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">// zero initial threshold signifies using defaultsfults</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        newCap = DEFAULT_INITIAL_CAPAITY;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        newThr = (<span class="keyword">int</span>)(DEFAULT_LOAD_ATOR* DEFAULT_INITIAL_CAPACITY；</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span> (newThr ==<span class="number">0</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">float</span> ft = (<span class="keyword">float</span>)newCap * loadFator;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">        newThr = (newCap &lt; MAXIMUM_CAPACITY &amp;&amp; ft &lt; (<span class="keyword">float</span>)MAXIMUM_CAPACITY ?(<span class="keyword">int</span>)ft : Integer.MAX_VALUE);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">    threshold = neThr;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">    Node&lt;K,V&gt;[] newTab = (Node&lt;K,V&gt;[])<span class="keyword">new</span> Node[newap];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">    table = n；</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// 移动到新的数组结构 e 数组结构 </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line">   &#125;</span></pre></td></tr></table></figure>
+
+<p>依据 resize 源码，不考虑极端情况（容量理论最大极限由 MAXIMUM_CAPACITY 指定，数值为 1&lt;&lt;30，也就是 2 的 30 次方），我们可以归纳为：</p>
+<ul>
+<li><p>门限值等于（负载因子） x （容量），在构建 HashMap 没有指定它们，那就是依据相应的默认常量值。</p>
+</li>
+<li><p>门限值通常是以倍数进行调整（newThr = oldThr &lt;&lt; 1）,根据 putVal 中的逻辑，当元素个数超过门限大小时则调整 Map 大小。</p>
+</li>
+<li><p>扩容后，需要将老的数组的元素重新放置到新的数组，这是扩容的一个组要开销来源。</p>
+</li>
+</ul>
+<h3 id="容量、负载因子和树化"><a href="#容量、负载因子和树化" class="headerlink" title="容量、负载因子和树化"></a>容量、负载因子和树化</h3><p><strong>为什么容量和负载因子这么重要？</strong>因为容量和负载因子决定可用桶的数量，空桶多了浪费空间，若使用得太满则严重影响操作性能。极端情况下，假设只有一个桶，那么它就退化成了链表，完全不能提供所谓常数时间存的性能。</p>
+<p>实践中如何选择呢？预估<code>负载因子 * 容量 &gt; 元素数量</code></p>
+<p>负载因子的建议：</p>
+<ul>
+<li><p>没有特殊需求不建议改动， JDK 自身默认的负载因子满足了通用场景。</p>
+</li>
+<li><p>实在要调整，建议不要超过 0.75 的数值，因为会显著增加冲突，降低 HashMap 的性能。</p>
+</li>
+<li><p>若使用太小的负载因子，按上面的公式，预设容量值也要进行调整，否则可能会导致更加频繁的扩容。</p>
+</li>
+</ul>
+<h3 id="树化改造"><a href="#树化改造" class="headerlink" title="树化改造"></a>树化改造</h3><p>树化改造，对应逻辑主要在 putVal 和 treeifyBin 中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">treeifyBin</span><span class="params">(Node&lt;K,V&gt;[] tab, <span class="keyword">int</span> hash)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">int</span> n, index; Node&lt;K,V&gt; e;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span> (tab == <span class="keyword">null</span> || (n = tab.length) &lt; MIN_TREEIFY_CAPACITY)</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        resize();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ((e = tab[index = (n - <span class="number">1</span>) &amp; hash]) != <span class="keyword">null</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">// 树化改造逻辑</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<ul>
+<li><p>如果容量小于 MIN_TREEIFY_CAPACITY，只会进行简单的扩容。</p>
+</li>
+<li><p>如果容量大于 MIN_TREEIFY_CAPACITY ，则会进行树化改造。</p>
+</li>
+</ul>
+<p><strong>为什么HashMap 要树化呢？本质上是个安全问题。因为在元素的放置过程中，如果一个对象哈希冲突，都被放置到同一个桶里，则会形成链表，链表是线性查询，会严重影响存取的性能。</strong></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/03/09/%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9%20Java%20%E7%9A%84%E7%90%86%E8%A7%A3/" rel="prev" title="谈谈你对 Java 平台的理解？">
+      <i class="fa fa-chevron-left"></i> 谈谈你对 Java 平台的理解？
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/03/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87/" rel="next" title="Java 核心技术-进阶篇一">
+      Java 核心技术-进阶篇一 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#谈谈你对Java平台的理解？"><span class="nav-number">1.</span> <span class="nav-text">谈谈你对Java平台的理解？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-是解释执行吗？"><span class="nav-number">1.1.</span> <span class="nav-text">Java 是解释执行吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">1.2.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Exception-和-Error有什么区别？"><span class="nav-number">2.</span> <span class="nav-text">Exception 和 Error有什么区别？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#知识扩展"><span class="nav-number">2.1.</span> <span class="nav-text">知识扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RuntimeException-与-Exception-有什么区别？"><span class="nav-number">2.1.1.</span> <span class="nav-text">RuntimeException 与 Exception 有什么区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#NoClassDefFoundError-和-ClassNotFoundException-有什么区别？"><span class="nav-number">2.1.2.</span> <span class="nav-text">NoClassDefFoundError 和 ClassNotFoundException 有什么区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常处理基本原则"><span class="nav-number">2.1.3.</span> <span class="nav-text">异常处理基本原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从性能角度看-Java-的异常处理机制"><span class="nav-number">2.1.4.</span> <span class="nav-text">从性能角度看 Java 的异常处理机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异常处理流程"><span class="nav-number">2.1.5.</span> <span class="nav-text">异常处理流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结-1"><span class="nav-number">2.2.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#谈谈final、finally、finalize-有什么不同？"><span class="nav-number">3.</span> <span class="nav-text">谈谈final、finally、finalize 有什么不同？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#知识扩展-1"><span class="nav-number">3.1.</span> <span class="nav-text">知识扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结-2"><span class="nav-number">3.2.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#强引用、软引用、弱引用、幻象引用有什么区别？"><span class="nav-number">4.</span> <span class="nav-text">强引用、软引用、弱引用、幻象引用有什么区别？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#强引用（StrongReference）"><span class="nav-number">4.1.</span> <span class="nav-text">强引用（StrongReference）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#软引用（SoftReference）"><span class="nav-number">4.2.</span> <span class="nav-text">软引用（SoftReference）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#弱引用（WeakReference"><span class="nav-number">4.3.</span> <span class="nav-text">弱引用（WeakReference)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚引用（PhantomReference）"><span class="nav-number">4.4.</span> <span class="nav-text">虚引用（PhantomReference）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知识扩展-2"><span class="nav-number">4.5.</span> <span class="nav-text">知识扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象可达性状态流转分析"><span class="nav-number">4.5.1.</span> <span class="nav-text">对象可达性状态流转分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReferenceQueue-引用队列"><span class="nav-number">4.5.2.</span> <span class="nav-text">ReferenceQueue 引用队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#显示地影响软引用垃圾收集影响"><span class="nav-number">4.5.3.</span> <span class="nav-text">显示地影响软引用垃圾收集影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#诊断-JVM-引用情况"><span class="nav-number">4.5.4.</span> <span class="nav-text">诊断 JVM 引用情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reachability-Fence"><span class="nav-number">4.5.5.</span> <span class="nav-text">Reachability Fence</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference-的四种状态"><span class="nav-number">4.5.6.</span> <span class="nav-text">Reference 的四种状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JVM怎么知道引用在不在"><span class="nav-number">4.5.7.</span> <span class="nav-text">JVM怎么知道引用在不在?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#哪些对象可以作为-GC-Roots呢"><span class="nav-number">4.5.8.</span> <span class="nav-text">哪些对象可以作为 GC Roots呢</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#String、StringBuffer、StringBuilder"><span class="nav-number">5.</span> <span class="nav-text">String、StringBuffer、StringBuilder</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#知识扩展-3"><span class="nav-number">5.1.</span> <span class="nav-text">知识扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串设计"><span class="nav-number">5.1.1.</span> <span class="nav-text">字符串设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串缓存"><span class="nav-number">5.1.2.</span> <span class="nav-text">字符串缓存</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动态代理是基于什么原理？"><span class="nav-number">6.</span> <span class="nav-text">动态代理是基于什么原理？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#知识扩展-4"><span class="nav-number">6.1.</span> <span class="nav-text">知识扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#反射机制及其演进"><span class="nav-number">6.1.1.</span> <span class="nav-text">反射机制及其演进</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态代理"><span class="nav-number">6.1.2.</span> <span class="nav-text">动态代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jdk-Proxy-优势？"><span class="nav-number">6.1.3.</span> <span class="nav-text">jdk Proxy 优势？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cglib-优势？"><span class="nav-number">6.1.4.</span> <span class="nav-text">cglib 优势？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结-3"><span class="nav-number">6.1.5.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#int和Integer有什么区别？"><span class="nav-number">7.</span> <span class="nav-text">int和Integer有什么区别？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#知识扩展-5"><span class="nav-number">7.1.</span> <span class="nav-text">知识扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#理解自动装箱、拆箱"><span class="nav-number">7.1.1.</span> <span class="nav-text">理解自动装箱、拆箱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源码分析"><span class="nav-number">7.1.2.</span> <span class="nav-text">源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#缓存机制"><span class="nav-number">7.1.2.1.</span> <span class="nav-text">缓存机制</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java-原始数据类型和引用类型局限性"><span class="nav-number">7.1.2.2.</span> <span class="nav-text">Java 原始数据类型和引用类型局限性</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对比Vector、ArrayList、LinkedList有何区别？"><span class="nav-number">8.</span> <span class="nav-text">对比Vector、ArrayList、LinkedList有何区别？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题延伸"><span class="nav-number">8.1.</span> <span class="nav-text">问题延伸</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#知识扩展-6"><span class="nav-number">8.2.</span> <span class="nav-text">知识扩展</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hashtable、HashMap、TreeMap有什么不同？"><span class="nav-number">9.</span> <span class="nav-text">Hashtable、HashMap、TreeMap有什么不同？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#知识扩展-7"><span class="nav-number">9.1.</span> <span class="nav-text">知识扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Map-整体结构"><span class="nav-number">9.1.1.</span> <span class="nav-text">Map 整体结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HashMap-源码分析"><span class="nav-number">9.1.2.</span> <span class="nav-text">HashMap 源码分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#容量、负载因子和树化"><span class="nav-number">9.1.3.</span> <span class="nav-text">容量、负载因子和树化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#树化改造"><span class="nav-number">9.1.4.</span> <span class="nav-text">树化改造</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mofei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mofei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

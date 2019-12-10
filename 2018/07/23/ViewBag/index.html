@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="ViewModel vs ViewData vs ViewBag vs TempData vs Session 何时使用 ViewModel,ViewData,ViewBag,TempData,Session？ 它们之间有何区别？  ViewModelViewModel 是 ASP.NET MVC 中的强类型，它表示一个或多个数据模型或数据表中的数据，以呈现 ASP.NET MVC 中的特定视图">
+<meta property="og:type" content="article">
+<meta property="og:title" content="译文：ViewModel vs ViewData vs ViewBag vs TempData vs Session">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;07&#x2F;23&#x2F;ViewBag&#x2F;index.html">
+<meta property="og:site_name" content="莫非的技术笔记">
+<meta property="og:description" content="ViewModel vs ViewData vs ViewBag vs TempData vs Session 何时使用 ViewModel,ViewData,ViewBag,TempData,Session？ 它们之间有何区别？  ViewModelViewModel 是 ASP.NET MVC 中的强类型，它表示一个或多个数据模型或数据表中的数据，以呈现 ASP.NET MVC 中的特定视图">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;07&#x2F;23&#x2F;ViewBag&#x2F;ViewModel-Diagram.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;07&#x2F;23&#x2F;ViewBag&#x2F;ViewData.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;07&#x2F;23&#x2F;ViewBag&#x2F;ViewBag.png">
+<meta property="article:published_time" content="2018-07-23T11:59:22.000Z">
+<meta property="article:modified_time" content="2018-08-24T12:22:45.286Z">
+<meta property="article:author" content="mofei">
+<meta property="article:tag" content="C#">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;07&#x2F;23&#x2F;ViewBag&#x2F;ViewModel-Diagram.png">
+
+<link rel="canonical" href="http://yoursite.com/2018/07/23/ViewBag/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>译文：ViewModel vs ViewData vs ViewBag vs TempData vs Session | 莫非的技术笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">莫非的技术笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/23/ViewBag/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mofei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="莫非的技术笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          译文：ViewModel vs ViewData vs ViewBag vs TempData vs Session
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-07-23 19:59:22" itemprop="dateCreated datePublished" datetime="2018-07-23T19:59:22+08:00">2018-07-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2018-08-24 20:22:45" itemprop="dateModified" datetime="2018-08-24T20:22:45+08:00">2018-08-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C#</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>ViewModel vs ViewData vs ViewBag vs TempData vs Session</p>
+<p>何时使用 ViewModel,ViewData,ViewBag,TempData,Session？</p>
+<p>它们之间有何区别？</p>
+</blockquote>
+<h2 id="ViewModel"><a href="#ViewModel" class="headerlink" title="ViewModel"></a>ViewModel</h2><p>ViewModel 是 ASP.NET MVC 中的强类型，它表示一个或多个数据模型或数据表中的数据，以呈现 ASP.NET MVC 中的特定视图。它可以将数据形成单个源，例如数据库中的表或多个表，或者只是一个数据或字符串。从本质上讲，ViewModel 是MVC 中 Model 与 View 之间的桥梁。</p>
+<p>ViewModel 具备所需的所有验证规则，范围等。因此，视图中的代码是整洁的可维护的。</p>
+<p>由于ViewModel 是强类型，因此在编译期间提供错误检查。</p>
+<p><img src="/2018/07/23/ViewBag/ViewModel-Diagram.png" alt="ViewModel-Diagram"></p>
+<h2 id="ViewData"><a href="#ViewData" class="headerlink" title="ViewData"></a>ViewData</h2><p>ViewData 从<code>System.web.Mvc.ViewDataDictionary</code> 类派生的未键入的键值字典。</p>
+<p>用于Controller（控制器）和 View（视图）之间传递数据。在控制器中，ViewData 填充数据然后在视图中检索。ViewData 的生命周期仅存于当前请求。即它在控制器中启动并在渲染视图后完成。</p>
+<p><img src="/2018/07/23/ViewBag/ViewData.png" alt="ViewData"></p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Populating ViewData in Controller</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ActionResult <span class="title">Index</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    ViewData[&amp;amp;quot;SomeKey&amp;amp;quot;] = &amp;amp;quot;Some Data&amp;amp;quot;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> View();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Retriving ViewData value in the view</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">@ViewData[&amp;amp;quot;SomeKey&amp;amp;quot;].ToString()</span></pre></td></tr></table></figure>
+
+<h2 id="ViewBag"><a href="#ViewBag" class="headerlink" title="ViewBag"></a>ViewBag</h2><p>ViewBag 是一个动态对象，派生自<code>System.Web.Mvc.ControllerBase.ViewBag</code>，它是 ViewData 的包装器。正因为是一个动态对象，所以它没有预先定义任何属性，可以在控制器中创建和填充 ViewBag 动态对象。使用相同的属性名称在视图中检索数据。</p>
+<p><img src="/2018/07/23/ViewBag/ViewBag.png" alt="ViewBag"></p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Populating ViewBag in Controller</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ActionResult <span class="title">Index</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    ViewBag.SomeProperty = &amp;amp;quot;Some Value&amp;amp;quot;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> View();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Retriving ViewBag value in the view</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">@ViewBag.SomeProperty.ToString()</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">TempData</span></pre></td></tr></table></figure>
+
+<h2 id="TempData"><a href="#TempData" class="headerlink" title="TempData"></a>TempData</h2><p>TempData 对象派生自<code>System.Web.Mvc.TempDataDictionary</code> 类。是一个为键入的键值对字典对象。</p>
+<p>TempData 的生命周期从一个请求跨越到另一个请求。即仅当呼叫从当前action method 重定向到另一个 action method，数据才会持续存在。一旦在重定向的 action method 中使用该对象，该对象将自动销毁。通常TempData 存储少量数据，例如从一个action method 到另一个 action method 的 error eessage。</p>
+<p>如果你想在第一次重定向后将数据保留在TempData 中，则必须使用TempData.keep()方法保留数据以进一步重定向。</p>
+<p>TempData 将其内容存储在 ASP.NET Session 中，因此在使用TempData 时应该谨慎些。就像 Session 一样，TempData会在 webfarm（服务集群）环境中使用中产生问题。您可能需要将<strong>会话状态模式</strong> 设置为<strong>进程外</strong>以使其正常工作。不推荐在Webfarm 中使用TempData。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Populating TempData in Controller</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ActionResult <span class="title">Index</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    TempData[&amp;amp;quot;ErrorMsg&amp;amp;quot;] = &amp;amp;quot;Some Error Here&amp;amp;quot;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> RedirectToAction(&amp;amp;quot;Error&amp;amp;quot;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Retriving TempData value in redirected action method</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ActionResult <span class="title">Error</span>(<span class="params"></span>) </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>&#123;     </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">var</span> msg = TempData[&amp;amp;quot;ErrorMsg&amp;amp;quot;];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// Do Something</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>Session 键值对对象，派生自<code>System.Web.SessionState</code>用于跨控制器传递数据。session 的生命周期一直持续到<strong>time out</strong> 或使用<strong>clear、removeall、abandon</strong>方法或用户关闭浏览器强制销毁。作为一种好的做法，尽量减少session 的使用。同样 session 在webfarm 环境中不可靠。解决办法实将”Session State Mode”设置在进程外。</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Populating session</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ActionResult <span class="title">Index</span>(<span class="params"></span>)</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    Session[&amp;amp;quot;SomeKey&amp;amp;quot;] = &amp;amp;quot;Some Value&amp;amp;quot;;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">return</span> RedirectToAction(&amp;amp;quot;Error&amp;amp;quot;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"><span class="comment">// Retriving session value </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> ActionResult <span class="title">Error</span>(<span class="params"></span>) </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line"><span class="function"></span>&#123;     </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">var</span> msg = Session[&amp;amp;quot;SomeKey&amp;amp;quot;];</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// Do Something</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
+
+<h2 id="它们之间的比较"><a href="#它们之间的比较" class="headerlink" title="它们之间的比较"></a>它们之间的比较</h2><table>
+<thead>
+<tr>
+<th>No</th>
+<th>ViewModel</th>
+<th>ViewData</th>
+<th>ViewBag</th>
+<th>TempData</th>
+<th>Session</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>是一个类，它是特定与渲染视图的模型。</td>
+<td>是一个键值字典，派生自，ViewDataDictionary</td>
+<td>是一个动态属性，也是ViewData的包装器</td>
+<td>是一个键值对字典派生自，TempDataDictionary</td>
+<td>是一个键值对字典派生自，TempDataDictionary</td>
+</tr>
+<tr>
+<td>2</td>
+<td>强类型，不需要类型转换。</td>
+<td>非类型化。因此，需要为复杂数据进行类型转换。</td>
+<td>不需要类型转换</td>
+<td>未键入：需要复杂数据类型的类型转换。</td>
+<td>未键入：需要类型转换和空检查。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>仅表示呈现视图所需的模型中的数据。</td>
+<td>用于在控制器和视图之间传递数据。</td>
+<td>用于在控制器和视图之间传递数据。</td>
+<td>用于在请求之间传递数据。也就是说将数据从一个控制器传递到另一个控制器是有帮助的</td>
+<td>用于在访问网站的用户期间存储少量数据</td>
+</tr>
+<tr>
+<td>4</td>
+<td>生命周期仅适用于当前的请求。</td>
+<td>生命周期仅适用于当前的请求。</td>
+<td>生命周期仅适用于当前的请求。</td>
+<td>生命周期用于当前和后续请求。使用TempData.Keep（）方法可以将TempData的生命周期增加到第一次重定向之外。</td>
+<td>会话的生命周期一直持续到服务器或用户强行销毁为止。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>在重定向时，ViewModel对象将被销毁。</td>
+<td>在重定向时，ViewData中的值变为Null。</td>
+<td>在重定向时，ViewData中的值变为Null。</td>
+<td>存储在TempData中的数据仅在重定向期间保留。</td>
+<td>存储在Session中的数据在任意数量的重定向期间都会持续存在。</td>
+</tr>
+<tr>
+<td>6</td>
+<td>提供编译时错误检查和Intellisense支持。</td>
+<td>不提供编译时错误检查。</td>
+<td>不提供编译时错误检查。</td>
+<td>不提供编译时错误检查。</td>
+<td>不提供编译时错误检查。</td>
+</tr>
+<tr>
+<td>7</td>
+<td>在webfarm（服务器集群）环境中使用ViewModel是安全的，因为它们不依赖于会话。</td>
+<td>ViewData在webfarm环境中使用是安全的，因为它们不依赖于会话。</td>
+<td>在webfarm环境中使用ViewBag是安全的，因为它们不依赖于会话。</td>
+<td>TempData在具有服务器集群的webfarm中不可靠，因为TempData使用ASP.NET Session进行存储。解决方法是将会话状态模式设置为进程外，并使存储在TempData中的数据可序列化。</td>
+<td>session 在web中不可靠，因为它们存储在服务器的内存中。在webfarm方案中，如果会话由服务器创建并且返回请求转到群集中的另一个服务器，则会话将丢失。解决方法是将会话状态模式设置为进程外。</td>
+</tr>
+</tbody></table>
+<p>用途上的比较</p>
+<p>ViewModel ：</p>
+<p>（a）在具有主子关系的表中显示数据。</p>
+<p>（b）汇总和汇总的报告。 </p>
+<p>（c）在表格中分页数据。 </p>
+<p>（d）灵活，来自多个数据源的非常简单和高度复杂的数据。</p>
+<p>ViewData：</p>
+<p>（a）传递数据列表以呈现下拉列表。 </p>
+<p>（b）传递要在视图中呈现的少量数据。 </p>
+<p>（c）不适合涉及多个数据源的复杂数据。</p>
+<p>ViewBag：</p>
+<p>（a）传递数据列表以呈现下拉列表。 </p>
+<p>（b）传递要在视图中呈现的少量数据。 </p>
+<p>（c）不适合涉及多个数据源的复杂数据</p>
+<p>TempData:</p>
+<p>（a）用于存储一次性消息，如错误消息和验证消息。 </p>
+<p>（b）用于将小数据从一个操作传递到另一个操作或一个控制器调用另一个控制器调用的方案。</p>
+<p>Session:</p>
+<p>（a）检查用户是否登录到网站。</p>
+<p>（b）存储用户的许可信息。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>使用<strong>ViewModel</strong>而不是ViewData和ViewBag。由于ViewModel在Visual Studio IDE中提供了编译时错误检查和智能感知支持，因此代码将是干净的，并且不易出错。</li>
+<li>使用<strong>TempData</strong>进行错误处理。在捕获和异常或错误时，使用TempData将错误详细信息传递到错误页面，以显示正确的错误详细信息。</li>
+<li>使用<strong>Session</strong>检查用户的登录状态和权限级别。</li>
+<li>如果您的Web应用程序位于webfarm环境中，请尽量避免使用<strong>TempData</strong>和<strong>Session</strong>。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/C/" rel="tag"># C#</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/07/16/webapp%E4%B8%ADmeta%E6%A0%87%E7%AD%BE/" rel="prev" title="webapp中meta标签">
+      <i class="fa fa-chevron-left"></i> webapp中meta标签
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/07/24/java%E4%B8%AD%E7%9A%84this%E5%85%B3%E9%94%AE%E5%AD%97/" rel="next" title="java 中的 this 关键字">
+      java 中的 this 关键字 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ViewModel"><span class="nav-number">1.</span> <span class="nav-text">ViewModel</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ViewData"><span class="nav-number">2.</span> <span class="nav-text">ViewData</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ViewBag"><span class="nav-number">3.</span> <span class="nav-text">ViewBag</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TempData"><span class="nav-number">4.</span> <span class="nav-text">TempData</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Session"><span class="nav-number">5.</span> <span class="nav-text">Session</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#它们之间的比较"><span class="nav-number">6.</span> <span class="nav-text">它们之间的比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mofei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mofei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

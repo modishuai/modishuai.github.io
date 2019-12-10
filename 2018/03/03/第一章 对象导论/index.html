@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="- Java 编程思想Java 用3个关键字在类的内部设定边界：public 、private、protected public：用 public 修饰的元素，任何人都是可用的。 private：除了类型创建者和类型的内部方法之外的任何人都不可访问。 protected：与 private 相似，区别在于子类可以访问父类的 protected 成员。 默认访问权限：在没有指定任何修饰符的情况下，默">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔记：第一章 对象导论">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;03&#x2F;03&#x2F;%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E5%AF%B9%E8%B1%A1%E5%AF%BC%E8%AE%BA&#x2F;index.html">
+<meta property="og:site_name" content="莫非的技术笔记">
+<meta property="og:description" content="- Java 编程思想Java 用3个关键字在类的内部设定边界：public 、private、protected public：用 public 修饰的元素，任何人都是可用的。 private：除了类型创建者和类型的内部方法之外的任何人都不可访问。 protected：与 private 相似，区别在于子类可以访问父类的 protected 成员。 默认访问权限：在没有指定任何修饰符的情况下，默">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-03-02T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-12-03T07:12:41.717Z">
+<meta property="article:author" content="mofei">
+<meta property="article:tag" content="Java 编程思想">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2018/03/03/%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E5%AF%B9%E8%B1%A1%E5%AF%BC%E8%AE%BA/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>笔记：第一章 对象导论 | 莫非的技术笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">莫非的技术笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/03/%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E5%AF%B9%E8%B1%A1%E5%AF%BC%E8%AE%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mofei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="莫非的技术笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          笔记：第一章 对象导论
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-03-03 00:00:00" itemprop="dateCreated datePublished" datetime="2018-03-03T00:00:00+08:00">2018-03-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-03 15:12:41" itemprop="dateModified" datetime="2019-12-03T15:12:41+08:00">2019-12-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Java-编程思想"><a href="#Java-编程思想" class="headerlink" title="- Java 编程思想"></a>- Java 编程思想</h2><h2 id="Java-用3个关键字在类的内部设定边界："><a href="#Java-用3个关键字在类的内部设定边界：" class="headerlink" title="Java 用3个关键字在类的内部设定边界："></a>Java 用3个关键字在类的内部设定边界：</h2><p>public 、private、protected</p>
+<p>public：用 public 修饰的元素，任何人都是可用的。</p>
+<p>private：除了类型创建者和类型的内部方法之外的任何人都不可访问。</p>
+<p>protected：与 private 相似，区别在于子类可以访问父类的 protected 成员。</p>
+<p>默认访问权限：在没有指定任何修饰符的情况下，默认的访问权限称为“包访问权限”。在这种权限下，类可以访问同一个包中的其他成员，包之外的成员如同指定了 private 修饰符。</p>
+<h2 id="复用具体实现"><a href="#复用具体实现" class="headerlink" title="复用具体实现"></a>复用具体实现</h2><p>使用现有的类合成新的类，这种概念成为组合（composition），如果组合是动态的则称为聚合（aggregation）。</p>
+<p>组合经常被视为“has-a”（拥有）关系。</p>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>两个类型可以有相同的特性和行为，但是其中一个类型可能比另一个有更多的特性，并且可以处理更多的消息。</p>
+<p>一个基类型包含所有导出类型所共享的特性和行为。</p>
+<p>所有可以发送给基对象的消息同时也可以发送给导出类对象。</p>
+<p>导出类和基类之间产生差异的方法是改变现有基类的方法的行为，称为覆盖（overriding）</p>
+<p>将导出类看做它的基类的过程成为向上转型（upcasting）。</p>
+<h3 id="is-a-与-is-like-a-的关系"><a href="#is-a-与-is-like-a-的关系" class="headerlink" title="is-a 与 is-like-a 的关系"></a>is-a 与 is-like-a 的关系</h3><p>基类和导出类之间的关系成为 is-a （是一个）关系.</p>
+<p>导出类扩展了基类，基类无法访问导出类新添加的方法，这种情况称为 is-like-a（像是一个）关系。</p>
+<h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><p>后期绑定的概念：当向对象发送消息时，被调用的代码知道运行时才能确定。</p>
+<p>Java 中动态绑定是默认行为，无需额外关键字来实现多态。</p>
+<h2 id="单根继承结构"><a href="#单根继承结构" class="headerlink" title="单根继承结构"></a>单根继承结构</h2><p>单根继承结构意味着所有东西都是 Object 类型。</p>
+<p>单根继承结构保证所有对象具备某些功能。</p>
+<p>单根继承结构的优点：便于垃圾回收器回收。</p>
+<h2 id="容器（集合）"><a href="#容器（集合）" class="headerlink" title="容器（集合）"></a>容器（集合）</h2><p>List（用于存储序列）</p>
+<p>Map（关联数组，用来建立对象之间的关联）</p>
+<p>Set（每种对象类型只持有一个）</p>
+<p>一 、不同容器提供了不同类型的接口和外部行为。</p>
+<p>二、不同容器对于某些操作具有不同效率。比如 ArrayList 和 LinkedList</p>
+<h3 id="参数化类型（泛型）"><a href="#参数化类型（泛型）" class="headerlink" title="参数化类型（泛型）"></a>参数化类型（泛型）</h3><p>参数化类型就是一个编译可以自动定制作用于特定类型上的类。例如：通过使用参数化类型，编译器可以定制一个容纳和取出 Shape 对象的容器。</p>
+<p>向下转型，得到具体的类型。</p>
+<p>向上转型，得到一个泛化类型。</p>
+<p>例子：几何图形 和 六边形</p>
+<h2 id="对象的创建和生命周期"><a href="#对象的创建和生命周期" class="headerlink" title="对象的创建和生命周期"></a>对象的创建和生命周期</h2><p>方式一：通过将对象置于堆栈（它们有时被成为自动变量（automatic variable）或限域变量（scope variable））或静态存储区域来实现。 这种方式将存储空间分配和释放置于优先考虑位置。</p>
+<p>方式二：在堆（heap）的内存池中动态创建对象。这种方式中，直到运行时才知道需要多少对象。</p>
+<h2 id="并发编程"><a href="#并发编程" class="headerlink" title="并发编程"></a>并发编程</h2><p>同一时刻处理多个任务的思想。</p>
+<p>并发：把问题切割成多个可独立运行的部分（任务），从而提高程序响应能力，这些独立运行的部分成为线程。</p>
+<p>并行：操作系统支持多处理器，那么每个任务可以指派给不同的处理器，并且他们是真正的并行执行。</p>
+<p>多线程的便利之处在于开发者无需要关系机器上有一个还是多个处理器。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java-%E7%BC%96%E7%A8%8B%E6%80%9D%E6%83%B3/" rel="tag"># Java 编程思想</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/03/03/%E7%AC%AC%E4%B8%89%E7%AB%A0%20Java%20%E6%93%8D%E4%BD%9C%E7%AC%A6/" rel="prev" title="Java 操作符">
+      <i class="fa fa-chevron-left"></i> Java 操作符
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/05/01/WPF%E5%AE%9E%E7%8E%B0%E5%9B%BE%E7%89%87%E7%9A%84%E7%BC%A9%E6%94%BE%E5%B9%B3%E7%A7%BB%E6%95%88%E6%9E%9C%EF%BC%88%E8%A7%A6%E6%8E%A7+%E9%BC%A0%E6%A0%87%EF%BC%89/" rel="next" title="WPF 实现图片的缩放、平移、旋转效果">
+      WPF 实现图片的缩放、平移、旋转效果 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-编程思想"><span class="nav-number">1.</span> <span class="nav-text">- Java 编程思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-用3个关键字在类的内部设定边界："><span class="nav-number">2.</span> <span class="nav-text">Java 用3个关键字在类的内部设定边界：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复用具体实现"><span class="nav-number">3.</span> <span class="nav-text">复用具体实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#继承"><span class="nav-number">4.</span> <span class="nav-text">继承</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#is-a-与-is-like-a-的关系"><span class="nav-number">4.1.</span> <span class="nav-text">is-a 与 is-like-a 的关系</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多态"><span class="nav-number">5.</span> <span class="nav-text">多态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单根继承结构"><span class="nav-number">6.</span> <span class="nav-text">单根继承结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器（集合）"><span class="nav-number">7.</span> <span class="nav-text">容器（集合）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#参数化类型（泛型）"><span class="nav-number">7.1.</span> <span class="nav-text">参数化类型（泛型）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象的创建和生命周期"><span class="nav-number">8.</span> <span class="nav-text">对象的创建和生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发编程"><span class="nav-number">9.</span> <span class="nav-text">并发编程</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mofei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mofei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="专栏《如何设计一个秒杀系统-许令波》学习笔记 秒杀特点：稳、准、快 重点围绕：并发读 和 并发写； 并发读核心优化理念：尽量减少用户到服务端来“读”数据；并发写的原则类似，要求将数据层独立出来，特殊处理。另外还需要兜底方案。  01|设计秒杀系统应注意的5个架构原则？数据要尽量少  用户请求数据尽量少，请求和响应都需要时间，服务器在写网络通常要做压缩和编码很好 CPU，所以尽量让秒杀界面简洁实用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何设计一个秒杀系统">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;03&#x2F;03&#x2F;%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F&#x2F;index.html">
+<meta property="og:site_name" content="莫非的技术笔记">
+<meta property="og:description" content="专栏《如何设计一个秒杀系统-许令波》学习笔记 秒杀特点：稳、准、快 重点围绕：并发读 和 并发写； 并发读核心优化理念：尽量减少用户到服务端来“读”数据；并发写的原则类似，要求将数据层独立出来，特殊处理。另外还需要兜底方案。  01|设计秒杀系统应注意的5个架构原则？数据要尽量少  用户请求数据尽量少，请求和响应都需要时间，服务器在写网络通常要做压缩和编码很好 CPU，所以尽量让秒杀界面简洁实用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;03&#x2F;03&#x2F;%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F&#x2F;如何设计一个秒杀系统&#x2F;缓存HTTP连接.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;03&#x2F;03&#x2F;%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F&#x2F;如何设计一个秒杀系统&#x2F;构建动态热点发现系统.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;03&#x2F;03&#x2F;%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F&#x2F;如何设计一个秒杀系统&#x2F;削峰-消息队列缓冲流量.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;03&#x2F;03&#x2F;%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F&#x2F;如何设计一个秒杀系统&#x2F;秒杀答题思路.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;03&#x2F;03&#x2F;%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F&#x2F;如何设计一个秒杀系统&#x2F;答题的验证逻辑.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;03&#x2F;03&#x2F;%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F&#x2F;如何设计一个秒杀系统&#x2F;分层过滤.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;03&#x2F;03&#x2F;%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F&#x2F;如何设计一个秒杀系统&#x2F;高可用系统全生命周期.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;03&#x2F;03&#x2F;%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F&#x2F;如何设计一个秒杀系统&#x2F;开关系统.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;03&#x2F;03&#x2F;%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F&#x2F;如何设计一个秒杀系统&#x2F;限流.jpg">
+<meta property="article:published_time" content="2019-03-02T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-03-04T12:31:46.625Z">
+<meta property="article:author" content="mofei">
+<meta property="article:tag" content="秒杀">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;03&#x2F;03&#x2F;%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F&#x2F;如何设计一个秒杀系统&#x2F;缓存HTTP连接.jpg">
+
+<link rel="canonical" href="http://yoursite.com/2019/03/03/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>如何设计一个秒杀系统 | 莫非的技术笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">莫非的技术笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/03/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mofei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="莫非的技术笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          如何设计一个秒杀系统
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-03 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-03T00:00:00+08:00">2019-03-03</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-03-04 20:31:46" itemprop="dateModified" datetime="2019-03-04T20:31:46+08:00">2019-03-04</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9E%B6%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">架构</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>专栏《如何设计一个秒杀系统-许令波》学习笔记</p>
+<p>秒杀特点：稳、准、快</p>
+<p>重点围绕：并发读 和 并发写；</p>
+<p>并发读核心优化理念：尽量减少用户到服务端来“读”数据；并发写的原则类似，要求将数据层独立出来，特殊处理。另外还需要兜底方案。</p>
+</blockquote>
+<h1 id="01-设计秒杀系统应注意的5个架构原则？"><a href="#01-设计秒杀系统应注意的5个架构原则？" class="headerlink" title="01|设计秒杀系统应注意的5个架构原则？"></a>01|设计秒杀系统应注意的5个架构原则？</h1><p><strong>数据要尽量少</strong> </p>
+<p>用户请求数据尽量少，请求和响应都需要时间，服务器在写网络通常要做压缩和编码很好 CPU，所以尽量让秒杀界面简洁实用。</p>
+<p><strong>请求数量尽量少</strong></p>
+<p>主要包括图片、JavaScript、CSS等，脚本合并成一个文件，在 URL 中用逗号隔开（服务端需要组件来解析该URL，然后将这些动态文件合并起来一并返回。）</p>
+<p><strong>路径要尽量短</strong></p>
+<p>所谓“路径”，就是用户发出请求到返回数据这个过程中，需求经过的中间的节点数。（不要转来转去）</p>
+<p><strong>依赖要尽量少</strong></p>
+<p>所谓依赖，指的是要完成一次用户请求必须依赖的系统或者服务，这里的依赖指的是强依赖。</p>
+<p>例子：秒杀商品页面依赖商品详情信息、用户信息、优惠卷诸如此类的；</p>
+<p><strong>不要有单点</strong></p>
+<p>单点意味着没有备份，分布式系统重要的原则就是消除单点。</p>
+<h1 id="02-如何做好动静分离？有哪些方案可选？"><a href="#02-如何做好动静分离？有哪些方案可选？" class="headerlink" title="02|如何做好动静分离？有哪些方案可选？"></a>02|如何做好动静分离？有哪些方案可选？</h1><p>动静分离，区分出秒杀网页中的动态数据（每个人看到都不一样）和静态数据（每个人看到都一样）。</p>
+<p>对静态数据做缓存处理，自然就能提高访问效率。</p>
+<h2 id="静态数据如何做缓存？"><a href="#静态数据如何做缓存？" class="headerlink" title="静态数据如何做缓存？"></a>静态数据如何做缓存？</h2><ul>
+<li><p><strong>将静态数据缓存到离用户最近的地方</strong>。常见有三种：服务端Cache、浏览器、CDN。</p>
+</li>
+<li><p><strong>静态化改造就是直接缓存 HTTP 连接。</strong>静态化改造是直接缓存 HTTP 连接而不是仅仅缓存数据，如下图所示，Web 代理服务器根据请求 URL，直接取出对应的 HTTP 响应头和响应体然后直接返回，这个响应过程简单得连 HTTP 协议都不用重新组装，甚至连 HTTP 请求头也不需要解析。</p>
+</li>
+</ul>
+<p><img src="/2019/03/03/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/如何设计一个秒杀系统\缓存HTTP连接.jpg" alt="如何设计一个秒杀系统\缓存HTTP连接"></p>
+<ul>
+<li><strong>谁来做静态数据缓存。</strong>直接在 Web 服务器层上做（Nginx、Apache、Varnish）更擅长处理大并发的静态文件请求。</li>
+</ul>
+<h2 id="如何做动静分离改造？"><a href="#如何做动静分离改造？" class="headerlink" title="如何做动静分离改造？"></a>如何做动静分离改造？</h2><ul>
+<li><p>URL 唯一化。商品详情系统天然地就可以做到 URL 唯一化，比如每个商品都由 ID 来标识，那么 <a href="http://item.xxx.com/item.htm?id=xxxx" target="_blank" rel="noopener">http://item.xxx.com/item.htm?id=xxxx</a> 就可以作为唯一的 URL 标识。为啥要 URL 唯一呢？前面说了我们是要缓存整个 HTTP 连接，那么以什么作为 Key 呢？就以 URL 作为缓存的 Key，例如以 id=xxx 这个格式进行区分。</p>
+</li>
+<li><p>分离浏览者相关的因素，浏览者相关的因素包括是否已登录，以及登录身份等，这些相关因素我们可以单独拆分出来，通过动态请求来获取。</p>
+</li>
+<li><p>分离时间因素。服务端输出的时间也通过动态请求获取。</p>
+</li>
+<li><p>异步化地域因素。详情页面上与地域相关的因素做成异步方式获取，当然你也可以通过动态请求方式获取，只是这里通过异步获取更合适。</p>
+</li>
+<li><p>去掉 Cookie。服务端输出的页面包含的 Cookie 可以通过代码软件来删除，如 Web 服务器 Varnish 可以通过 unset req.http.cookie 命令去掉 Cookie。注意，这里说的去掉 Cookie 并不是用户端收到的页面就不含 Cookie 了，而是说，在缓存的静态数据中不含有 Cookie。</p>
+</li>
+</ul>
+<blockquote>
+<p>分离出动态内容之后，如何组织这些内容页就变得非常关键了。这里我要提醒你一点，因为这其中很多动态内容都会被页面中的其他模块用到，如判断该用户是否已登录、用户 ID 是否匹配等，所以这个时候我们应该将这些信息 JSON 化（用 JSON 格式组织这些数据），以方便前端获取。</p>
+</blockquote>
+<p><strong>动态内容处理方案：</strong></p>
+<ol>
+<li><p><a href="https://baike.baidu.com/item/ESI/42448?fr=aladdin" target="_blank" rel="noopener">ESI</a>（Edge Side Includes）即在 Web 代理服务器上做动态内容请求，将请求内容插入到静态页面中；</p>
+</li>
+<li><p>CSI（Client Side Include）即单独发起一个异步 JavaScript 请求，向服务端获取动态内容。</p>
+</li>
+</ol>
+<h1 id="03-二八原则：有正对性地处理好系统的“热点数据”"><a href="#03-二八原则：有正对性地处理好系统的“热点数据”" class="headerlink" title="03|二八原则：有正对性地处理好系统的“热点数据”"></a>03|二八原则：有正对性地处理好系统的“热点数据”</h1><p>用户在购物网站执行的一系列操作都可以抽象为“读请求”和“写请求”，而写请求瓶颈一般都在存储层。</p>
+<p>热点数据又分为：静态热点数据 和 动态热点数据。</p>
+<h2 id="如何发现热点数据"><a href="#如何发现热点数据" class="headerlink" title="如何发现热点数据"></a>如何发现热点数据</h2><p><strong>发现静态热点数据</strong>，有两种方式，其一，是通过卖家报名，通过运营系统把参加活动商品标识出来，然后通过后台系统对热点商品进行预热处理，比如提前缓存。其二，利用技术手段统计出买家访问的商品进行大数据统计分析，统计出 TOP N的商品，就可以认为是热点商品。</p>
+<p><strong>发现动态热点数据</strong>，前面两种方式实时性太差。想办法构建几个动态热点发现系统。</p>
+<blockquote>
+<p>构建一个异步的系统，它可以收集交易链路上各个环节中的中间件产品的热点 Key，如 Nginx、缓存、RPC 服务框架等这些中间件（一些中间件产品本身已经有热点统计模块）。</p>
+<p>建立一个热点上报和可以按照需求订阅的热点服务的下发规范，主要目的是通过交易链路上各个系统（包括详情、购物车、交易、优惠、库存、物流等）访问的时间差，把上游已经发现的热点透传给下游系统，提前做好保护。比如，对于大促高峰期，详情系统是最早知道的，在统一接入层上 Nginx 模块统计的热点 URL。</p>
+<p>将上游系统收集的热点数据发送到热点服务台，然后下游系统（如交易系统）就会知道哪些商品会被频繁调用，然后做热点保护。</p>
+<p>这里我给出了一个图，其中用户访问商品时经过的路径有很多，我们主要是依赖前面的导购页面（包括首页、搜索页面、商品详情、购物车等）提前识别哪些商品的访问量高，通过这些系统中的中间件来收集热点数据，并记录到日志中。</p>
+<p><img src="/2019/03/03/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/如何设计一个秒杀系统\构建动态热点发现系统.jpg" alt="img\构建动态热点发现系统"></p>
+<h2 id="处理热点数据"><a href="#处理热点数据" class="headerlink" title="处理热点数据"></a>处理热点数据</h2><p>处理热点数据思路：一优化，二限制，三隔离</p>
+<p>优化：指的是将热点数据放在缓存中。</p>
+<p>限制：对访问商品的ID 做一致性 Hash，然后根据 Hash 做分桶，每个分桶设置一个处理队列，吧热点商品限制在请求队列里，防止因某些热点商品占用太多的服务器资源，从而使其他请求始终得到服务器的处理资源。</p>
+<p>隔离：隔离的原则是不要让 1% 的请求影响到其他 99%，对这 1% 做针对性优化。</p>
+</blockquote>
+<h1 id="04-流量削峰这事应该怎么做？"><a href="#04-流量削峰这事应该怎么做？" class="headerlink" title="04|流量削峰这事应该怎么做？"></a>04|流量削峰这事应该怎么做？</h1><h2 id="为什么要削峰？"><a href="#为什么要削峰？" class="headerlink" title="为什么要削峰？"></a>为什么要削峰？</h2><p>这个问题就好比交通限行限号是一个道理。</p>
+<p>对于互联网系统引入削峰手段第，一、可以保证服务器处理变得更加平稳。二、可以节省服务器的资源成本。本质上来讲削峰更多的 是延缓用户发出的请求，以便减少或过滤掉一些无效请求，遵循“<strong>请求数量尽量少</strong>”的原则。</p>
+<h2 id="削峰的操作思路？"><a href="#削峰的操作思路？" class="headerlink" title="削峰的操作思路？"></a>削峰的操作思路？</h2><p>无损方案：排队、答题、分层过滤（无损，即不会损失用户发出的请求）</p>
+<p>有损方案：限流、机器负载保护等一些强制措施。</p>
+<h3 id="排队"><a href="#排队" class="headerlink" title="排队"></a>排队</h3><p>排队的方式：</p>
+<p>一、利用线程池加锁等待。</p>
+<p>二、先进先出、先进后出等常用内存排序算法。</p>
+<p>三、把请求序列化到文件中，然后在顺序地读文件来恢复请求。</p>
+<p>四、利用消息队列方式。</p>
+<p>最通用的解决方案，用消息队列缓冲流量的方案。这就好比在河道中修一座大坝留几个出口来泄洪，但洪水持续过大终究还是会被压垮的。把同步的直接调用转换成异步的间接推送，中间通过一个队列在一端承接瞬时的洪峰流量，在另一端平滑地将消息推送出去。</p>
+<p><img src="/2019/03/03/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/如何设计一个秒杀系统\削峰-消息队列缓冲流量.jpg" alt="img\削峰-消息队列缓冲流量"></p>
+<h3 id="答题"><a href="#答题" class="headerlink" title="答题"></a>答题</h3><p>答题的两个目的：一、防止秒杀器作弊。二、延缓请求，起到对请求流量削峰的作用。</p>
+<p>秒杀答题思路如下图：</p>
+<p><img src="/2019/03/03/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/如何设计一个秒杀系统\秒杀答题思路.jpg" alt="img\秒杀答题思路"></p>
+<p>秒杀答题的主要逻辑：</p>
+<ol>
+<li><p>题库生成模块。生成一个个问题和答案</p>
+</li>
+<li><p>题库推送模块。将题目提前推送给详情系统和交易系统。推送主要是保证用户请求的题目是唯一的。</p>
+</li>
+<li><p>题库图片生成模块。网络拥挤是，应该把图片提前推送至 CDN 并进行预热处理。</p>
+</li>
+</ol>
+<p>问题和答案用如下的 key 进行 MD5 加密：</p>
+<p>问题 key：userId + itemId + questionId + time  + PK</p>
+<p>答案 key：userId + itemId + answer + PK</p>
+<p>答题的验证逻辑：</p>
+<p><img src="/2019/03/03/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/如何设计一个秒杀系统\答题的验证逻辑.jpg" alt="img\答题的验证逻辑"></p>
+<p>注意：这里的逻辑，除了验证问题答案外还包括用户身份验证。</p>
+<p>除了答题的正确性验证，还可以对提交答案时间做限制。</p>
+<h3 id="分层过滤"><a href="#分层过滤" class="headerlink" title="分层过滤"></a>分层过滤</h3><p>分层过滤的核心思想：<strong>像漏斗一样在不同层次过滤掉无效请求，进入末端的请求才是有效的</strong>。</p>
+<p>分层过滤的目的是过滤掉一些无效请求。</p>
+<p><img src="/2019/03/03/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/如何设计一个秒杀系统\分层过滤.jpg" alt="img\分层过滤"></p>
+<ul>
+<li><p>CDN 层：拦截大部分数据的读取。</p>
+</li>
+<li><p>前台系统层的数据（包括强一致性的数据）尽量走 Cache ，过滤一些无效请求。</p>
+</li>
+<li><p>后台系统层：主要执行数据的二次校验，对系统做好保护和限流，减少数据量和请求。</p>
+</li>
+<li><p>DB 层：完成数据的强一致性校验。</p>
+</li>
+</ul>
+<h3 id="分层过滤的基本原则"><a href="#分层过滤的基本原则" class="headerlink" title="分层过滤的基本原则"></a>分层过滤的基本原则</h3><ol>
+<li><p>将动态请求的读数据缓存（Cache）在 Web 端，过滤掉无效的数据读。</p>
+</li>
+<li><p>对读数据不做强一致性校验，减少因为一致性校验产生瓶颈的问题。</p>
+</li>
+<li><p>对写数据进行基于时间的合理分片，过滤掉过期的失效请求。</p>
+</li>
+<li><p>对写请求做限流保护，将超出系统承载能力的请求过滤掉。</p>
+</li>
+<li><p>对写数据进行强一致性校验，只保留最后有效的数据。</p>
+</li>
+</ol>
+<h1 id="05-影响性能的因素？该如何提高系统的性能？"><a href="#05-影响性能的因素？该如何提高系统的性能？" class="headerlink" title="05|影响性能的因素？该如何提高系统的性能？"></a>05|影响性能的因素？该如何提高系统的性能？</h1><blockquote>
+<p>IOPS （Input/Output Operations Per Second，每秒读写操作次数 ）</p>
+<p>QPS （Query Per Second，每秒请求数）</p>
+<p>RT（Response Time，响应时间）</p>
+</blockquote>
+<p>QPS 一般用来衡量一个系统服务端性能，还有一个影响和 QPS 息息相关， RT 可理解为服务器处理响应耗时。</p>
+<p>正常情况下 RT（响应时间） 越短，一秒处理请求数（QPS）自然就越多，这在单线程处理的情况下看起来是线性的关系，即我们自要把每个请求的响应时间降到最低，那么性能就会最高。</p>
+<h2 id="响应时间对-QPS-的影响"><a href="#响应时间对-QPS-的影响" class="headerlink" title="响应时间对 QPS 的影响"></a>响应时间对 QPS 的影响</h2><p>响应时间一般是由 CPU 执行时间和线程等待时间（RPC、IO等待、Sleep、Wait等）组成，即服务器在处理每一个请求时，一部分事 CPU 本身在做运算，还有一部分是在等待。</p>
+<p>真正对性能有影响的是 CPU 的执行时间，应致力于减少 CPU 的执行时间。</p>
+<h2 id="线程数对-QPS-的影响"><a href="#线程数对-QPS-的影响" class="headerlink" title="线程数对 QPS 的影响"></a>线程数对 QPS 的影响</h2><p>线程越多的系统，线程的切换成本越高，而且线程也会消耗一定内存。</p>
+<p>线程场景默认配置，<strong>线程数= 2 * CPU 核数 + 1</strong>，除此配置外，最佳实践得来公式</p>
+<p><code>线程数 = [(线程等待时间 + 线程 CPU 时间)  / 线程CPU时间] * CPU 数量</code></p>
+<p>最好是通过性能测试来发现最佳的线程数。</p>
+<p>要想显著的提升性能我们要减少 CPU 的执行时间，除此之外还需要设置一个合理的并发线程数。</p>
+<h2 id="如何发现瓶颈？"><a href="#如何发现瓶颈？" class="headerlink" title="如何发现瓶颈？"></a>如何发现瓶颈？</h2><p>服务器出现瓶颈的地方：CPU、内存、磁盘、网络。</p>
+<p>万物相生相克，缓存系统——内存；存储型系统——I/O</p>
+<h3 id="有那些工具可发现-CPU-瓶颈呢？"><a href="#有那些工具可发现-CPU-瓶颈呢？" class="headerlink" title="有那些工具可发现 CPU 瓶颈呢？"></a>有那些工具可发现 CPU 瓶颈呢？</h3><p>JProfiler 和 Yourkit，就可以列出整个请求中每个函数的 CPU 执行时间，还可以发现那个函数消耗的 CPU 时间最多。</p>
+<p>对于海量请求涌过来，页面又大，网络也可能出现瓶颈。</p>
+<h3 id="如何判断-CPU-是不是瓶颈呢？"><a href="#如何判断-CPU-是不是瓶颈呢？" class="headerlink" title="如何判断 CPU 是不是瓶颈呢？"></a>如何判断 CPU 是不是瓶颈呢？</h3><p>看 QPS 达到极限时，服务器 CPU 使用率是否超过 95% ，如果草果，那表示 CPU 还有提升空间，要么有锁限制，要么有本地 I/O 等待发生。</p>
+<h2 id="如何优化系统？"><a href="#如何优化系统？" class="headerlink" title="如何优化系统？"></a>如何优化系统？</h2><p>1、减少编码</p>
+<p> Java 的编码运行比较慢，这是 Java 的一大硬伤。在很多场景下，只要涉及字符串的操作（如输入输出操作、I/O 操作）都比较耗 CPU 资源，不管它是磁盘 I/O 还是网络 I/O，因为都需要将字符转换成字节，而这个转换必须编码。</p>
+<p>每个字符的编码都需要查表，而这种查表的操作非常耗资源，所以减少字符到字节或者相反的转换、减少字符编码会非常有成效。减少编码就可以大大提升性能。</p>
+<p>那么如何才能减少编码呢？例如，网页输出是可以直接进行流输出的，即用 resp.getOutputStream() 函数写数据，把一些静态的数据提前转化成字节，等到真正往外写的时候再直接用 OutputStream() 函数写，就可以减少静态数据的编码转换。</p>
+<p>序列化大部分是在 RPC 中发生的，因此避免或者减少 RPC 就可以减少序列化，当然当前的序列化协议也已经做了很多优化来提升性能。有一种新的方案，就是可以将多个关联性比较强的应用进行“合并部署”，而减少不同应用之间的 RPC 也可以减少序列化的消耗。</p>
+<p>2、减少序列化</p>
+<p>序列化也是 Java 性能的一大天敌，减少 Java 中的序列化操作也能大大提升性能。又因为序列化往往是和编码同时发生的，所以减少序列化也就减少了编码。</p>
+<p>3、Java极致优化</p>
+<p>对Web 系统做静态化改造，让大部分请求和数据直接在 Nginx 服务器或则 Web代理服务器（Varnish、Squid）上直接返回，这样做的好处是减少数据的序列化和反序列化，让 Java 层处理少量的动态数据请求。</p>
+<ul>
+<li><p>直接使用 Servlet 处理请求。避免使用传统的 MVC 框架，这样可以绕过一大堆复杂且用处不大的处理逻辑，节省 1ms 时间（具体取决于你对 MVC 框架的依赖程度）。</p>
+</li>
+<li><p>直接输出流数据。使用 resp.getOutputStream() 而不是 resp.getWriter() 函数，可以省掉一些不变字符数据的编码，从而提升性能；数据输出时推荐使用 JSON 而不是模板引擎（一般都是解释执行）来输出页面。</p>
+</li>
+</ul>
+<p>4、并发读优化</p>
+<p>答案是采用应用层的 LocalCache，即在秒杀系统的单机上缓存商品相关的数据。</p>
+<h1 id="06-秒杀系统”减库存”设计的核心逻辑？"><a href="#06-秒杀系统”减库存”设计的核心逻辑？" class="headerlink" title="06|秒杀系统”减库存”设计的核心逻辑？"></a>06|秒杀系统”减库存”设计的核心逻辑？</h1><h2 id="减库存有那几种方式？"><a href="#减库存有那几种方式？" class="headerlink" title="减库存有那几种方式？"></a>减库存有那几种方式？</h2><ul>
+<li><p>下单减库存，即买家下单后，就去商品总库存中减去购买数量。一定不会出现超卖现象，但是买家不一定付款。</p>
+</li>
+<li><p>付款减库存，即买家下单付款后，才去商品总库存中减去购买数量，否则将库存一直保留给其他买家。如果并发很高，可能会导致买家付不了款，因为商品被其他买家买走了，又会导致库存超卖。</p>
+</li>
+<li><p>预扣库存，常见的减库存方式，买家下单后，库存将保持一段时间，超过时间，自动释放库存；释放后其他买家可继续购买。在买家付款前，系统会校验订单库存是否还有保留，如果没有保留，则再次尝试预扣；如果库存不足（预扣失败），则不允许继续付款；如果预扣成功，则完成付款并实际地减去库存。</p>
+</li>
+</ul>
+<h3 id="如何避免恶意买家操作？"><a href="#如何避免恶意买家操作？" class="headerlink" title="如何避免恶意买家操作？"></a>如何避免恶意买家操作？</h3><p>打标，也就是要识别出那些是恶意买家，给某些类目设置最大购买数量、以及重复下单不付款的操作次数进行限制。</p>
+<p><strong>“超卖”</strong>现象仍旧会发生，只能通过补货；或者买家付款时提示库存不足。</p>
+<h3 id="秒杀场景如何减库存？"><a href="#秒杀场景如何减库存？" class="headerlink" title="秒杀场景如何减库存？"></a>秒杀场景如何减库存？</h3><p>秒杀，即秒到即赚到，应该采用“<strong>下单减库存</strong>”方案。</p>
+<p>“<strong>下单减库存</strong>”主要解决的问题是，保证大并发请求时库存数据不能为负数，常见的解决方案如下：</p>
+<p>一、应用程序中通过事务来判断，即保证减库存后不能为负数，否则就回滚事务；</p>
+<p>二、直接将数据库的字段数据为无符号整数，只要减库存字段值小于零时运行SQL 语句来报错；</p>
+<p>三、利用 CASE WHEN 判断语句。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> item <span class="keyword">SET</span> inventory = <span class="keyword">CASE</span> <span class="keyword">WHEN</span> inventory &gt;= xxx <span class="keyword">THEN</span> </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">inventory - xxx <span class="keyword">ELSE</span> inventory <span class="keyword">END</span></span></pre></td></tr></table></figure>
+
+<h2 id="秒杀库存的极致优化"><a href="#秒杀库存的极致优化" class="headerlink" title="秒杀库存的极致优化"></a>秒杀库存的极致优化</h2><p>提升读性能：库存，作为关键数据和热点数据，秒杀场景并不需要对库存有精确性的一致性读，把库存数据放到缓存（Cache）；</p>
+<p>解决打并发读问题：采用 LocalCahe（即秒杀系统的单机上缓存商品相关数据）和对数据进行分层过滤方式。无论如何也无法避免大并发减库存操作。</p>
+<h3 id="如何在缓存中减库存和数据库中减库存？"><a href="#如何在缓存中减库存和数据库中减库存？" class="headerlink" title="如何在缓存中减库存和数据库中减库存？"></a>如何在缓存中减库存和数据库中减库存？</h3><blockquote>
+<p>如果你的秒杀商品的减库存逻辑非常单一，比如没有复杂的 SKU 库存和总库存这种联动关系的话，我觉得完全可以放在缓存中减库存。但是如果有比较复杂的减库存逻辑，或者需要使用事务，你还是必须在数据库中完成减库存。</p>
+<p>由于 MySQL 存储数据的特点，同一数据在数据库里肯定是一行存储（MySQL），因此会有大量线程来竞争 InnoDB 行锁，而并发度越高时等待线程会越多，TPS（Transaction Per Second，即每秒处理的消息数）会下降，响应时间（RT）会上升，数据库的吞吐量就会严重受影响。</p>
+<p>这就可能引发一个问题，就是单个热点商品会影响整个数据库的性能， 导致 0.01% 的商品影响 99.99% 的商品的售卖，这是我们不愿意看到的情况。一个解决思路是遵循前面介绍的原则进行隔离，把热点商品放到单独的热点库中。但是这无疑会带来维护上的麻烦，比如要做热点数据的动态迁移以及单独的数据库等。</p>
+<p>而分离热点商品到单独的数据库还是没有解决并发锁的问题，我们应该怎么办呢？要解决并发锁的问题，有两种办法：</p>
+<ul>
+<li><p>应用层做排队，按照商品维度设置队列顺序，能减少同一台机器对数据同一行进行操作的并发度，同时也能控制单个商品占用数据库连接数量，防止热点商品占用太多的数据库连接。</p>
+</li>
+<li><p>数据库分层做排队，应用层只能做到单机的排队，但是应用机器数本身很多，这种排队方式控制并发的能力仍然有限，所以如果能在数据库层做全局排队是最理想的。阿里的数据库团队开发了针对这种 MySQL 的 InnoDB 层上的补丁程序（patch），可以在数据库层上对单行记录做到并发排队。</p>
+</li>
+</ul>
+</blockquote>
+<h1 id="07-准备Plan-B：如何设计兜底方案？"><a href="#07-准备Plan-B：如何设计兜底方案？" class="headerlink" title="07|准备Plan B：如何设计兜底方案？"></a>07|准备Plan B：如何设计兜底方案？</h1><p>任何一个系统都需要“反脆弱”。</p>
+<h2 id="高可用系统建设"><a href="#高可用系统建设" class="headerlink" title="高可用系统建设"></a>高可用系统建设</h2><p><img src="/2019/03/03/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/如何设计一个秒杀系统\高可用系统全生命周期.jpg" alt="img\高可用系统全生命周期"></p>
+<blockquote>
+<ul>
+<li><p>架构阶段：架构阶段主要考虑系统的可扩展性和容错性，要避免系统出现单点问题。例如多机房单元化部署，即使某个城市的某个机房出现整体故障，仍然不会影响整体网站的运转。</p>
+</li>
+<li><p>编码阶段：编码最重要的是保证代码的健壮性，例如涉及远程调用问题时，要设置合理的超时退出机制，防止被其他系统拖垮，也要对调用的返回结果集有预期，防止返回的结果超出程序处理范围，最常见的做法就是对错误异常进行捕获，对无法预料的错误要有默认处理结果。</p>
+</li>
+<li><p>测试阶段：测试主要是保证测试用例的覆盖度，保证最坏情况发生时，我们也有相应的处理流程。</p>
+</li>
+<li><p>发布阶段：发布时也有一些地方需要注意，因为发布时最容易出现错误，因此要有紧急的回滚机制。</p>
+</li>
+<li><p>运行阶段：运行时是系统的常态，系统大部分时间都会处于运行态，运行态最重要的是对系统的监控要准确及时，发现问题能够准确报警并且报警数据要准确详细，以便于排查问题。</p>
+</li>
+<li><p>故障发生：故障发生时首先最重要的就是及时止损，例如由于程序问题导致商品价格错误，那就要及时下架商品或者关闭购买链接，防止造成重大资产损失。然后就是要能够及时恢复服务，并定位原因解决问题。</p>
+</li>
+</ul>
+</blockquote>
+<h3 id="如何保障系统稳定运行"><a href="#如何保障系统稳定运行" class="headerlink" title="如何保障系统稳定运行"></a>如何保障系统稳定运行</h3><p>那么针对秒杀系统，我们重点介绍在遇到大流量时，应该从哪些方面来保障系统的稳定运行，所以更多的是看如何针对运行阶段进行处理，这就引出了接下来的内容：降级、限流和拒绝服务。</p>
+<h4 id="降级"><a href="#降级" class="headerlink" title="降级"></a>降级</h4><p>当系统的容量达到一定程度时，限制或者关闭系统的某些非核心功能，从而把有限的资源保留给更核心的业务。</p>
+<p>它是一个有目的、有计划的执行过程，所以对降级我们一般需要有一套预案来配合执行。如果我们把它系统化，就可以通过预案系统和开关系统来实现降级。</p>
+<p><img src="/2019/03/03/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/如何设计一个秒杀系统\开关系统.jpg" alt="img\开关系统"></p>
+<h4 id="限流"><a href="#限流" class="headerlink" title="限流"></a>限流</h4><p>限流就是当系统容量达到瓶颈时，我们需要通过限制一部分流量来保护系统，并做到既可以人工执行开关，也支持自动化保护的措施。</p>
+<ul>
+<li><p>客户端限流，好处可以限制请求的发出，通过减少发出无用请求从而减少对系统的消耗。缺点就是当客户端比较分散时，没法设置合理的限流阈值：如果阈值设的太小，会导致服务端没有达到瓶颈时客户端已经被限制；而如果设的太大，则起不到限制的作用。</p>
+</li>
+<li><p>服务端限流：好处是可以根据服务端的性能设置合理的阈值，而缺点就是被限制的请求都是无效的请求，处理这些无效的请求本身也会消耗服务器资源。</p>
+</li>
+</ul>
+<p><img src="/2019/03/03/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/如何设计一个秒杀系统\限流.jpg" alt="img\限流"></p>
+<h4 id="拒绝服务"><a href="#拒绝服务" class="headerlink" title="拒绝服务"></a>拒绝服务</h4><p>实在招架不住，也就只能拒绝服务了。</p>
+<p>当系统负载达到一定阈值时，例如 CPU 使用率达到 90% 或者系统 load 值达到 2*CPU 核数时，系统直接拒绝所有请求，这种方式是最暴力但也最有效的系统保护方式。例如秒杀系统，我们在如下几个环节设计过载保护：</p>
+<blockquote>
+<p>在最前端的 Nginx 上设置过载保护，当机器负载达到某个值时直接拒绝 HTTP 请求并返回 503 错误码，在 Java 层同样也可以设计过载保护。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%A7%92%E6%9D%80/" rel="tag"># 秒杀</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/02/22/krpano%20%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" rel="prev" title="krpano 配置文件（三）">
+      <i class="fa fa-chevron-left"></i> krpano 配置文件（三）
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/03/09/%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9%20Java%20%E7%9A%84%E7%90%86%E8%A7%A3/" rel="next" title="谈谈你对 Java 平台的理解？">
+      谈谈你对 Java 平台的理解？ <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#01-设计秒杀系统应注意的5个架构原则？"><span class="nav-number">1.</span> <span class="nav-text">01|设计秒杀系统应注意的5个架构原则？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#02-如何做好动静分离？有哪些方案可选？"><span class="nav-number">2.</span> <span class="nav-text">02|如何做好动静分离？有哪些方案可选？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#静态数据如何做缓存？"><span class="nav-number">2.1.</span> <span class="nav-text">静态数据如何做缓存？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何做动静分离改造？"><span class="nav-number">2.2.</span> <span class="nav-text">如何做动静分离改造？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#03-二八原则：有正对性地处理好系统的“热点数据”"><span class="nav-number">3.</span> <span class="nav-text">03|二八原则：有正对性地处理好系统的“热点数据”</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何发现热点数据"><span class="nav-number">3.1.</span> <span class="nav-text">如何发现热点数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#处理热点数据"><span class="nav-number">3.2.</span> <span class="nav-text">处理热点数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#04-流量削峰这事应该怎么做？"><span class="nav-number">4.</span> <span class="nav-text">04|流量削峰这事应该怎么做？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要削峰？"><span class="nav-number">4.1.</span> <span class="nav-text">为什么要削峰？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#削峰的操作思路？"><span class="nav-number">4.2.</span> <span class="nav-text">削峰的操作思路？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#排队"><span class="nav-number">4.2.1.</span> <span class="nav-text">排队</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#答题"><span class="nav-number">4.2.2.</span> <span class="nav-text">答题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分层过滤"><span class="nav-number">4.2.3.</span> <span class="nav-text">分层过滤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分层过滤的基本原则"><span class="nav-number">4.2.4.</span> <span class="nav-text">分层过滤的基本原则</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#05-影响性能的因素？该如何提高系统的性能？"><span class="nav-number">5.</span> <span class="nav-text">05|影响性能的因素？该如何提高系统的性能？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#响应时间对-QPS-的影响"><span class="nav-number">5.1.</span> <span class="nav-text">响应时间对 QPS 的影响</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程数对-QPS-的影响"><span class="nav-number">5.2.</span> <span class="nav-text">线程数对 QPS 的影响</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何发现瓶颈？"><span class="nav-number">5.3.</span> <span class="nav-text">如何发现瓶颈？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#有那些工具可发现-CPU-瓶颈呢？"><span class="nav-number">5.3.1.</span> <span class="nav-text">有那些工具可发现 CPU 瓶颈呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何判断-CPU-是不是瓶颈呢？"><span class="nav-number">5.3.2.</span> <span class="nav-text">如何判断 CPU 是不是瓶颈呢？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何优化系统？"><span class="nav-number">5.4.</span> <span class="nav-text">如何优化系统？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#06-秒杀系统”减库存”设计的核心逻辑？"><span class="nav-number">6.</span> <span class="nav-text">06|秒杀系统”减库存”设计的核心逻辑？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#减库存有那几种方式？"><span class="nav-number">6.1.</span> <span class="nav-text">减库存有那几种方式？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何避免恶意买家操作？"><span class="nav-number">6.1.1.</span> <span class="nav-text">如何避免恶意买家操作？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#秒杀场景如何减库存？"><span class="nav-number">6.1.2.</span> <span class="nav-text">秒杀场景如何减库存？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#秒杀库存的极致优化"><span class="nav-number">6.2.</span> <span class="nav-text">秒杀库存的极致优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何在缓存中减库存和数据库中减库存？"><span class="nav-number">6.2.1.</span> <span class="nav-text">如何在缓存中减库存和数据库中减库存？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#07-准备Plan-B：如何设计兜底方案？"><span class="nav-number">7.</span> <span class="nav-text">07|准备Plan B：如何设计兜底方案？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#高可用系统建设"><span class="nav-number">7.1.</span> <span class="nav-text">高可用系统建设</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何保障系统稳定运行"><span class="nav-number">7.1.1.</span> <span class="nav-text">如何保障系统稳定运行</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#降级"><span class="nav-number">7.1.1.1.</span> <span class="nav-text">降级</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#限流"><span class="nav-number">7.1.1.2.</span> <span class="nav-text">限流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#拒绝服务"><span class="nav-number">7.1.1.3.</span> <span class="nav-text">拒绝服务</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mofei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mofei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

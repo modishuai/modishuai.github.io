@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.1.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://yoursite.com').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="谈谈你对 Java 平台的理解？“Java 是解释执行“，这句话正确吗？Java 平台最为显著的两方面特性： 一是跨平台能力，即所谓的“一次编译，到处执行“。 二是垃圾回收器（GC，Garbage Collection），回收已分配的内存空间，开发人员无需操心对内存的分配和回收。 JRE（Java Runtime Enviroment) Java 运行时环境，包括 JVM 标准实现及 Java 核">
+<meta property="og:type" content="article">
+<meta property="og:title" content="谈谈你对 Java 平台的理解？">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;03&#x2F;09&#x2F;%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9%20Java%20%E7%9A%84%E7%90%86%E8%A7%A3&#x2F;index.html">
+<meta property="og:site_name" content="莫非的技术笔记">
+<meta property="og:description" content="谈谈你对 Java 平台的理解？“Java 是解释执行“，这句话正确吗？Java 平台最为显著的两方面特性： 一是跨平台能力，即所谓的“一次编译，到处执行“。 二是垃圾回收器（GC，Garbage Collection），回收已分配的内存空间，开发人员无需操心对内存的分配和回收。 JRE（Java Runtime Enviroment) Java 运行时环境，包括 JVM 标准实现及 Java 核">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-03-08T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-12-03T07:21:54.879Z">
+<meta property="article:author" content="mofei">
+<meta property="article:tag" content="Java 核心技术">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2019/03/09/%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9%20Java%20%E7%9A%84%E7%90%86%E8%A7%A3/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>谈谈你对 Java 平台的理解？ | 莫非的技术笔记</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">莫非的技术笔记</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/09/%E8%B0%88%E8%B0%88%E4%BD%A0%E5%AF%B9%20Java%20%E7%9A%84%E7%90%86%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mofei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="莫非的技术笔记">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          谈谈你对 Java 平台的理解？
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-03-09 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-09T00:00:00+08:00">2019-03-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-03 15:21:54" itemprop="dateModified" datetime="2019-12-03T15:21:54+08:00">2019-12-03</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="谈谈你对-Java-平台的理解？“Java-是解释执行“，这句话正确吗？"><a href="#谈谈你对-Java-平台的理解？“Java-是解释执行“，这句话正确吗？" class="headerlink" title="谈谈你对 Java 平台的理解？“Java 是解释执行“，这句话正确吗？"></a>谈谈你对 Java 平台的理解？“Java 是解释执行“，这句话正确吗？</h2><p>Java 平台最为显著的两方面特性：</p>
+<p>一是跨平台能力，即所谓的“一次编译，到处执行“。</p>
+<p>二是垃圾回收器（GC，Garbage Collection），回收已分配的内存空间，开发人员无需操心对内存的分配和回收。</p>
+<p>JRE（Java Runtime Enviroment) Java 运行时环境，包括 JVM 标准实现及 Java 核心类库。JRE 自带的核心类库主要是 <code>JRE\lib\rt.jar</code>这个文件。</p>
+<p>JDK（Java Development Kit）Java 开发环境，可以看作是JRE 的超集。它包含了Java 的运行环境（JVM + Java 系统类库）和 Java 工具，提供更多的工具，比如编译器、调试器、诊断工具。</p>
+<h3 id="JDK-的基础组件包括："><a href="#JDK-的基础组件包括：" class="headerlink" title="JDK 的基础组件包括："></a>JDK 的基础组件包括：</h3><p>javac：编译器，将源程序转化为字节码。（.java 转 .class）</p>
+<p>jar: 打包工具，将相关类文件打包成一个文件。</p>
+<p>javadoc：Java 文档生成工具，将源代码中的注释提取成文档。</p>
+<p>jdb：debugger，Java 调试工具。</p>
+<p>java：运行编译后的 Java 程序（.class后缀）</p>
+<p>appletviewer：小程序浏览器，一种可运行在 HTML 文件上的 Java 小程序的 Java 浏览器。</p>
+<p>Jconsole：Java 进行系统调试和监控工具。</p>
+<h3 id="JDK-的基础类库"><a href="#JDK-的基础类库" class="headerlink" title="JDK 的基础类库"></a>JDK 的基础类库</h3><p>java.lang：基础类库，比如 String ，这个包是唯一不需要 import 关键字就可以使用的包。 </p>
+<p>java.io：有关输入输出的类，比如对文件的操作。</p>
+<p>java.nio：为了完善 io 包的功能，提高 io 包的性能而新增的包，比如 nio 非阻塞应用。</p>
+<p>java.net：有关网络的类，比如 URI、URLConnection等。</p>
+<p>java.util：系统辅助类，特别是集合 Collection 、List、Map等。</p>
+<p>java.sql：数据库操作相关类，Connection、Statement、ResultSet等。</p>
+<p>javax.servlet：jsp、servlet 等所使用的类。</p>
+<h3 id="Java-是解释执行，正确吗？"><a href="#Java-是解释执行，正确吗？" class="headerlink" title="Java 是解释执行，正确吗？"></a>Java 是解释执行，正确吗？</h3><p>这个说法不太正确，我们开发好的 Java 源代码，首先是经过 javac 编译成字节码（bytecode），然后在运行时，通过JVM（Java 虚拟机）内嵌的解释器将编译好的字节码转化成最终的机器码。但是常用的JVM 比如Oracle 提供的 Hotspot JVM，都提供了 JIT （Just-In-Time Compiler）即时编译器，JIT 能够在运行时将热点代码编译成机器码，这个过程成为“编译执行“而非“解释执行“。</p>
+<blockquote>
+<p>JIT（Just-In-Time）即时编译器，通常通过 javac 将程序源代码编译，转换成 java 字节码，JVM 通过解释字节码将其翻译成对应的机器指令，逐条读入，逐条解释翻译。很显然，经过解释执行，其执行速度必然会比可执行的二进制字节码程序慢很多。为了提高执行速度，引入了 JIT 技术。</p>
+<p>在运行时 JIT 会把翻译过的机器码保存起来，以备下次使用，因此从理论上来说，采用该 JIT 技术可以接近以前纯编译技术。</p>
+</blockquote>
+<p>我们通常把 Java 分为编译期和运行时。</p>
+<p>这里说的 Java 的编译和 C/C++ 是有着不同的意义的，Javac 的编译，编译 Java 源码生成“.class”文件里面实际是字节码，而不是可以直接执行的机器码。Java 通过字节码和 Java 虚拟机（JVM）这种跨平台的抽象，屏蔽了操作系统和硬件的细节，这也是实现“一次编译，到处执行”的基础。</p>
+<p>在运行时，JVM 会通过类加载器（Class-Loader）加载字节码，解释或者编译执行。就像我前面提到的，主流 Java 版本中，如 JDK 8 实际是解释和编译混合的一种模式，即所谓的混合模式（-Xmixed）。通常运行在 server 模式的 JVM，会进行上万次调用以收集足够的信息进行高效的编译，client 模式这个门限是 1500 次。Oracle Hotspot JVM 内置了两个不同的 JIT compiler，C1 对应前面说的 client 模式，适用于对于启动速度敏感的应用，比如普通 Java 桌面应用；C2 对应 server 模式，它的优化是为长时间运行的服务器端应用设计的。默认是采用所谓的分层编译（TieredCompilation）。</p>
+<p>除了我们日常最常见的 Java 使用模式，其实还有一种新的编译方式，即所谓的 AOT（Ahead-of-Time Compilation），直接将字节码编译成机器代码，这样就避免了 JIT 预热等各方面的开销，比如 Oracle JDK 9 就引入了实验性的 AOT 特性，并且增加了新的 jaotc 工具。利用下面的命令把某个类或者某个模块编译成为 AOT 库。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">jaotc --output libHelloWorld.so HelloWorld<span class="class">.<span class="keyword">class</span></span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="title">jaotc</span> --<span class="title">output</span> <span class="title">libjava</span>.<span class="title">base</span>.<span class="title">so</span> --<span class="title">module</span> <span class="title">java</span>.<span class="title">base</span></span></span></pre></td></tr></table></figure>
+
+<p>然后在启动时直接指定就可以了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">java -XX:AOTLibrary=./libHelloWorld.so,./libjava.base.so HelloWorld</span></pre></td></tr></table></figure>
+
+<p>而且，Oracle JDK 支持分层编译和 AOT 协作使用，这两者并不是二选一的关系。如果你有兴趣，可以参考相关文档：<a href="http://openjdk.java.net/jeps/295" target="_blank" rel="noopener">http://openjdk.java.net/jeps/295</a>。AOT 也不仅仅是只有这一种方式，业界早就有第三方工具（如 GCJ、Excelsior JET）提供相关功能。</p>
+<h2 id="精彩评论"><a href="#精彩评论" class="headerlink" title="精彩评论"></a>精彩评论</h2><blockquote>
+<p>Woj</p>
+<p>“一次编译、到处运行”说的是Java语言跨平台的特性，Java的跨平台特性与Java虚拟机的存在密不可分，可在不同的环境中运行。比如说Windows平台和Linux平台都有相应的JDK，安装好JDK后也就有了Java语言的运行环境。其实Java语言本身与其他的编程语言没有特别大的差异，并不是说Java语言可以跨平台，而是在不同的平台都有可以让Java语言运行的环境而已，所以才有了Java一次编译，到处运行这样的效果。<br>严格的讲，跨平台的语言不止Java一种，但Java是较为成熟的一种。“一次编译，到处运行”这种效果跟编译器有关。编程语言的处理需要编译器和解释器。Java虚拟机和DOS类似，相当于一个供程序运行的平台。<br>程序从源代码到运行的三个阶段：编码——编译——运行——调试。Java在编译阶段则体现了跨平台的特点。编译过程大概是这样的：首先是将Java源代码转化成.CLASS文件字节码，这是第一次编译。.class文件就是可以到处运行的文件。然后Java字节码会被转化为目标机器代码，这是是由JVM来执行的，即Java的第二次编译。<br>“到处运行”的关键和前提就是JVM。因为在第二次编译中JVM起着关键作用。在可以运行Java虚拟机的地方都内含着一个JVM操作系统。从而使JAVA提供了各种不同平台上的虚拟机制，因此实现了“到处运行”的效果。需要强调的一点是，java并不是编译机制，而是解释机制。Java字节码的设计充分考虑了JIT这一即时编译方式，可以将字节码直接转化成高性能的本地机器码，这同样是虚拟机的一个构成部分。</p>
+<p>一叶追寻</p>
+<p>对Java平台的理解，首先想到的是Java的一些特性，比如平台无关性、面向对象、GC机制等，然后会在这几个方面去回答。平台无关性依赖于JVM，将.class文件解释为适用于操作系统的机器码。面向对象则会从封装、继承、多态这些特性去解释，具体内容就不在评论里赘述了。另外Java的内存回收机制，则涉及到Java的内存结构，堆、栈、方法区等，然后围绕什么样的对象可以回收以及回收的执行。以上是我对本道题的理解，不足之处还请杨老师指出，希望通过这次学习能把Java系统的总结一下~</p>
+<p>三军</p>
+<p>Java特性: </p>
+<ol>
+<li><p>面向对象（封装，继承，多态）</p>
+</li>
+<li><p>平台无关性（JVM运行.class文件)</p>
+</li>
+<li><p>语言（泛型，Lambda）</p>
+</li>
+<li><p>类库（集合，并发，网络，IO/NIO）</p>
+</li>
+<li><p>JRE（Java运行环境，JVM，类库）</p>
+</li>
+<li><p>JDK（Java开发工具，包括JRE，javac，诊断工具）</p>
+</li>
+</ol>
+<p>Java是解析运行吗？  不正确！</p>
+<ol>
+<li><p>Java源代码经过Javac编译成.class文件</p>
+</li>
+<li><p>.class文件经JVM解析或编译运行。</p>
+<p>（1）解析:.class文件经过JVM内嵌的解析器解析执行。</p>
+<p>（2）编译:存在JIT编译器（Just In Time Compile 即时编译器）把经常运行的代码作为”热点代码”编译与本地平台相关的机器码，并进行各种层次的优化。</p>
+<p>（3） AOT编译器: Java 9提供的直接将所有代码编译成机器码执行。</p>
+</li>
+</ol>
+<p>jack：Java平台包括java语言，class文件结构，jvm，api类库，第三方库，各种编译、监控和诊断工具等。<br>Java语言是一种面向对象的高级语言；通过平台中立的class文件格式和屏蔽底层硬件差异的jvm实现‘一次编写，到处运行’；<br>通过‘垃圾收集器’管理内存的分配和回收。<br>jvm通过使用class文件这种中间表示和具体语言解耦，使得任何在源码早期编译过程中以class文件为中间表示或者<br>能够转换成class文件的具体语言，都能运行jvm之上，也就可以使用jvm的各种特性。<br>api类库主要包含集合、IO/NIO、网络、并发等。<br>第三方库包括各种商业机构和开源社区的java库，如spring、mybatis等。<br>各种工具如javac、jconsole、jmap、jstack等。</p>
+<p>杨文奇： 解释器是把代码一行一行解释为二进制指令，编译器是把代码一次性编译为二进制指令，对JAVA语言来说，在执行阶段区分编译和解释，但对C语言来说，在执行阶段是直接执行二进制指令，不存在编译和解释，不知道理解对吗？</p>
+<p>作者回复：嗯，c语言直接编译为机器码，并不存在虚拟机，不存在Java的部分概念</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java-%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF/" rel="tag"># Java 核心技术</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/03/03/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/" rel="prev" title="如何设计一个秒杀系统">
+      <i class="fa fa-chevron-left"></i> 如何设计一个秒杀系统
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/" rel="next" title="Java 核心技术-基础篇">
+      Java 核心技术-基础篇 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#谈谈你对-Java-平台的理解？“Java-是解释执行“，这句话正确吗？"><span class="nav-number">1.</span> <span class="nav-text">谈谈你对 Java 平台的理解？“Java 是解释执行“，这句话正确吗？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK-的基础组件包括："><span class="nav-number">1.1.</span> <span class="nav-text">JDK 的基础组件包括：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK-的基础类库"><span class="nav-number">1.2.</span> <span class="nav-text">JDK 的基础类库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-是解释执行，正确吗？"><span class="nav-number">1.3.</span> <span class="nav-text">Java 是解释执行，正确吗？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#精彩评论"><span class="nav-number">2.</span> <span class="nav-text">精彩评论</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mofei</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mofei</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v4.1.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
