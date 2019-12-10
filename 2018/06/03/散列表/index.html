@@ -54,18 +54,18 @@
 <meta property="og:description" content="哈希表哈希表的定义哈希表又称为“散列表”，主要是面向查找的一种存储结构。是根据（key value）键值而直接进行访问的数据结构。也就是说，通过把（key value）键值映射到表中的一个位置来访问记录，以加快查找的速度。这个映射函数称为“散列函数”，存放记录的数组称为“散列表”。 散列过程 存储：通过散列函数将 key 转换成一个整型数字，让后将该数字对数组长度进行取余，将取余的结果作为数组下标">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;06&#x2F;03&#x2F;%E6%95%A3%E5%88%97%E8%A1%A8&#x2F;拉链法.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;06&#x2F;03&#x2F;%E6%95%A3%E5%88%97%E8%A1%A8&#x2F;散列表&#x2F;0.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;06&#x2F;03&#x2F;%E6%95%A3%E5%88%97%E8%A1%A8&#x2F;散列表&#x2F;1.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;06&#x2F;03&#x2F;%E6%95%A3%E5%88%97%E8%A1%A8&#x2F;散列表&#x2F;直接定址法.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;06&#x2F;03&#x2F;%E6%95%A3%E5%88%97%E8%A1%A8&#x2F;散列表&#x2F;折叠法.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;06&#x2F;03&#x2F;%E6%95%A3%E5%88%97%E8%A1%A8&#x2F;散列表&#x2F;example1.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;06&#x2F;03&#x2F;%E6%95%A3%E5%88%97%E8%A1%A8&#x2F;散列表&#x2F;开放定址法.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;06&#x2F;03&#x2F;%E6%95%A3%E5%88%97%E8%A1%A8&#x2F;散列表&#x2F;线性探测法.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;06&#x2F;03&#x2F;%E6%95%A3%E5%88%97%E8%A1%A8&#x2F;0.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;06&#x2F;03&#x2F;%E6%95%A3%E5%88%97%E8%A1%A8&#x2F;1.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;06&#x2F;03&#x2F;%E6%95%A3%E5%88%97%E8%A1%A8&#x2F;直接定址法.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;06&#x2F;03&#x2F;%E6%95%A3%E5%88%97%E8%A1%A8&#x2F;折叠法.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;06&#x2F;03&#x2F;%E6%95%A3%E5%88%97%E8%A1%A8&#x2F;example1.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;06&#x2F;03&#x2F;%E6%95%A3%E5%88%97%E8%A1%A8&#x2F;开放定址法.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;06&#x2F;03&#x2F;%E6%95%A3%E5%88%97%E8%A1%A8&#x2F;线性探测法.png">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;06&#x2F;03&#x2F;%E6%95%A3%E5%88%97%E8%A1%A8&#x2F;散列表&#x2F;线性探测法2.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;06&#x2F;03&#x2F;%E6%95%A3%E5%88%97%E8%A1%A8&#x2F;散列表&#x2F;线性探测法3.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;06&#x2F;03&#x2F;%E6%95%A3%E5%88%97%E8%A1%A8&#x2F;散列表&#x2F;拉链法1.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;06&#x2F;03&#x2F;%E6%95%A3%E5%88%97%E8%A1%A8&#x2F;线性探测法3.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;06&#x2F;03&#x2F;%E6%95%A3%E5%88%97%E8%A1%A8&#x2F;拉链法1.png">
 <meta property="article:published_time" content="2018-06-03T13:07:53.000Z">
-<meta property="article:modified_time" content="2019-12-10T11:01:27.919Z">
+<meta property="article:modified_time" content="2019-12-10T11:23:48.224Z">
 <meta property="article:author" content="mofei">
 <meta property="article:tag" content="数据结构">
 <meta name="twitter:card" content="summary">
@@ -227,7 +227,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-10 19:01:27" itemprop="dateModified" datetime="2019-12-10T19:01:27+08:00">2019-12-10</time>
+                <time title="修改时间：2019-12-10 19:23:48" itemprop="dateModified" datetime="2019-12-10T19:23:48+08:00">2019-12-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -280,9 +280,9 @@
 <p>理想的情况是能直接找到需要的记录，因此必须在记录的存储位置和它的关键字之间建立一个确定的对应关系f，使每个关键字和结构中一个唯一的存储位置相对应。</p>
 <p>哈希表最常见的例子是以学生学号为关键字的成绩表，１号学生的记录位置在第一条，１０号学生的记录位置在第１０条…</p>
 <p>如果我们以学生姓名为关键字，如何建立查找表，使得根据姓名可以直接找到相应记录呢？</p>
-<p><img src="/2018/06/03/%E6%95%A3%E5%88%97%E8%A1%A8/散列表\0.png" alt="散列表\0"></p>
+<p><img src="/2018/06/03/%E6%95%A3%E5%88%97%E8%A1%A8/0.png" alt="散列表"></p>
 <p>用上述得到的数值作为对应记录在表中的位置，得到下表：</p>
-<p><img src="/2018/06/03/%E6%95%A3%E5%88%97%E8%A1%A8/散列表\1.png" alt="散列表\1"></p>
+<p><img src="/2018/06/03/%E6%95%A3%E5%88%97%E8%A1%A8/1.png" alt="散列表\1"></p>
 <p>上面这张表即哈希表。</p>
 <p>如果将来要查李秋梅的成绩，可以用上述方法求出该记录所在位置：</p>
 <p>李秋梅:lqm 12+17+13=42 取表中第42条记录即可。</p>
@@ -294,14 +294,14 @@
 <p>但这种方法效率不高,时间复杂度是O(1),空间复杂度是O(n),n是关键字的个数。</p>
 </li>
 </ol>
-<p><img src="/2018/06/03/%E6%95%A3%E5%88%97%E8%A1%A8/散列表\直接定址法.png" alt="散列表\直接定址法"></p>
+<p><img src="/2018/06/03/%E6%95%A3%E5%88%97%E8%A1%A8/直接定址法.png" alt="散列表\直接定址法"></p>
 <ol start="2">
 <li><p>平法取中法</p>
 <p>取关键字平方后的中间几位作为哈希地址。假如有以下关键字序列{421，423，436}，平方之后的结果为{177241，178929，190096}，那么可以取{72，89，00}作为Hash地址。</p>
 </li>
 <li><p>折叠法</p>
 <p>将关键字分割成位数相同的几部分（最后一部分可以不同），然后去这几部分的叠加和（舍去进位）作为哈希地址。例如：每一种西文图书都有一个国际标准图书编号，它是一个10位的十进制数字，若要以它作关键字建立一个哈希表，当馆藏书种类不到10,000时，可采用此法构造一个四位数的哈希函数。如果一本书的编号为0-442-20586-4,则：</p>
-<p><img src="/2018/06/03/%E6%95%A3%E5%88%97%E8%A1%A8/散列表\折叠法.png" alt="散列表\折叠法"></p>
+<p><img src="/2018/06/03/%E6%95%A3%E5%88%97%E8%A1%A8/折叠法.png" alt="散列表\折叠法"></p>
 </li>
 <li><p>数字分析法</p>
 <p>有学生的生日数据如下：</p>
@@ -325,7 +325,7 @@
 </ol>
 <h2 id="哈希冲突处理"><a href="#哈希冲突处理" class="headerlink" title="哈希冲突处理"></a>哈希冲突处理</h2><p>在理想的情况下，每一个关键字，通过散列函数计算出来的地址都是不一样的，可现实中，这只是一个理想。</p>
 <p>我们时常会碰到两个关键字key1 ≠ key2，但是却有f (key1) = f (key2)，这种现象我们称为冲突（collision)，并把key1和 key2称为这个散列函数的同义词（synonym）。出现了冲突当然非常糟糕，那将造成数据査找错误。尽管我们可以通过精心设计的散列函数让冲突尽可能的少，但是不能完全避免。</p>
-<p><img src="/2018/06/03/%E6%95%A3%E5%88%97%E8%A1%A8/散列表\example1.png" alt="散列表\example1"></p>
+<p><img src="/2018/06/03/%E6%95%A3%E5%88%97%E8%A1%A8/example1.png" alt="散列表\example1"></p>
 <p>如果两个同学分别叫刘丽刘兰，当加入刘兰时，地址24发生了冲突，我们可以以某种规律使用其它的存储位置，如果选择的一个其它位置仍有冲突，则再选下一个，直到找到没有冲突的位置。选择其它位置的方法有：</p>
 <ol>
 <li><p>开发定址法</p>
@@ -336,16 +336,16 @@
 <p>如果di取值可能为1,-1,2,-2,4,-4,9,-9,16,-16,…k*k,-k*k(k&lt;=m/2)称二次探测再散列。</p>
 <p>如果di取值可能为伪随机数列。称伪随机探测再散列。</p>
 <p>例一：在长度为11的哈希表中已填有关键字分别为17,60,29的记录，现有第四个记录，其关键字为38，由哈希函数得到地址为5，若用线性探测再散列，如下：</p>
-<p><img src="/2018/06/03/%E6%95%A3%E5%88%97%E8%A1%A8/散列表\开放定址法.png" alt="散列表\开放定址法"></p>
+<p><img src="/2018/06/03/%E6%95%A3%E5%88%97%E8%A1%A8/开放定址法.png" alt="散列表\开放定址法"></p>
 <p>例二：比如说，我们的关键字集合为{12,67,56,16,25,37,22,29,15,47,48,34},表长为12。 我们用散列函数f(key) = key mod 12。</p>
 <p><strong>线性探测法</strong></p>
 <p>当计算前S个数{12,67,56,16,25}时，都是没有冲突的散列地址，直接存入：</p>
-<p><img src="/2018/06/03/%E6%95%A3%E5%88%97%E8%A1%A8/散列表\线性探测法.png" alt="散列表\线性探测法"></p>
+<p><img src="/2018/06/03/%E6%95%A3%E5%88%97%E8%A1%A8/线性探测法.png" alt="散列表\线性探测法"></p>
 <p>计算key = 37时，发现f(37) = 1，此时就与25所在的位置冲突</p>
 <p>于是我们应用上面的公式f(37) = (f(37)+1) mod 12 = 2。于是将37存入下标为2的位置。</p>
 <p><img src="/2018/06/03/%E6%95%A3%E5%88%97%E8%A1%A8/散列表\线性探测法2.png" alt="散列表\线性探测法2"></p>
 <p>接下来22,29,15,47都没有冲突，正常的存入：</p>
-<p><img src="/2018/06/03/%E6%95%A3%E5%88%97%E8%A1%A8/散列表\线性探测法3.png" alt="散列表\线性探测法3"></p>
+<p><img src="/2018/06/03/%E6%95%A3%E5%88%97%E8%A1%A8/线性探测法3.png" alt="散列表\线性探测法3"></p>
 <p>我们把这种解决冲突的开放定址法称为线性探测法。</p>
 <p>从这个例子我们也看到，我们在解决冲突的时候，还会碰到如48和37这种本来都不是同义词却需要争夺一个地址的情况，我们称这种现象为堆积。很显然，堆积的出现，使得我们需要不断处理冲突，无论是存入还是査找效率都会大大降低。</p>
 <p><strong>二次探测法</strong></p>
@@ -367,7 +367,7 @@
 <p>散列冲突处理的开放定址法，它的思路就是一旦发生了冲突，就去寻找下一个空的散列地址。那么，有冲突就非要换地方呢，我们直接就在原地处理行不行呢？这就是链地址法。</p>
 <p>将所有关键字为同义词的记录存储在一个单链表中，我们称这种表为同义词子表，在散列表中只存储所有同义词子表的头指针。</p>
 <p>对于关键字集合{12,67,56,16,25,37, 22,29,15,47,48,34}，我们用前面同样的12为除数，进行除留余数法：</p>
-<p><img src="/2018/06/03/%E6%95%A3%E5%88%97%E8%A1%A8/散列表\拉链法1.png" alt="散列表\拉链法1"></p>
+<p><img src="/2018/06/03/%E6%95%A3%E5%88%97%E8%A1%A8/拉链法1.png" alt="散列表\拉链法1"></p>
 <p>Tips：此时，已经不存在什么冲突换址的问题，无论有多少个冲突，都只是在当前位置给单链表增加结点的问题。很不错的解决思路吧？</p>
 <p>拉链法解决冲突的做法是：将所有关键字为同义词的结点链接在同一个单链表中。若选定的散列表长度为m，则可将散列表定义为一个由m个头指针组成的指针数组T[0..m-1]。凡是散列地址为i的结点，均插入到以T[i]为头指针的单链表中。T中各分量的初值均应为空指针。在拉链法中，装填因子α可以大于 1，但一般均取α≤1。</p>
 <p><strong>拉链发的优缺点</strong></p>
