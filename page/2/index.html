@@ -211,7 +211,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-10 17:39:49" itemprop="dateModified" datetime="2019-12-10T17:39:49+08:00">2019-12-10</time>
+                <time title="修改时间：2019-12-10 20:00:16" itemprop="dateModified" datetime="2019-12-10T20:00:16+08:00">2019-12-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -219,8 +219,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Electron/" itemprop="url" rel="index">
-                    <span itemprop="name">Electron</span>
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">前端笔记</span>
                   </a>
                 </span>
             </span>
@@ -271,7 +271,7 @@
 <li><p>electron ，将应用程序拖入窗口中。</p>
 </li>
 </ul>
-<p><img src="/2019/04/14/%E6%9E%84%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AAELECTRON%E5%BA%94%E7%94%A8/构建第一个ELECTRON应用\hello-electron.jpg" alt="构建第一个ELECTRON应用\hello-electron"></p>
+<p><img src="/2019/04/14/%E6%9E%84%E5%BB%BA%E7%AC%AC%E4%B8%80%E4%B8%AAELECTRON%E5%BA%94%E7%94%A8/hello-electron.jpg" alt="构建第一个ELECTRON应用\hello-electron"></p>
 <h1 id="应用打包"><a href="#应用打包" class="headerlink" title="应用打包"></a>应用打包</h1><p>安装打包工具</p>
 <p>全局安装</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">npm install electron-packager --save-dev</span></pre></td></tr></table></figure>
@@ -361,7 +361,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-06-11 20:54:58" itemprop="dateModified" datetime="2019-06-11T20:54:58+08:00">2019-06-11</time>
+                <time title="修改时间：2019-12-10 19:58:35" itemprop="dateModified" datetime="2019-12-10T19:58:35+08:00">2019-12-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -369,8 +369,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">后端笔记</span>
                   </a>
                 </span>
             </span>
@@ -407,7 +407,7 @@
 </ul>
 <h3 id="自上而下的分析思路和应用工具"><a href="#自上而下的分析思路和应用工具" class="headerlink" title="自上而下的分析思路和应用工具"></a>自上而下的分析思路和应用工具</h3><h4 id="系统性能分析"><a href="#系统性能分析" class="headerlink" title="系统性能分析"></a>系统性能分析</h4><p>系统性能分析中主要关注 <strong>CPU</strong>、<strong>内存</strong>、<strong>IO</strong> </p>
 <p>Linux 系统中先用 top命令查看 CPU 负载情况。</p>
-<p><img src="/2019/04/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%80%A7%E8%83%BD%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-性能基础篇\top.png" alt="Java核心技术-性能基础篇\top"></p>
+<p><img src="/2019/04/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%80%A7%E8%83%BD%E5%9F%BA%E7%A1%80%E7%AF%87/top.png" alt="top"></p>
 <p>可以看到 load average（平均负载）三个值（1分钟，5分钟，15分钟）非常低，暂时没有升高迹象。如果数值非常高，并且短期平均值高于长期平均值，则表明负载很重；</p>
 <p>利用 top 命令获取相应 pid，“H” 表示 thread 模式，可以配合 grep 命令精准定位。</p>
 <p><code>top h</code></p>
@@ -450,7 +450,7 @@
 <h2 id="如何利用主流框架构建简单的基准测试"><a href="#如何利用主流框架构建简单的基准测试" class="headerlink" title="如何利用主流框架构建简单的基准测试"></a>如何利用主流框架构建简单的基准测试</h2><h3 id="什么时候开发微基准测试？"><a href="#什么时候开发微基准测试？" class="headerlink" title="什么时候开发微基准测试？"></a>什么时候开发微基准测试？</h3><p>当需要对一个大型软件中的某一小部分的性能评估时，就可以开发微基准测试。</p>
 <h3 id="微基准测试框架选型？"><a href="#微基准测试框架选型？" class="headerlink" title="微基准测试框架选型？"></a>微基准测试框架选型？</h3><p><a href="http://openjdk.java.net/projects/code-tools/jmh/" target="_blank" rel="noopener">JMH</a> 由 Hotspot JVM 团队专家开发，除了支持完整的基准测试过程，包括预热、运行、统计和报告等，还支持 Java 和其他 JVM 语言。它针对 Hotspot JVM 提供了各种特性，以保证基准测试的正确性，整体准确性优于其他框架。</p>
 <p>Maven 工程</p>
-<p><img src="/2019/04/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%80%A7%E8%83%BD%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-性能基础篇\JMH.png" alt="Java核心技术-性能基础篇\JMH"></p>
+<p><img src="/2019/04/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%80%A7%E8%83%BD%E5%9F%BA%E7%A1%80%E7%AF%87/JMH.png" alt="JMH"></p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">$ mvn archetype:generate \</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">          -DinteractiveMode=false \</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">          -DarchetypeGroupId=org.openjdk.jmh \</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">          -DarchetypeArtifactId=jmh-java-benchmark-archetype \</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">          -DgroupId=org.sample \</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">          -DartifactId=test \</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">          -Dversion=<span class="number">1.0</span></span></pre></td></tr></table></figure>
 
 <p>利用注解（Annotation）定义具体的测试方法，以及为基准测试详细配置。</p>
@@ -498,11 +498,11 @@
 </li>
 </ul>
 <p>Java 代码的生命周期</p>
-<p><img src="/2019/04/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%80%A7%E8%83%BD%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-性能基础篇\Java生命周期.png" alt="Java核心技术性能基础篇\Java 生命周期"></p>
+<p><img src="/2019/04/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%80%A7%E8%83%BD%E5%9F%BA%E7%A1%80%E7%AF%87/Java生命周期.png" alt="Java核心技术性能基础篇\Java 生命周期"></p>
 <p>java 通过字节码屏蔽不同的硬件差异，JVM 负责完成字节码到机器码的转换。</p>
 <p>javac 等编译器或者相关 API 等将源码转换成字节码的过程中也会进行少量类似常量折叠之类的优化。</p>
 <p>javac 优化与 JVM 内部优化也存在关联，毕竟它负责字节码的生成。例如，Java 9 中的字符串拼接，会被 javac 替换成对 StringConcatFactory 的调用，进而为 JVM 进行字符串拼接优化提供了统一的入口。在实际场景中，还可以通过不同的<a href="http://openjdk.java.net/jeps/280" target="_blank" rel="noopener">策略</a>来干预这个过程。</p>
-<h2 id="JVM-运行时优化"><a href="#JVM-运行时优化" class="headerlink" title="JVM 运行时优化"></a>JVM 运行时优化</h2><p><img src="/2019/04/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%80%A7%E8%83%BD%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-性能基础篇\JVM运行时优化.png" alt="Java核心技术性能基础篇\JVM 运行时优化"></p>
+<h2 id="JVM-运行时优化"><a href="#JVM-运行时优化" class="headerlink" title="JVM 运行时优化"></a>JVM 运行时优化</h2><p><img src="/2019/04/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%80%A7%E8%83%BD%E5%9F%BA%E7%A1%80%E7%AF%87/JVM运行时优化.png" alt="Java核心技术性能基础篇\JVM 运行时优化"></p>
 <p>JVM 会根据统计信息，动态决定什么方法被编译，什么方法解释执行，即使是已经编译过的代码，也可能在不同的运行阶段不再是热点，JVM 有必要将这种代码从 Code Cache 中移除出去，毕竟其大小是有限的。</p>
 <p><strong>即时编译（JIT），则是更多优化工作的承担者。JIT 对 Java 编译的基本单元是整个方法，通过对方法调用的计数统计，甄别出热点方法，编译为本地代码。</strong>另外一个优化场景，则是最针对所谓热点循环代码，利用通常说的栈上替换技术（OSR，On-Stack Replacement），如果方法本身的调用频度还不够编译标准，但是内部有大的循环之类，则还是会有进一步优化的价值。</p>
 <p>从理论上来看，JIT 可以看作就是基于两个计数器实现，<strong>方法计数器和回边计数器</strong>提供给 JVM 统计数据，以定位到热点代码。实际中的 JIT 机制要复杂得多，逃逸分析、循环展开、方法内联等，包括前面提到的 Intrinsic 等通用机制同样会在 JIT 阶段发生。</p>
@@ -562,7 +562,7 @@
 <li><p>API 接口层：主要对外提供 API，提供诸如数据的增删改查、获取配置等接口。</p>
 </li>
 </ul>
-<h1 id="Spring-生命周期和作用域？"><a href="#Spring-生命周期和作用域？" class="headerlink" title="Spring 生命周期和作用域？"></a>Spring 生命周期和作用域？</h1><h2 id="Bean-的生命周期"><a href="#Bean-的生命周期" class="headerlink" title="Bean 的生命周期"></a>Bean 的生命周期</h2><p><img src="/2019/04/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%80%A7%E8%83%BD%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-性能基础篇\SpringBean生命周期.jpg" alt="Java核心技术性能基础篇\Spring Bean生命周期"></p>
+<h1 id="Spring-生命周期和作用域？"><a href="#Spring-生命周期和作用域？" class="headerlink" title="Spring 生命周期和作用域？"></a>Spring 生命周期和作用域？</h1><h2 id="Bean-的生命周期"><a href="#Bean-的生命周期" class="headerlink" title="Bean 的生命周期"></a>Bean 的生命周期</h2><p><img src="/2019/04/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%80%A7%E8%83%BD%E5%9F%BA%E7%A1%80%E7%AF%87/SpringBean生命周期.jpg" alt="Java核心技术性能基础篇\Spring Bean生命周期"></p>
 <ol>
 <li><p>Spring 对 bean 进行实例化。</p>
 </li>
@@ -606,7 +606,7 @@
 </ul>
 <h2 id="切面编程"><a href="#切面编程" class="headerlink" title="切面编程"></a>切面编程</h2><p>切面编程AOP（Aspect Oriented Programming）,把遍布在应用各处的功能分离出来，让服务模块化</p>
 <p>切面提供了取代继承和委托的另一种解决方案。</p>
-<p><img src="/2019/04/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%80%A7%E8%83%BD%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-性能基础篇\SpringAdvice.png" alt="Java核心技术性能基础篇\Spring Advice"></p>
+<p><img src="/2019/04/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%80%A7%E8%83%BD%E5%9F%BA%E7%A1%80%E7%AF%87/SpringAdvice.png" alt="Java核心技术性能基础篇\Spring Advice"></p>
 <h3 id="通知（Advice）"><a href="#通知（Advice）" class="headerlink" title="通知（Advice）"></a>通知（Advice）</h3><p>Advice <strong>明确了切面编程中的什么</strong>，Spring AOP 提供 5 种类型通知</p>
 <ul>
 <li><p>Before（前置通知）在目标方法调用之前调用通知功能；</p>
@@ -652,7 +652,7 @@
 <li><p>数据库自增序列，简单易用，其扩展性和可靠性存在很大的局限性。</p>
 </li>
 <li><p>Snowflake，TWitter 早起的开源的 Snowflake 实现，结构定义如下</p>
-<p><img src="/2019/04/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%80%A7%E8%83%BD%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-性能基础篇\Snowflake.png" alt="Java核心技术-性能基础篇\Snowflake"></p>
+<p><img src="/2019/04/14/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E6%80%A7%E8%83%BD%E5%9F%BA%E7%A1%80%E7%AF%87/Snowflake.png" alt="Snowflake"></p>
 <p>整体长度为 64（1 + 41 + 10 + 12 = 64）适合 Java 中 long 类型存储。</p>
 <p>头部是 1 位的正负标识位。</p>
 <p>41 位时间戳，通常使用System.currentTimeMills()</p>
@@ -713,7 +713,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-06-11 20:57:50" itemprop="dateModified" datetime="2019-06-11T20:57:50+08:00">2019-06-11</time>
+                <time title="修改时间：2019-12-10 19:58:58" itemprop="dateModified" datetime="2019-12-10T19:58:58+08:00">2019-12-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -721,8 +721,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">后端笔记</span>
                   </a>
                 </span>
             </span>
@@ -758,7 +758,7 @@
 </li>
 </ul>
 <h2 id="G1-内部结构和主要机制"><a href="#G1-内部结构和主要机制" class="headerlink" title="G1 内部结构和主要机制"></a>G1 内部结构和主要机制</h2><p>从内存区域的角度，G1 同样存在着年代的概念，但是与我前面介绍的内存结构很不一样，其内 部是类似棋盘状的一个个 region 组成，请参考下面的示意图。</p>
-<p><img src="/2019/04/07/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-安全基础篇\G1内部结构.png" alt="Java核心技术-安全基础篇\G1内部结构"></p>
+<p><img src="/2019/04/07/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/G1内部结构.png" alt="G1内部结构"></p>
 <p>region 大小一致，数值在 1M 到 32M 字节之间的一个 2 的幂数值，JVM 尽量划分 2048 个区域，该数字是可以手动调整， G1 会根据堆大下自动进行调整。</p>
 <p>G1 实现中，年代是个逻辑概念，体现在一部分 region 作为 Eden，一部分作为 Survivor，除了意料之中的 Old region ，G1 会将超过 region 50% 大小的对象（在应用中通常是 byte 或 char 数组）归类为 Humongous 对象，并放置在相应的 region 中，算是老年代的一部分。因为复制大对象是很昂贵的操作，并不适合新生代GC 的复制算法。</p>
 <h3 id="region-设计的副作用"><a href="#region-设计的副作用" class="headerlink" title="region 设计的副作用"></a>region 设计的副作用</h3><p>region 大小和大对象很难保证一致，这会导致空间浪费。</p>
@@ -813,7 +813,7 @@
 <li><p>传递性，如果 A 操作在操作 B 之前执行，并且操作 B 在 操作 C 之前执行，那么操作 A 必须在操作 C 之前执行。</p>
 </li>
 </ul>
-<p><img src="/2019/04/07/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-安全基础篇\JMM.png" alt="Java核心技术-安全基础篇\JMM"></p>
+<p><img src="/2019/04/07/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/JMM.png" alt="JMM"></p>
 <p>在编译器中生成的指令顺序，可以与源代码中的顺序不同，此外编译器还会把变量保存在寄存器而不是内存中；处理器可以采用乱序或并行等方式执行指令；缓存可能会改变将写入变量提交到主内存的次序；而且，保存在处理器本地缓存中的值，对其他处理器是不可见的。这些因素都会导致一个线程无法看到变量的最新值，并且会导致其他线程中的内存操作似乎在乱序执行。</p>
 <p>JMM 内部的实现通常依赖于“内存屏障”，通过禁止重排序的方式，提供内存可见性保证，也就是 实现各种 Happens-Before 规则。</p>
 <h3 id="如何利用内存屏障实现-JMM-定义的可见性"><a href="#如何利用内存屏障实现-JMM-定义的可见性" class="headerlink" title="如何利用内存屏障实现 JMM 定义的可见性"></a>如何利用内存屏障实现 JMM 定义的可见性</h3><p>对于一个 volatile 变量：</p>
@@ -837,7 +837,7 @@
 <li><p>错误判断了可获取的 CPU 资源，例如，Docker 限制了 CPU 的核数，JVM 就可能设置不合适的 GC 并行线程数等。</p>
 </li>
 </ul>
-<p><img src="/2019/04/07/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-安全基础篇\Docker.png" alt="Java核心技术-安全基础篇\Docker"></p>
+<p><img src="/2019/04/07/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%AE%89%E5%85%A8%E5%9F%BA%E7%A1%80%E7%AF%87/Docker.png" alt="Docker"></p>
 <p>上面的示意图，展示了 Docker 与虚拟机的区别。从技术角度，基于 namespace，Docker 为每个容器提供了单独的命名空间，对网络、PID、用户、IPC 通信、文件系统挂载点等实现了隔离。对于 CPU、内存、磁盘 IO 等计算资源，则是通过 CGroup 进行管理。</p>
 <h1 id="Java-应用开发中的注入攻击？"><a href="#Java-应用开发中的注入攻击？" class="headerlink" title="Java 应用开发中的注入攻击？"></a>Java 应用开发中的注入攻击？</h1><h2 id="什么是注入攻击？"><a href="#什么是注入攻击？" class="headerlink" title="什么是注入攻击？"></a>什么是注入攻击？</h2><p>注入攻击主要特征是程序允许攻击者将恶意内容注入到程序中，在运行过程中会改变最初的执行过程并带来恶意效果。</p>
 <h2 id="常见注入攻击"><a href="#常见注入攻击" class="headerlink" title="常见注入攻击"></a>常见注入攻击</h2><ul>
@@ -962,7 +962,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-06-02 21:54:50" itemprop="dateModified" datetime="2019-06-02T21:54:50+08:00">2019-06-02</time>
+                <time title="修改时间：2019-12-10 19:58:30" itemprop="dateModified" datetime="2019-12-10T19:58:30+08:00">2019-12-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -970,8 +970,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">后端笔记</span>
                   </a>
                 </span>
             </span>
@@ -1005,7 +1005,7 @@
 </li>
 </ul>
 <h2 id="Java-8-之前的类加载器"><a href="#Java-8-之前的类加载器" class="headerlink" title="Java 8 之前的类加载器"></a>Java 8 之前的类加载器</h2><p>双亲委派模型，当类加载器（Class-Loader）试图加载某个类型的时候，先是委托给父加载器去完成，除非父加载器找不到相应类型，子加载器才会去加载。使用委派模型的目的是避免重复加载 Java 类型。</p>
-<p><img src="/2019/03/31/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AF%87/Java核心技术-应用开发篇\类加载器.png" alt="Java核心技术-应用开发篇\类加载器"></p>
+<p><img src="/2019/03/31/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AF%87/类加载器.png" alt="类加载器"></p>
 <ul>
 <li><p>启动类加载器（BootStrap Class-Loader）负责加载 jre/lib 目录下的 jar 文件</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"># 指定新的 bootclasspath，替换 java.* 包的内部实现</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">java -Xbootclasspath:&lt;your_boot_classpath&gt; your_App</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"># a 意味着 append，将指定目录添加到 bootclasspath 后面</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">java -Xbootclasspath/a:&lt;your_dir&gt; your_App</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"># p 意味着 prepend，将指定目录添加到 bootclasspath 前面</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">java -Xbootclasspath/p:&lt;your_dir&gt; your_App</span></pre></td></tr></table></figure>
@@ -1029,7 +1029,7 @@
 </li>
 </ul>
 <h3 id="Java-9-平台模块化系统后的类加载器"><a href="#Java-9-平台模块化系统后的类加载器" class="headerlink" title="Java 9 平台模块化系统后的类加载器"></a>Java 9 平台模块化系统后的类加载器</h3><p>Java 9 ，由于 jigsaw 项目引入 Java 平台模块化系统（JPMS）,Java SE 源代码被划分为一系列模块。</p>
-<p><img src="/2019/03/31/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AF%87/Java核心技术-应用开发篇\java9模块.png" alt="Java平台模块化系统"></p>
+<p><img src="/2019/03/31/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AF%87/java9模块.png" alt="Java平台模块化系统"></p>
 <p>所以很多类加载器，类文件容器都发生了重大变化。</p>
 <ul>
 <li><p>前面提到的 -Xbootclasspath 参数不可用了。API 已经被划分到具体的模块，所以上文中，利 用“-Xbootclasspath/p”替换某个 Java 核心类型代码，实际上变成了对相应的模块进行的修补，可以采用下面的解决方案：</p>
@@ -1046,7 +1046,7 @@
 </li>
 </ul>
 <p>结合了 Layer，目前的 JVM 内部结构就变成了下面的层次，内建类加载器都在 BootLayer 中， 其他 Layer 内部有自定义的类加载器，不同版本模块可以同时工作在不同的 Layer。</p>
-<p><img src="/2019/03/31/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AF%87/Java核心技术-应用开发篇\java9模块化.png" alt="Java9模块化"></p>
+<p><img src="/2019/03/31/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AF%87/java9模块化.png" alt="Java9模块化"></p>
 <h2 id="降低类加载的开销？"><a href="#降低类加载的开销？" class="headerlink" title="降低类加载的开销？"></a>降低类加载的开销？</h2><p>Java 需要类加载和解释、编译，这些都导致 Java 启动变慢。有没有通用办法，不需要代码和其他工作量，就能降低类加载的开销呢？</p>
 <ul>
 <li><p>AOT（Aheadof-Time Compilation）直接编译成机器码，降低解释和编译开销。但还在试验阶段，支持平台有限。</p>
@@ -1134,7 +1134,7 @@
 <li><p>本地方法栈（Native Method Stack）和 Java 虚拟机栈是非常相似的，支持对本地方法的调用，也是每个线程都会创建一个。在 Oracle Hotspot JVM 中，本地方法栈和 Java 虚拟机栈是在同一块儿区域，这完全取决于技术实现的决定，并未在规范中强制。</p>
 </li>
 </ul>
-<p><img src="/2019/03/31/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AF%87/Java核心技术-应用开发篇\JVM内存区域.png" alt="JVM内存区域"></p>
+<p><img src="/2019/03/31/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AF%87/JVM内存区域.png" alt="JVM内存区域"></p>
 <h2 id="哪些区域可能发生OutOfMemoryError"><a href="#哪些区域可能发生OutOfMemoryError" class="headerlink" title="哪些区域可能发生OutOfMemoryError?"></a>哪些区域可能发生OutOfMemoryError?</h2><p>除了程序计数器以外，其他区域都可能发生 OutOfMemoryError。</p>
 <ul>
 <li><p>堆内存不足，抛出错误信息是“java.lang.OutOfMemoryError:Java heap space”</p>
@@ -1182,7 +1182,7 @@
 </li>
 </ul>
 <h2 id="堆内部结构"><a href="#堆内部结构" class="headerlink" title="堆内部结构"></a>堆内部结构</h2><p>对于堆内存，我在上一讲介绍了最常见的新生代和老年代的划分，其内部结构随着 JVM 的发展和新 GC 方式的引入，可以有不同角度的理解，下图就是以年代视角的堆结构示意图。</p>
-<p><img src="/2019/03/31/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AF%87/Java核心技术-应用开发篇\堆内结构.png" alt="Java核心技术-应用开发篇\堆内结构"></p>
+<p><img src="/2019/03/31/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AF%87/堆内结构.png" alt="堆内结构"></p>
 <p>关于 Virtual 区域：在 JVM 内部，如果 Xms 小于 Xmx，堆的大小并不会直接扩展到其上限，也就是说保留的空间（reserved）大于实际能够使用的空间（committed）。当内存需求不断增长的时候，JVM 会逐渐扩展新生代等区域的大小，所以 Virtual 区域代表的就是暂时不可用（uncommitted）的空间。</p>
 <p>按照通常的 GC 年代方式划分，Java 堆内分为：</p>
 <ul>
@@ -1192,7 +1192,7 @@
 <li><p>JVM 会随意选一个 Survivor 区域作为“to”，然后会在 GC 过程中进行区域间拷贝，也就是将 Eden 和 from 区域中存活下来的的对象，拷贝到这个 to 区域。这种设计主要是为了防止内存的碎片化，并进一步清理无用对象。</p>
 </li>
 <li><p>从内存模型的角度，又对 Eden 区域继续进行划分，Hotspot JVM 还有一个概念叫做 Thread Local Allocation Buffer（TLAB）。这是 JVM 为每个线程分配的一个私有缓存区域，否则，多线程同时分配内存时，为避免操作同一地址，可能需要使用加锁等机制，进而影响分配速度，你可以参考下面的示意图。从图中可以看出，TLAB 仍然在堆上，它是分配在 Eden 区域内的。其内部结构比较直观易懂，start、end 就是起始地址，top（指针）则表示已经分配到哪里了。所以我们分配新对象，JVM 就会移动 top，当 top 和 end 相遇时，即表示该缓存已满，JVM 会试图再从 Eden 里分配一块儿。</p>
-<p><img src="/2019/03/31/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AF%87/Java核心技术-应用开发篇\Eden区域.png" alt="Java核心技术-应用开发篇\Eden区域"></p>
+<p><img src="/2019/03/31/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AF%87/Eden区域.png" alt="Eden区域"></p>
 </li>
 </ul>
 </li>
@@ -1322,13 +1322,13 @@
 </li>
 </ul>
 <h2 id="垃圾收集过程"><a href="#垃圾收集过程" class="headerlink" title="垃圾收集过程"></a>垃圾收集过程</h2><p>第一，Java 应用不断创建对象，通常都是分配在 Eden 区域，当其空间占用达到一定阈值时，触发 minor GC。仍然被引用的对象（绿色方块）存活下来，被复制到 JVM 选择的 Survivor 区域，而没有被引用的对象（黄色方块）则被回收。注意，我给存活对象标记了“数字 1”，这是为了表明对象的存活时间。</p>
-<p><img src="/2019/03/31/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AF%87/Java核心技术-应用开发篇\Eden1.png" alt="Java核心技术-应用开发篇\Eden1"></p>
+<p><img src="/2019/03/31/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AF%87/Eden1.png" alt="Eden1"></p>
 <p>第二， 经过一次 Minor GC，Eden 就会空闲下来，直到再次达到 Minor GC 触发条件，这时候，另外一个 Survivor 区域则会成为 to 区域，Eden 区域的存活对象和 From 区域对象，都会被复制到 to 区域，并且存活的年龄计数会被加 1。</p>
-<p><img src="/2019/03/31/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AF%87/Java核心技术-应用开发篇\Eden2.png" alt="Java核心技术-应用开发篇\Eden2"></p>
+<p><img src="/2019/03/31/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AF%87/Eden2.png" alt="Eden2"></p>
 <p>第三， 类似第二步的过程会发生很多次，直到有对象年龄计数达到阈值，这时候就会发生所谓的晋升（Promotion）过程，如下图所示，超过阈值的对象会被晋升到老年代。这个阈值是可以通过参数指定：<code>-XX:MaxTenuringThreshold=&lt;N&gt;</code></p>
-<p><img src="/2019/03/31/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AF%87/Java核心技术-应用开发篇\Eden3.png" alt="Java核心技术-应用开发篇\Eden3"></p>
+<p><img src="/2019/03/31/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AF%87/Eden3.png" alt="Eden3"></p>
 <p>后面就是老年代 GC，具体取决于选择的 GC 选项，对应不同的算法。下面是一个简单标记 - 压缩算法过程示意图，老年代中的无用对象被清除后， GC 会将对象进行整理，以防止内存碎片化。</p>
-<p><img src="/2019/03/31/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AF%87/Java核心技术-应用开发篇\老年代标记-压缩.png" alt="Java核心技术-应用开发篇\老年代标记-压缩"></p>
+<p><img src="/2019/03/31/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91%E7%AF%87/老年代标记-压缩.png" alt="老年代标记-压缩"></p>
 <h2 id="GC-新的发展"><a href="#GC-新的发展" class="headerlink" title="GC 新的发展"></a>GC 新的发展</h2><p>JDK 11 中有新增了 2 中 GC 方式。</p>
 <ul>
 <li><p>Epsilon GC，控制内存分配，不做垃圾收集。一旦 Java 堆空间被耗尽，JVM 直接关闭。</p>
@@ -1398,7 +1398,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-06-02 21:54:07" itemprop="dateModified" datetime="2019-06-02T21:54:07+08:00">2019-06-02</time>
+                <time title="修改时间：2019-12-10 19:58:41" itemprop="dateModified" datetime="2019-12-10T19:58:41+08:00">2019-12-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1406,8 +1406,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">后端笔记</span>
                   </a>
                 </span>
             </span>
@@ -1423,7 +1423,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="什么情况下Java程序会产生死锁？如何定位、修复？"><a href="#什么情况下Java程序会产生死锁？如何定位、修复？" class="headerlink" title="什么情况下Java程序会产生死锁？如何定位、修复？"></a>什么情况下Java程序会产生死锁？如何定位、修复？</h1><p><img src="/2019/03/24/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87%E4%BA%8C/Java核心技术-进阶篇二\死锁.png" alt="Java核心技术-进阶篇二\死锁"></p>
+          <h1 id="什么情况下Java程序会产生死锁？如何定位、修复？"><a href="#什么情况下Java程序会产生死锁？如何定位、修复？" class="headerlink" title="什么情况下Java程序会产生死锁？如何定位、修复？"></a>什么情况下Java程序会产生死锁？如何定位、修复？</h1><p><img src="/2019/03/24/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87%E4%BA%8C/死锁.png" alt="死锁"></p>
 <p>synchronized 关键字用于类或方法线程安全，同一时刻有且只有一个线程竞争到锁执行同步方法，其他线程必须等待该线程释放锁之后其中的一个线程才能竞争到锁。</p>
 <ul>
 <li><p>死锁反生在多线程环境，由于循环依赖导致彼此一直处于等待状态。</p>
@@ -1470,13 +1470,13 @@
 <li><p>如要要使用多个锁，尽量设计好锁的获取顺序。</p>
 <ul>
 <li><p>将对象（方法）和锁之间的关系，用图形化的方式表示分别抽取出来，以今天最初讲的死锁为例，因为是调用了同一个线程所以更加简单。</p>
-<p><img src="/2019/03/24/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87%E4%BA%8C/Java核心技术-进阶篇二\对象和锁关系.png" alt="Java核心技术-进阶篇二\对象和锁关系"></p>
+<p><img src="/2019/03/24/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87%E4%BA%8C/对象和锁关系.png" alt="对象和锁关系"></p>
 </li>
 <li><p>然后根据对象之间组合、调用的关系对比组合，考虑可能调用时序。</p>
-<p><img src="/2019/03/24/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87%E4%BA%8C/Java核心技术-进阶篇二\调用时序.png" alt="Java核心技术-进阶篇二\调用时序"></p>
+<p><img src="/2019/03/24/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87%E4%BA%8C/调用时序.png" alt="调用时序"></p>
 </li>
 <li><p>按照可能时序合并，发现死锁场景</p>
-<p><img src="/2019/03/24/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87%E4%BA%8C/Java核心技术-进阶篇二\时序合并发现死锁场景.png" alt="Java核心技术-进阶篇二\时序合并发现死锁场景"></p>
+<p><img src="/2019/03/24/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87%E4%BA%8C/时序合并发现死锁场景.png" alt="时序合并发现死锁场景"></p>
 </li>
 </ul>
 </li>
@@ -1500,7 +1500,7 @@
 <li><p>Eexcutor 框架，可创建不同类型的线程池，调度任务运行。</p>
 </li>
 </ul>
-<p><img src="/2019/03/24/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87%E4%BA%8C/Java核心技术-进阶篇二\java.util.concurrent.png" alt="concurrent"></p>
+<p><img src="/2019/03/24/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87%E4%BA%8C/java.util.concurrent.png" alt="concurrent"></p>
 <h2 id="重点掌握-1"><a href="#重点掌握-1" class="headerlink" title="重点掌握"></a>重点掌握</h2><ul>
 <li><p>利用多线程提高程序的扩展能力，以达到业务对吞吐量的要求。</p>
 </li>
@@ -1534,7 +1534,7 @@
 
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> concurrent;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.BrokenBarrierException;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.CyclicBarrier;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CyclicBarrierSample</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">        CyclicBarrier cyclicBarrier = <span class="keyword">new</span> CyclicBarrier(<span class="number">5</span>, <span class="keyword">new</span> Runnable() &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">            <span class="meta">@Override</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">                System.out.println(<span class="string">"Action...Go again!"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        &#125;);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">            Thread thread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> CyclicBarrierWorker(cyclicBarrier));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">            thread.start();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CyclicBarrierWorker</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">private</span> CyclicBarrier cyclicBarrier;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CyclicBarrierWorker</span><span class="params">(CyclicBarrier cyclicBarrier)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">this</span>.cyclicBarrier = cyclicBarrier;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">27</span></pre></td><td class="code"><pre><span class="line">    <span class="meta">@Override</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">28</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">29</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">try</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">30</span></pre></td><td class="code"><pre><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">3</span>; i++) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">31</span></pre></td><td class="code"><pre><span class="line">                System.out.println(<span class="string">"Executed"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">32</span></pre></td><td class="code"><pre><span class="line">                cyclicBarrier.await();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">33</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">34</span></pre></td><td class="code"><pre><span class="line">        &#125;<span class="keyword">catch</span> (BrokenBarrierException e)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">35</span></pre></td><td class="code"><pre><span class="line">            e.printStackTrace();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">36</span></pre></td><td class="code"><pre><span class="line">        &#125;<span class="keyword">catch</span> (InterruptedException e)&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">37</span></pre></td><td class="code"><pre><span class="line">            e.printStackTrace();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">38</span></pre></td><td class="code"><pre><span class="line">        &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">39</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">40</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
 
-<p><img src="/2019/03/24/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87%E4%BA%8C/Java核心技术-进阶篇二\并发包提供的线程安全集合.png" alt="Java核心技术-进阶篇二\并发包提供的线程安全集合"></p>
+<p><img src="/2019/03/24/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87%E4%BA%8C/并发包提供的线程安全集合.png" alt="并发包提供的线程安全集合"></p>
 <p>关于两个 CopyOnWrite 容器，其实 CopyOnWriteArraySet 是通过包装了 CopyOnWriteArrayList 来实现的，所以在学习时，我们可以专注于理解一种。 首先，<strong>CopyOnWrite 到底是什么意思呢？它的原理是，任何修改操作，如 add、set、 remove，都会拷贝原数组，修改后替换原来的数组，通过这种防御性的方式，实现另类的线程 安全。</strong>请看下面的代码片段，我进行注释的地方，可以清晰地理解其逻辑。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">synchronized</span> (lock) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">        Object[] elements = getArray();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">int</span> len = elements.length;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">           <span class="comment">// 拷贝</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">        Object[] newElements = Arrays.copyOf(elements, len + <span class="number">1</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        newElements[len] = e;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">           <span class="comment">// 替换</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        setArray(newElements);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">            &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">setArray</span><span class="params">(Object[] a)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    array = a;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
 
@@ -1575,7 +1575,7 @@
 <li><p>常见的线程安全队列如何实现的，并进行了哪些改进提高性能表现？</p>
 </li>
 </ul>
-<h2 id="知识扩展-1"><a href="#知识扩展-1" class="headerlink" title="知识扩展"></a>知识扩展</h2><p><img src="/2019/03/24/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87%E4%BA%8C/Java核心技术-进阶篇二\线程安全队列.png" alt="Java核心技术-进阶篇二\线程安全队列"></p>
+<h2 id="知识扩展-1"><a href="#知识扩展-1" class="headerlink" title="知识扩展"></a>知识扩展</h2><p><img src="/2019/03/24/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87%E4%BA%8C/线程安全队列.png" alt="线程安全队列"></p>
 <p>Deque 的两个实现 ConcurrentLinkedDeque 和 LinkedBlockingDeque，<strong>Deque 侧重点是支持队列头尾都进行插入和删除</strong>，所以提供了特定的方法：</p>
 <ul>
 <li><p>尾部插入需要 addLast(e)、offerLast(e)</p>
@@ -1669,7 +1669,7 @@
 <li><p>如何根据自身应用特点合理使用线程池。</p>
 </li>
 </ul>
-<h2 id="Executor-框架主要内容"><a href="#Executor-框架主要内容" class="headerlink" title="Executor 框架主要内容"></a>Executor 框架主要内容</h2><p><img src="/2019/03/24/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87%E4%BA%8C/Java核心技术-进阶篇二\Executor框架基本组成.png" alt="Java核心技术进阶篇二\Executor 框架基本组成"></p>
+<h2 id="Executor-框架主要内容"><a href="#Executor-框架主要内容" class="headerlink" title="Executor 框架主要内容"></a>Executor 框架主要内容</h2><p><img src="/2019/03/24/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87%E4%BA%8C/Executor框架基本组成.png" alt="Java核心技术进阶篇二\Executor 框架基本组成"></p>
 <ul>
 <li><p>Executor 作为基础接口，其初衷是将任务提交和任务执行细节解耦。</p>
 </li>
@@ -1680,7 +1680,7 @@
 <li><p>Executors 则从简化使用的角度，提供各种快捷方便的静态工厂方法。</p>
 </li>
 </ul>
-<p><img src="/2019/03/24/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87%E4%BA%8C/Java核心技术-进阶篇二\应用与线程池交互和内部工作过程.png" alt="Java核心技术-进阶篇二\应用与线程池交互和内部工作过程"></p>
+<p><img src="/2019/03/24/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87%E4%BA%8C/应用与线程池交互和内部工作过程.png" alt="应用与线程池交互和内部工作过程"></p>
 <ul>
 <li><p>工作队列，负责存储用户提交的各个任务，这个工作队列，可以是容量为 0 的 SynchronousQueue（使用 newCachedThreadPool），也可以是固定大小线程池（newFixedThreadPool）那样使用 LinkedBlockingQueue。</p>
 <p><code>private final BlockingQueue&lt;Runnable&gt; workQueue;</code></p>
@@ -1709,7 +1709,7 @@
 <li><p>workQueue，工作队列，必须是 BlockingQueue。</p>
 </li>
 </ul>
-<h3 id="线程池的生命周期，他的状态是如何表征的呢？"><a href="#线程池的生命周期，他的状态是如何表征的呢？" class="headerlink" title="线程池的生命周期，他的状态是如何表征的呢？"></a>线程池的生命周期，他的状态是如何表征的呢？</h3><p><img src="/2019/03/24/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87%E4%BA%8C/Java核心技术-进阶篇二\线程生命周期.png" alt="Java核心技术-进阶篇二\线程生命周期"></p>
+<h3 id="线程池的生命周期，他的状态是如何表征的呢？"><a href="#线程池的生命周期，他的状态是如何表征的呢？" class="headerlink" title="线程池的生命周期，他的状态是如何表征的呢？"></a>线程池的生命周期，他的状态是如何表征的呢？</h3><p><img src="/2019/03/24/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87%E4%BA%8C/线程生命周期.png" alt="线程生命周期"></p>
 <h3 id="线程池大小选择策略"><a href="#线程池大小选择策略" class="headerlink" title="线程池大小选择策略"></a>线程池大小选择策略</h3><ul>
 <li><p>如果我们的任务主要是进行计算，那么就意味着 CPU 的处理能力是稀缺的资源，我们能够通过大量增加线程数提高计算能力吗？往往是不能的，如果线程太多，反倒可能导致大量的上下文切换开销。所以，这种情况下，通常建议按照 CPU 核的数目 N 或者 N+1。</p>
 </li>
@@ -1813,7 +1813,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-06-02 21:53:32" itemprop="dateModified" datetime="2019-06-02T21:53:32+08:00">2019-06-02</time>
+                <time title="修改时间：2019-12-10 19:58:50" itemprop="dateModified" datetime="2019-12-10T19:58:50+08:00">2019-12-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1821,8 +1821,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">后端笔记</span>
                   </a>
                 </span>
             </span>
@@ -1910,7 +1910,7 @@
 <li><p>HashEntry 内部使用 volatile 的 value 字段保证可见性，同时也利用不可变对象的机制改进利用 Unsafe 提供的底层能力，比如 volatile access，去直接完成部分操作。以最优化性能，毕竟 Unsafe 中的很多操作都是 JVM intrinsic 优化过的。</p>
 </li>
 </ul>
-<p><img src="/2019/03/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87/Java核心技术-进阶篇\ConcurrentHashMap.png" alt="Java核心技术-进阶篇\ConcurrentHashMap"></p>
+<p><img src="/2019/03/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87/ConcurrentHashMap.png" alt="ConcurrentHashMap"></p>
 <p>在构造的时候，Segment 的数量由所谓的 concurrentcyLevel 决定，默认是 16，也可以在相应构造函数直接指定。注意，Java 需要它是 2 的幂数值，如果输入是类似 15 这种非幂值，会被自动调整到 16 之类 2 的幂数值。</p>
 <p>ConcurrentHashMap get() 操作保证可见性，没有同步逻辑。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">get</span><span class="params">(Object key)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">        Segment&lt;K,V&gt; s; <span class="comment">// manually integrate access methods to reduce overhead</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">        HashEntry&lt;K,V&gt;[] tab;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">int</span> h = hash(key.hashCode());</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">       <span class="comment">// 利用位操作替换普通数学运算</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">       <span class="keyword">long</span> u = (((h &gt;&gt;&gt; segmentShift) &amp; segmentMask) &lt;&lt; SSHIFT) + SBASE;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">// 以 Segment 为单位，进行定位</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">        <span class="comment">// 利用 Unsafe 直接进行 volatile access</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">if</span> ((s = (Segment&lt;K,V&gt;)UNSAFE.getObjectVolatile(segments, u)) != <span class="keyword">null</span> &amp;&amp;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">            (tab = s.table) != <span class="keyword">null</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">           <span class="comment">// 省略</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">          &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr></table></figure>
@@ -1979,7 +1979,7 @@
 <li><p>BufferedOutputStream 利用缓冲区，将批量数据进行一次操作，别忘了 flush，避免频繁的磁盘读写，提高 IO 处理效率。</p>
 </li>
 <li><p>IO 工具类都实现 Closeable 接口来进行资源释放。比如：打开 FileInputStream 它就会获取相应的文件描述符（FileDescriptor），利用 try-with-resources、try-finally 机制保证 FileInputStream 明确关闭，然后 文件描述符也会随之是笑，否则将导致资源无法释放。</p>
-<p><img src="/2019/03/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87/Java核心技术-进阶篇\java.io.png" alt="io"></p>
+<p><img src="/2019/03/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87/java.io.png" alt="io"></p>
 </li>
 </ul>
 <h3 id="java-NIO-主要组成部分"><a href="#java-NIO-主要组成部分" class="headerlink" title="java NIO 主要组成部分"></a>java NIO 主要组成部分</h3><ul>
@@ -1999,7 +1999,7 @@
 <p>引入线程池机制避免浪费</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">serverSocket = <span class="keyword">new</span> ServerSocket(<span class="number">0</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">executor = Executors.newFixedThreadPool(<span class="number">8</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"> <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    Socket socket = serverSocket.accept();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    RequestHandler requestHandler = <span class="keyword">new</span> RequestHandler(socket);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    executor.execute(requestHandler);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
 
-<p><img src="/2019/03/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87/Java核心技术-进阶篇\bio.png" alt="Java核心技术-进阶篇\bio"></p>
+<p><img src="/2019/03/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87/bio.png" alt="bio"></p>
 <p>通过固定大小的线程池，负责管理工作线程，避免平凡创建和销毁；</p>
 <p>如果客户端连接数量不是很多，这种方式能工作的很好；但如果客户端连接数量随着增加越来越多，线程上下文切换开销会在高并发时很严重，这就是同步阻塞方式的低扩展劣势。</p>
 <p>NIO 引入多路复制机制</p>
@@ -2075,7 +2075,7 @@
 <li><p>我们可以在 JDK 源码里搜索 FileSystemProvider 和 nio，可以定位到 sun/nio/fs，我们知道 NIO 底层是和操作系统紧密相关的，所以每个平台都有自己的部分特有文件系统逻辑。</p>
 </li>
 </ul>
-<p><img src="/2019/03/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87/Java核心技术-进阶篇\Provider.png" alt="Java核心技术-进阶篇\Provider"></p>
+<p><img src="/2019/03/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87/Provider.png" alt="Provider"></p>
 <ul>
 <li><p>省略掉一些细节，最后我们一步步定位到 UnixFileSystemProvider → UnixCopyFile.Transfer，发现这是个本地方法。</p>
 </li>
@@ -2187,7 +2187,7 @@
 <li><p>行为型模式，是从类或对象之间交互、职责划分等角度总结的模式，常见的策略模式（Strategy）、解释器模式（Interpreter）、命令模式（Command）、观察者模式（Oberver）、迭代器模式（Iterator）、模板方法模式（Template Method）、访问者模式（Visitor）</p>
 </li>
 </ul>
-<h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><p><img src="/2019/03/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87/Java核心技术-进阶篇\设计模式.png" alt="Java核心技术-进阶篇\设计模式"></p>
+<h1 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a>设计模式</h1><p><img src="/2019/03/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87/设计模式.png" alt="设计模式"></p>
 <h2 id="深入理解-4"><a href="#深入理解-4" class="headerlink" title="深入理解"></a>深入理解</h2><ul>
 <li><p>手写一个典型的设计模式实现。</p>
 </li>
@@ -2207,7 +2207,7 @@
 </li>
 </ul>
 <h2 id="Java-中的设计模式"><a href="#Java-中的设计模式" class="headerlink" title="Java 中的设计模式"></a>Java 中的设计模式</h2><p>IO 框架，InputStream 是一个抽象类，标准类库中提供了 FileInputStream、ByteArrayInputStream 等各种不同的子类，分别从不同角度对 InputStream 进行了功能扩展，这是典型的装饰器模式应用案例。</p>
-<p><img src="/2019/03/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87/Java核心技术-进阶篇\装饰器模式.png" alt="Java核心技术-进阶篇\装饰器模式"></p>
+<p><img src="/2019/03/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87/装饰器模式.png" alt="装饰器模式"></p>
 <h3 id="如何识别装饰器模式呢？"><a href="#如何识别装饰器模式呢？" class="headerlink" title="如何识别装饰器模式呢？"></a>如何识别装饰器模式呢？</h3><p>只需要关注类的构造函数以<strong>相同的抽象类或接口</strong>作为输入参数。</p>
 <p>装饰器模式本质上是包装同类型实例，我们对目标对象的调用，往往会通过<strong>包装类</strong>覆盖过的方法，迂回调用被包装的实例，这就可以很自然地实现增加额外逻辑的目的，也就是所谓的“装饰”。</p>
 <h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><p>单线程环境</p>
@@ -2349,7 +2349,7 @@
 <li><p>Klass Pointer（类型指针）对象指向它的类的元数据的指针，虚拟机通过该指针确定对象属于哪个类的实例。</p>
 </li>
 </ul>
-<h3 id="Java-核心类库中的锁类型"><a href="#Java-核心类库中的锁类型" class="headerlink" title="Java 核心类库中的锁类型"></a>Java 核心类库中的锁类型</h3><p><img src="/2019/03/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87/Java核心技术-进阶篇\lock.png" alt="Java核心技术-进阶篇\lock"></p>
+<h3 id="Java-核心类库中的锁类型"><a href="#Java-核心类库中的锁类型" class="headerlink" title="Java 核心类库中的锁类型"></a>Java 核心类库中的锁类型</h3><p><img src="/2019/03/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87/lock.png" alt="lock"></p>
 <p>为什么我们还需要读写锁（ReadWriteLock）等其他锁呢？</p>
 <p>这是因为，虽然 ReentrantLock 和 synchronized 简单实用，但是行为上有一定局限性，通俗点 说就是“太霸道”，要么不占，要么独占。实际应用场景中，有的时候不需要大量竞争的写操 作，而是以并发读取为主，如何进一步优化并发操作的粒度呢？</p>
 <p> Java 并发包提供的读写锁等扩展了锁的能力，它所基于的原理是多个读操作是不需要互斥的，因 为读操作并不会更改数据，所以不存在互相干扰。而写操作则会导致并发一致性的问题，所以写 线程之间、读写线程之间，需要精心设计的互斥逻辑。</p>
@@ -2443,7 +2443,7 @@
 <li><p>并发类库中的工具，比如 CountDownLatch.await() 会让当前线程进入等待状态，直到 latch 被基数为 0，这可以看作是线程间通信的 Signal。</p>
 </li>
 </ul>
-<p><img src="/2019/03/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87/Java核心技术-进阶篇\状态和方法之间的对应图.png" alt="Java核心技术-进阶篇\状态和方法之间的对应图"></p>
+<p><img src="/2019/03/17/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E8%BF%9B%E9%98%B6%E7%AF%87/状态和方法之间的对应图.png" alt="状态和方法之间的对应图"></p>
 <h3 id="线程-API-使用"><a href="#线程-API-使用" class="headerlink" title="线程 API 使用"></a>线程 API 使用</h3><h4 id="守护线程（Daemon-Thread）"><a href="#守护线程（Daemon-Thread）" class="headerlink" title="守护线程（Daemon Thread）"></a>守护线程（Daemon Thread）</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">Thread daemonThread = <span class="keyword">new</span> Thread();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">daemonThread.setDaemon(<span class="keyword">true</span>);<span class="comment">//必须在线程启动之前设置。</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">daemonThread.start();</span></pre></td></tr></table></figure>
 
 <h4 id="虚假唤醒（Spurious-Weakup）"><a href="#虚假唤醒（Spurious-Weakup）" class="headerlink" title="虚假唤醒（Spurious Weakup）"></a>虚假唤醒（Spurious Weakup）</h4><p>参考知识扩展一节</p>
@@ -2529,7 +2529,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-06-18 20:47:59" itemprop="dateModified" datetime="2019-06-18T20:47:59+08:00">2019-06-18</time>
+                <time title="修改时间：2019-12-10 19:58:54" itemprop="dateModified" datetime="2019-12-10T19:58:54+08:00">2019-12-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2537,8 +2537,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">后端笔记</span>
                   </a>
                 </span>
             </span>
@@ -2578,7 +2578,7 @@
 <h1 id="Exception-和-Error有什么区别？"><a href="#Exception-和-Error有什么区别？" class="headerlink" title="Exception 和 Error有什么区别？"></a>Exception 和 Error有什么区别？</h1><p>Exception 和 Error 都是Throwable 的子类，只有 Throwable 类实例才能被抛出（throw）或则捕获（catch），它是异常处理机制的基本组成类型。</p>
 <p>Exception 是程序正常运行中，可以预料的意外情况，可以进行捕获并处理。Error 是指在正常运行中，不太可能出现的情况，一旦出现就不可恢复，不能被捕获比如 OOM（OutOfMemoryError）</p>
 <p>Exception 分<strong>检查（checked）</strong> 和 <strong>未检查（unchecked）</strong>异常，检查异常在源代码里必须显示的进行捕获处理，是编译器检查的一部分。未检查异常就是所谓的运行时异常（RuntimeException），比如 NullPointerException、ArrayIndexOutOfBoundsException 、 ClassCastException、DateTimeException、SystemException，通过编码避免逻辑错误，按需要来判断是否需要进行捕获处理，并不会在编译器强制要求。</p>
-<h2 id="知识扩展"><a href="#知识扩展" class="headerlink" title="知识扩展"></a>知识扩展</h2><p><img src="/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-基础篇\accba531a365e6ae39614ebfa3273900.png" alt="Java核心技术-基础篇\accba531a365e6ae39614ebfa3273900"></p>
+<h2 id="知识扩展"><a href="#知识扩展" class="headerlink" title="知识扩展"></a>知识扩展</h2><p><img src="/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/accba531a365e6ae39614ebfa3273900.png" alt="accba531a365e6ae39614ebfa3273900"></p>
 <h3 id="RuntimeException-与-Exception-有什么区别？"><a href="#RuntimeException-与-Exception-有什么区别？" class="headerlink" title="RuntimeException 与 Exception 有什么区别？"></a>RuntimeException 与 Exception 有什么区别？</h3><p>Exception 是 RuntimeException 的父类，所有继承RuntimeException 的子类都属于<strong>不检查（unchecked）</strong>异常即运行时异常。</p>
 <p>Exception 定义的异常必须处理，RuntimeException 定义的异常可选择处理。</p>
 <h3 id="NoClassDefFoundError-和-ClassNotFoundException-有什么区别？"><a href="#NoClassDefFoundError-和-ClassNotFoundException-有什么区别？" class="headerlink" title="NoClassDefFoundError 和 ClassNotFoundException 有什么区别？"></a>NoClassDefFoundError 和 ClassNotFoundException 有什么区别？</h3><p>NoClassDefFoundError 是指 JVM 或者 ClassLoader 实例尝试加载类的时候，去找不到类的定义。</p>
@@ -2593,7 +2593,7 @@
 <li><p>Java 实例化一个 Exception 都会对当前堆进行快照，这是一个相对比较重的操作。若发生非常频繁，这个开销就不能被忽略了。</p>
 </li>
 </ul>
-<h3 id="异常处理流程"><a href="#异常处理流程" class="headerlink" title="异常处理流程"></a>异常处理流程</h3><p><img src="/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-基础篇\异常处理流程.png" alt="Java核心技术-基础篇\异常处理流程"></p>
+<h3 id="异常处理流程"><a href="#异常处理流程" class="headerlink" title="异常处理流程"></a>异常处理流程</h3><p><img src="/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/异常处理流程.png" alt="异常处理流程"></p>
 <h2 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h2><p>捕获匹配异常，不要直接捕获 Exception</p>
 <p>不要生吞异常，避免在分布式系统和生产系统用printStackTrace() 。</p>
 <p>Checked Exception 不兼容 function 编程</p>
@@ -2645,7 +2645,7 @@
 <h2 id="虚引用（PhantomReference）"><a href="#虚引用（PhantomReference）" class="headerlink" title="虚引用（PhantomReference）"></a>虚引用（PhantomReference）</h2><p>虚引用（也称幻想引用），形同虚设，并不会决定对象的生命周期。如果一个对象持有虚引用和没有任何引用是一样的，任何时候都可能被垃圾收集器回收。</p>
 <p>虚引用主要用来跟踪对象被垃圾收集状态，可以通过检查与虚引用关联的引用队列中是否已经包含指定的虚引用，从而来判断虚引用引用的对象是否将被回收。</p>
 <p>虚引用、幻象引用都是说的同一个，仅仅是提供了一种确保对象被 finalize 以后，做某些事情的机制。比如：通常用来做 Post-Mortem 清理机制；也有人利用幻象引用监控对象的创建和销毁。</p>
-<h2 id="知识扩展-2"><a href="#知识扩展-2" class="headerlink" title="知识扩展"></a>知识扩展</h2><h3 id="对象可达性状态流转分析"><a href="#对象可达性状态流转分析" class="headerlink" title="对象可达性状态流转分析"></a>对象可达性状态流转分析</h3><p><img src="/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-基础篇\36d3c7b158eda9421ef32463cb4d4fb0.png" alt="Java核心技术-基础篇\36d3c7b158eda9421ef32463cb4d4fb0"></p>
+<h2 id="知识扩展-2"><a href="#知识扩展-2" class="headerlink" title="知识扩展"></a>知识扩展</h2><h3 id="对象可达性状态流转分析"><a href="#对象可达性状态流转分析" class="headerlink" title="对象可达性状态流转分析"></a>对象可达性状态流转分析</h3><p><img src="/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/36d3c7b158eda9421ef32463cb4d4fb0.png" alt="36d3c7b158eda9421ef32463cb4d4fb0"></p>
 <p>这是 Java 定义的不同可达级别（reachability level），具体如下：</p>
 <ul>
 <li><p>强可达（Strongly Reachable）,当一个对象可以有一个或多个线程可以不通过各种引用访问到的情况。比如，我们创建一个对象，那么创建他的线程对它就是强可达。</p>
@@ -2692,7 +2692,7 @@
 <li>inactive 这是最终的状态，不能再变为其它状态。</li>
 </ul>
 <h3 id="JVM怎么知道引用在不在"><a href="#JVM怎么知道引用在不在" class="headerlink" title="JVM怎么知道引用在不在?"></a>JVM怎么知道引用在不在?</h3><p>涉及到了JVM的可达性分析算法了 JVM的可达性分析算法的简单思路就是通过一系列GC Roots作为出发点，向下搜索，搜索所走过的路径称为引用链，当一个对象到GC Roots没有任何引用链，即表明从GC Roots到这个对象不可达时，证明此对象不可用，可被回收。如下图所示</p>
-<p><img src="/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-基础篇\gcroots.png" alt="Java核心技术-基础篇\gcroots"></p>
+<p><img src="/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/gcroots.png" alt="gcroots"></p>
 <h3 id="哪些对象可以作为-GC-Roots呢"><a href="#哪些对象可以作为-GC-Roots呢" class="headerlink" title="哪些对象可以作为 GC Roots呢"></a>哪些对象可以作为 GC Roots呢</h3><ul>
 <li><p>虚拟机栈中引用的对象</p>
 </li>
@@ -2776,7 +2776,7 @@
 <p>内部排序：归并排序、交换排序（冒泡、快排）、选择排序、插入排序等；</p>
 <p>外部排序：利用内存和外部存储处理超大数据集</p>
 <p>Java 集合框架</p>
-<p><img src="/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-基础篇\java集合.png" alt="Java核心技术-基础篇\java集合"></p>
+<p><img src="/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/java集合.png" alt="java集合"></p>
 <p>Coolection 是所有集合的根，扩展开提供三大类集合：</p>
 <ul>
 <li><p>List，有序集合</p>
@@ -2828,7 +2828,7 @@
 </li>
 </ul>
 <h3 id="Map-整体结构"><a href="#Map-整体结构" class="headerlink" title="Map 整体结构"></a>Map 整体结构</h3><p>Map 虽然包含在 Java 集合框架中，但本身并不是狭义的集合类型。</p>
-<p><img src="/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-基础篇\Map结构.png" alt="Java核心技术-基础篇\Map结构"></p>
+<p><img src="/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/Map结构.png" alt="Map结构"></p>
 <p>HashTable 比较特殊，作为类似 Vector 、 Stack 的早期集合相关类型，它继承至 Dictionary 类，类结构上和 HashMap 明显不同。</p>
 <p>HashMap、EnumMap、TreeMap 继承至 AbstractMap 类，包含了通用的操作方法。</p>
 <p>大部分使用 Map 场景通常都是插入、访问、删除而且对顺序没有要求的 HashMap 作为首选。</p>
@@ -2861,7 +2861,7 @@
 </li>
 </ul>
 <p><strong>HashMap 内部结构可以看做是数组（Node&lt;K,V&gt;[] talbe）和链表结合组成的复合结构，数组被分为一个个桶（bucket），通过哈希值决定了键值对这个数组的寻址；哈希值相同的键值对，则以链表形式存储；</strong>参考如下示意图。需要注意的是，<strong>如果链表大小超过阈值（TREEIFY_THRESHOLD,8）,图中的链表就会被改造成树形结构。</strong></p>
-<p><img src="/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/Java核心技术-基础篇\桶数组.png" alt="Java核心技术-基础篇\桶数组"></p>
+<p><img src="/2019/03/10/Java%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF-%E5%9F%BA%E7%A1%80%E7%AF%87/桶数组.png" alt="桶数组"></p>
 <p>从非拷贝构造函数的实现来看，这个表格（数组）似乎并没有在最初就初始化好，仅仅设置了一些初始值而已。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">HashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity, <span class="keyword">float</span> loadFactor)</span></span>&#123;  </span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="comment">// ... </span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">this</span>.loadFactor = loadFactor;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">this</span>.threshold = tableSizeFor(initialCapacity);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
 
@@ -2970,7 +2970,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-03 15:21:54" itemprop="dateModified" datetime="2019-12-03T15:21:54+08:00">2019-12-03</time>
+                <time title="修改时间：2019-12-10 19:59:53" itemprop="dateModified" datetime="2019-12-10T19:59:53+08:00">2019-12-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -2978,8 +2978,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">后端笔记</span>
                   </a>
                 </span>
             </span>
@@ -3114,7 +3114,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-03-04 20:31:46" itemprop="dateModified" datetime="2019-03-04T20:31:46+08:00">2019-03-04</time>
+                <time title="修改时间：2019-12-10 19:50:03" itemprop="dateModified" datetime="2019-12-10T19:50:03+08:00">2019-12-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -3122,8 +3122,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9E%B6%E6%9E%84/" itemprop="url" rel="index">
-                    <span itemprop="name">架构</span>
+                  <a href="/categories/%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">技术架构</span>
                   </a>
                 </span>
             </span>
@@ -3164,7 +3164,7 @@
 <li><p><strong>静态化改造就是直接缓存 HTTP 连接。</strong>静态化改造是直接缓存 HTTP 连接而不是仅仅缓存数据，如下图所示，Web 代理服务器根据请求 URL，直接取出对应的 HTTP 响应头和响应体然后直接返回，这个响应过程简单得连 HTTP 协议都不用重新组装，甚至连 HTTP 请求头也不需要解析。</p>
 </li>
 </ul>
-<p><img src="/2019/03/03/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/如何设计一个秒杀系统\缓存HTTP连接.jpg" alt="如何设计一个秒杀系统\缓存HTTP连接"></p>
+<p><img src="/2019/03/03/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/缓存HTTP连接.jpg" alt="缓存HTTP连接"></p>
 <ul>
 <li><strong>谁来做静态数据缓存。</strong>直接在 Web 服务器层上做（Nginx、Apache、Varnish）更擅长处理大并发的静态文件请求。</li>
 </ul>
@@ -3199,7 +3199,7 @@
 <p>建立一个热点上报和可以按照需求订阅的热点服务的下发规范，主要目的是通过交易链路上各个系统（包括详情、购物车、交易、优惠、库存、物流等）访问的时间差，把上游已经发现的热点透传给下游系统，提前做好保护。比如，对于大促高峰期，详情系统是最早知道的，在统一接入层上 Nginx 模块统计的热点 URL。</p>
 <p>将上游系统收集的热点数据发送到热点服务台，然后下游系统（如交易系统）就会知道哪些商品会被频繁调用，然后做热点保护。</p>
 <p>这里我给出了一个图，其中用户访问商品时经过的路径有很多，我们主要是依赖前面的导购页面（包括首页、搜索页面、商品详情、购物车等）提前识别哪些商品的访问量高，通过这些系统中的中间件来收集热点数据，并记录到日志中。</p>
-<p><img src="/2019/03/03/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/如何设计一个秒杀系统\构建动态热点发现系统.jpg" alt="img\构建动态热点发现系统"></p>
+<p><img src="/2019/03/03/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/\构建动态热点发现系统.jpg" alt="img\构建动态热点发现系统"></p>
 <h2 id="处理热点数据"><a href="#处理热点数据" class="headerlink" title="处理热点数据"></a>处理热点数据</h2><p>处理热点数据思路：一优化，二限制，三隔离</p>
 <p>优化：指的是将热点数据放在缓存中。</p>
 <p>限制：对访问商品的ID 做一致性 Hash，然后根据 Hash 做分桶，每个分桶设置一个处理队列，吧热点商品限制在请求队列里，防止因某些热点商品占用太多的服务器资源，从而使其他请求始终得到服务器的处理资源。</p>
@@ -3215,10 +3215,10 @@
 <p>三、把请求序列化到文件中，然后在顺序地读文件来恢复请求。</p>
 <p>四、利用消息队列方式。</p>
 <p>最通用的解决方案，用消息队列缓冲流量的方案。这就好比在河道中修一座大坝留几个出口来泄洪，但洪水持续过大终究还是会被压垮的。把同步的直接调用转换成异步的间接推送，中间通过一个队列在一端承接瞬时的洪峰流量，在另一端平滑地将消息推送出去。</p>
-<p><img src="/2019/03/03/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/如何设计一个秒杀系统\削峰-消息队列缓冲流量.jpg" alt="img\削峰-消息队列缓冲流量"></p>
+<p><img src="/2019/03/03/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/削峰-消息队列缓冲流量.jpg" alt="img\削峰-消息队列缓冲流量"></p>
 <h3 id="答题"><a href="#答题" class="headerlink" title="答题"></a>答题</h3><p>答题的两个目的：一、防止秒杀器作弊。二、延缓请求，起到对请求流量削峰的作用。</p>
 <p>秒杀答题思路如下图：</p>
-<p><img src="/2019/03/03/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/如何设计一个秒杀系统\秒杀答题思路.jpg" alt="img\秒杀答题思路"></p>
+<p><img src="/2019/03/03/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/秒杀答题思路.jpg" alt="img\秒杀答题思路"></p>
 <p>秒杀答题的主要逻辑：</p>
 <ol>
 <li><p>题库生成模块。生成一个个问题和答案</p>
@@ -3232,7 +3232,7 @@
 <p>问题 key：userId + itemId + questionId + time  + PK</p>
 <p>答案 key：userId + itemId + answer + PK</p>
 <p>答题的验证逻辑：</p>
-<p><img src="/2019/03/03/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/如何设计一个秒杀系统\答题的验证逻辑.jpg" alt="img\答题的验证逻辑"></p>
+<p><img src="/2019/03/03/%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/答题的验证逻辑.jpg" alt="img\答题的验证逻辑"></p>
 <p>注意：这里的逻辑，除了验证问题答案外还包括用户身份验证。</p>
 <p>除了答题的正确性验证，还可以对提交答案时间做限制。</p>
 <h3 id="分层过滤"><a href="#分层过滤" class="headerlink" title="分层过滤"></a>分层过滤</h3><p>分层过滤的核心思想：<strong>像漏斗一样在不同层次过滤掉无效请求，进入末端的请求才是有效的</strong>。</p>
@@ -3404,18 +3404,24 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2019-02-22 21:24:08 / 修改时间：22:20:15" itemprop="dateCreated datePublished" datetime="2019-02-22T21:24:08+08:00">2019-02-22</time>
+              <time title="创建时间：2019-02-22 21:24:08" itemprop="dateCreated datePublished" datetime="2019-02-22T21:24:08+08:00">2019-02-22</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-10 19:44:46" itemprop="dateModified" datetime="2019-12-10T19:44:46+08:00">2019-12-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/krpano/" itemprop="url" rel="index">
-                    <span itemprop="name">krpano</span>
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">前端笔记</span>
                   </a>
                 </span>
             </span>
@@ -3660,13 +3666,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

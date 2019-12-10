@@ -211,7 +211,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-08-24 20:22:45" itemprop="dateModified" datetime="2018-08-24T20:22:45+08:00">2018-08-24</time>
+                <time title="修改时间：2019-12-10 19:58:16" itemprop="dateModified" datetime="2019-12-10T19:58:16+08:00">2019-12-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -219,8 +219,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">后端笔记</span>
                   </a>
                 </span>
             </span>
@@ -338,7 +338,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-08-24 20:22:45" itemprop="dateModified" datetime="2018-08-24T20:22:45+08:00">2018-08-24</time>
+                <time title="修改时间：2019-12-10 19:58:08" itemprop="dateModified" datetime="2019-12-10T19:58:08+08:00">2019-12-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -346,8 +346,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">后端笔记</span>
                   </a>
                 </span>
             </span>
@@ -371,11 +371,11 @@
 </blockquote>
 <h1 id="引用传递分析实例一"><a href="#引用传递分析实例一" class="headerlink" title="引用传递分析实例一"></a>引用传递分析实例一</h1><h2 id="案例一"><a href="#案例一" class="headerlink" title="案例一"></a>案例一</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReferenceDemo</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">        Message msg = <span class="keyword">new</span> Message(<span class="number">30</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        fun(msg);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        System.out.println(msg.getNum());</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">(Message temp)</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        temp.setNum(<span class="number">100</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Message</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> num = <span class="number">10</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Message</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">       <span class="keyword">this</span>.num = num;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setNum</span><span class="params">(<span class="keyword">int</span> num)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">this</span>.num = num;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getNum</span><span class="params">()</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">return</span> num;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
 
-<p><img src="/2018/07/25/Java%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92%E7%A4%BA%E4%BE%8B%E5%88%86%E6%9E%90/Java中的引用传递示例分析\图片1.png" alt="引用传递分析实例\图片1"></p>
+<p><img src="/2018/07/25/Java%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92%E7%A4%BA%E4%BE%8B%E5%88%86%E6%9E%90/图片1.png" alt="引用传递分析实例\图片1"></p>
 <p><strong>基本类型和引用类型最大的区别是没有内存的关系匹配</strong></p>
 <h2 id="案例二"><a href="#案例二" class="headerlink" title="案例二"></a>案例二</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReferenceDemo</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">        String str = <span class="string">"Hello"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        fun(str);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        System.out.println(str);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">(String temp)</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">       temp = <span class="string">"World"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
 
-<p><img src="/2018/07/25/Java%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92%E7%A4%BA%E4%BE%8B%E5%88%86%E6%9E%90/Java中的引用传递示例分析\图片2.png" alt="引用传递分析实例\图片2"></p>
+<p><img src="/2018/07/25/Java%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92%E7%A4%BA%E4%BE%8B%E5%88%86%E6%9E%90/图片2.png" alt="引用传递分析实例\图片2"></p>
 <ul>
 <li><p>String 类被 final 修饰，意味着 String 内容一旦定义就不可改变。</p>
 </li>
@@ -385,9 +385,9 @@
 <h2 id="案例三"><a href="#案例三" class="headerlink" title="案例三"></a>案例三</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReferenceDemo</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">        Message msg = <span class="keyword">new</span> Message(<span class="string">"Hello"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        fun(msg);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">        System.out.println(msg.getInfo());</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">fun</span><span class="params">(Message temp)</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">       temp.setInfo(<span class="string">"jason"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Message</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">private</span> String info = <span class="string">"hi"</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Message</span><span class="params">(String info)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">this</span>.info = info;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">17</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">18</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">19</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setInfo</span><span class="params">(String info)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">20</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">this</span>.info = info;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">21</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">22</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">23</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getInfo</span><span class="params">()</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">24</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">return</span> info;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">25</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">26</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
 
 <p><strong>不严谨的分析图</strong></p>
-<p><img src="/2018/07/25/Java%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92%E7%A4%BA%E4%BE%8B%E5%88%86%E6%9E%90/Java中的引用传递示例分析\图片3.png" alt="引用传递分析实例\图片3"></p>
+<p><img src="/2018/07/25/Java%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92%E7%A4%BA%E4%BE%8B%E5%88%86%E6%9E%90/图片3.png" alt="引用传递分析实例\图片3"></p>
 <p><strong>严谨的分析图</strong></p>
-<p><img src="/2018/07/25/Java%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92%E7%A4%BA%E4%BE%8B%E5%88%86%E6%9E%90/Java中的引用传递示例分析\图片3-1.png" alt="引用传递分析实例\图片3-1"></p>
+<p><img src="/2018/07/25/Java%E4%B8%AD%E7%9A%84%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92%E7%A4%BA%E4%BE%8B%E5%88%86%E6%9E%90/图片3-1.png" alt="引用传递分析实例\图片3-1"></p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>String 属于引用类型，但是被 final 修饰后，不可变的特点，可以当基本类型使用。</p>
 <p>String 类被 final 修饰，其变量内容一旦定义就不可改变，即一个 String 变量只能保存一个内容。</p>
 <h1 id="引用传递分析实例二"><a href="#引用传递分析实例二" class="headerlink" title="引用传递分析实例二"></a>引用传递分析实例二</h1><p>简单 Java 类编写原则：</p>
@@ -454,7 +454,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-08-24 20:22:45" itemprop="dateModified" datetime="2018-08-24T20:22:45+08:00">2018-08-24</time>
+                <time title="修改时间：2019-12-10 20:02:35" itemprop="dateModified" datetime="2019-12-10T20:02:35+08:00">2019-12-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -462,8 +462,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">后端笔记</span>
                   </a>
                 </span>
             </span>
@@ -575,7 +575,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-08-24 20:22:45" itemprop="dateModified" datetime="2018-08-24T20:22:45+08:00">2018-08-24</time>
+                <time title="修改时间：2019-12-10 19:47:36" itemprop="dateModified" datetime="2019-12-10T19:47:36+08:00">2019-12-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -583,8 +583,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C#</span>
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">后端笔记</span>
                   </a>
                 </span>
             </span>
@@ -771,7 +771,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-08-24 20:22:45" itemprop="dateModified" datetime="2018-08-24T20:22:45+08:00">2018-08-24</time>
+                <time title="修改时间：2019-12-10 19:57:02" itemprop="dateModified" datetime="2019-12-10T19:57:02+08:00">2019-12-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -779,8 +779,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index">
-                    <span itemprop="name">web</span>
+                  <a href="/categories/%E5%89%8D%E7%AB%AF%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">前端笔记</span>
                   </a>
                 </span>
             </span>
@@ -854,7 +854,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-08-24 20:22:45" itemprop="dateModified" datetime="2018-08-24T20:22:45+08:00">2018-08-24</time>
+                <time title="修改时间：2019-12-10 19:37:00" itemprop="dateModified" datetime="2019-12-10T19:37:00+08:00">2019-12-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -862,8 +862,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/git/" itemprop="url" rel="index">
-                    <span itemprop="name">git</span>
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">后端笔记</span>
                   </a>
                 </span>
             </span>
@@ -924,18 +924,24 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2018-07-08 19:20:01 / 修改时间：19:43:21" itemprop="dateCreated datePublished" datetime="2018-07-08T19:20:01+08:00">2018-07-08</time>
+              <time title="创建时间：2018-07-08 19:20:01" itemprop="dateCreated datePublished" datetime="2018-07-08T19:20:01+08:00">2018-07-08</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-10 19:58:01" itemprop="dateModified" datetime="2019-12-10T19:58:01+08:00">2019-12-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">后端笔记</span>
                   </a>
                 </span>
             </span>
@@ -1039,7 +1045,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-12-03 15:15:55" itemprop="dateModified" datetime="2019-12-03T15:15:55+08:00">2019-12-03</time>
+                <time title="修改时间：2019-12-10 19:46:55" itemprop="dateModified" datetime="2019-12-10T19:46:55+08:00">2019-12-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1047,8 +1053,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">后端笔记</span>
                   </a>
                 </span>
             </span>
@@ -1136,18 +1142,24 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2018-06-07 19:43:08 / 修改时间：19:45:51" itemprop="dateCreated datePublished" datetime="2018-06-07T19:43:08+08:00">2018-06-07</time>
+              <time title="创建时间：2018-06-07 19:43:08" itemprop="dateCreated datePublished" datetime="2018-06-07T19:43:08+08:00">2018-06-07</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-10 19:59:01" itemprop="dateModified" datetime="2019-12-10T19:59:01+08:00">2019-12-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">后端笔记</span>
                   </a>
                 </span>
             </span>
@@ -1169,7 +1181,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">registerNatives</span><span class="params">()</span></span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">   <span class="keyword">static</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">       registerNatives();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">   &#125;</span></pre></td></tr></table></figure>
 
 <p>native 关键字表示这是一个本地方法。</p>
-<h2 id="JNI-实现流程"><a href="#JNI-实现流程" class="headerlink" title="JNI 实现流程"></a>JNI 实现流程</h2><p>![Java调用本地方法\JNI 实现流程示意图](Java调用本地方法\JNI 实现流程示意图.jpg)</p>
+<h2 id="JNI-实现流程"><a href="#JNI-实现流程" class="headerlink" title="JNI 实现流程"></a>JNI 实现流程</h2><p>![JNI 实现流程示意图](JNI 实现流程示意图.jpg)</p>
 <h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><h2 id="编写-Java-代码"><a href="#编写-Java-代码" class="headerlink" title="编写 Java 代码"></a>编写 Java 代码</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloNative</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">static</span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">        System.loadLibrary(<span class="string">"HelloNative"</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span></span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">double</span> <span class="title">sum</span><span class="params">(<span class="keyword">double</span> a, <span class="keyword">double</span> b)</span></span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line"></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">        <span class="keyword">new</span> HelloNative().sayHello();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">        System.out.println(<span class="keyword">new</span> HelloNative().sum(<span class="number">3.5</span>, <span class="number">4.0</span>));</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
 
 <p>该类声明了两个本地方法，且没有实现方法体。加载动态库<code>System.loadLibrary(&quot;HelloNative&quot;);</code> 其中的参数就是我们的动态库名称。</p>
@@ -1240,10 +1252,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2018-06-06 21:16:24 / 修改时间：21:43:42" itemprop="dateCreated datePublished" datetime="2018-06-06T21:16:24+08:00">2018-06-06</time>
+              <time title="创建时间：2018-06-06 21:16:24" itemprop="dateCreated datePublished" datetime="2018-06-06T21:16:24+08:00">2018-06-06</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2019-12-10 19:54:39" itemprop="dateModified" datetime="2019-12-10T19:54:39+08:00">2019-12-10</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -1292,7 +1310,7 @@
 </tr>
 </tbody></table>
 <h1 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h1><p>线性表是逻辑机构，顺序表和链表是存储结构。</p>
-<p><img src="/2018/06/06/%E9%93%BE%E8%A1%A8/链表\线性表.png" alt="链表\线性表"></p>
+<p><img src="/2018/06/06/%E9%93%BE%E8%A1%A8/线性表.png" alt="线性表"></p>
 <p>顺序表使用数组实现，是一组地址连续的存储单元。</p>
 <p>通过动态分配和动态扩展来指定数组大小。</p>
 <h2 id="顺序表和链表区别"><a href="#顺序表和链表区别" class="headerlink" title="顺序表和链表区别"></a>顺序表和链表区别</h2><ol>
@@ -1311,18 +1329,18 @@
 <p>如果要查找某个元素，只能从头开始遍历整个链表。</p>
 <p>由于链表增加结点指针域，内存空间开销比较大。</p>
 <h2 id="链表分类"><a href="#链表分类" class="headerlink" title="链表分类"></a>链表分类</h2><p>单链表、双链表、循环链表</p>
-<h1 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h1><p><img src="/2018/06/06/%E9%93%BE%E8%A1%A8/链表\单链表.png" alt="链表\单链表"></p>
+<h1 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h1><p><img src="/2018/06/06/%E9%93%BE%E8%A1%A8/单链表.png" alt="单链表"></p>
 <h2 id="头插法"><a href="#头插法" class="headerlink" title="头插法"></a>头插法</h2><p>将新节点插入到当前链表的表头，（头结点之后），插入的顺序与链表中的顺序相反，关键点就是记住旧的表头，生成一个新的放到旧表头前面，如图：</p>
-<p><img src="/2018/06/06/%E9%93%BE%E8%A1%A8/链表\单链表-头插法.png" alt="链表\单链表-头插法"></p>
+<p><img src="/2018/06/06/%E9%93%BE%E8%A1%A8/单链表-头插法.png" alt="单链表-头插法"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">headInsert</span><span class="params">(T item)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    Node old = first;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    first = <span class="keyword">new</span> Node();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    first.item = item;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    first.next = old;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    count++;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
 
 <h2 id="尾插法"><a href="#尾插法" class="headerlink" title="尾插法"></a>尾插法</h2><p>增加一个尾指针，新节点插到链表的尾部，插入的顺序和链表的顺序一致，如图：</p>
-<p><img src="/2018/06/06/%E9%93%BE%E8%A1%A8/链表\单链表-尾插法.png" alt="链表\单链表-尾插法"></p>
+<p><img src="/2018/06/06/%E9%93%BE%E8%A1%A8/单链表-尾插法.png" alt="单链表-尾插法"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">tailInsert</span><span class="params">(T item)</span> </span>&#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">    Node old = last;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    last = <span class="keyword">new</span> Node();</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">    last.item = item;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">    last.next = <span class="keyword">null</span>;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">    <span class="keyword">if</span> (isEmpty()) &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">        first = last;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">    &#125; <span class="keyword">else</span> &#123;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">        old.next = last;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">    &#125;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">    count++;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">&#125;</span></pre></td></tr></table></figure>
 
 <p>节点的插入和删除，要点是先断后连，关键就是不要断链了，以插入为例（把s插入p和q之间），先断意思是先把p-&gt;q断了，变成s-&gt;q，后连，最后再把p和s连接起来。</p>
 <h2 id="插入节点"><a href="#插入节点" class="headerlink" title="插入节点"></a>插入节点</h2><p>待插入节点为s，一般采用后插法，即先找到插入位置节点的前驱节点，然后插入，时间复杂度O(n)。</p>
-<p><img src="/2018/06/06/%E9%93%BE%E8%A1%A8/链表\单链表-插入节点.png" alt="链表\单链表-插入节点"></p>
+<p><img src="/2018/06/06/%E9%93%BE%E8%A1%A8/单链表-插入节点.png" alt="单链表-插入节点"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">p=getNodeByIndex(i-<span class="number">1</span>);</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">s.next = p.next;</span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">p.next = s;</span></pre></td></tr></table></figure>
 
 <p>还有一种方法是，直接插入到位置的后面（前插法），然后交换两个节点的值，插入的节点到了指定位置，时间复杂度O(1)：</p>
@@ -1336,13 +1354,13 @@
 
 <h1 id="双链表"><a href="#双链表" class="headerlink" title="双链表"></a>双链表</h1><p>双向链表也称为“双链表”，是链表的一种。它的每个数据结点中都有两个指针，分别指向直接前驱和直接后继。所以从双向链表中的任意一个结点开始，都可以很方便的访问它的前驱结点和后继结点，一般我们都构造双向循环链表。</p>
 <p>双向链表是对单链表的一种改进，添加了一个指向前驱的节点。因为单链表只有一个后继节点，访问前驱结点只能从头开始便利（如删除、插入）。</p>
-<p><img src="/2018/06/06/%E9%93%BE%E8%A1%A8/链表\双向链表.png" alt="链表\双向链表"></p>
+<p><img src="/2018/06/06/%E9%93%BE%E8%A1%A8/双向链表.png" alt="双向链表"></p>
 <h2 id="插入节点-1"><a href="#插入节点-1" class="headerlink" title="插入节点"></a>插入节点</h2><p>在p节点后插入s节点，先断后连，先把p和原后继节点的链条给断了，使后继节点只跟s节点有关：</p>
-<p><img src="/2018/06/06/%E9%93%BE%E8%A1%A8/链表\双向链表-插入节点.png" alt="链表\双向链表-插入节点"></p>
+<p><img src="/2018/06/06/%E9%93%BE%E8%A1%A8/双向链表-插入节点.png" alt="双向链表-插入节点"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">①s.next = p.next; <span class="comment">// 先断了p的后继</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">②p.next.prior = s; <span class="comment">// 在断了p后继的前驱</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">③s.prior = p; <span class="comment">// 让s的前驱指向p</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">④p.next = s; <span class="comment">// p的后继指向s，重新连接上链条，此步必须在①②之后</span></span></pre></td></tr></table></figure>
 
 <h2 id="删除节点-1"><a href="#删除节点-1" class="headerlink" title="删除节点"></a>删除节点</h2><p>删除节点p的后继节点q，也是先断后连，把q和其后继节点的关系，转让给p即可：</p>
-<p><img src="/2018/06/06/%E9%93%BE%E8%A1%A8/链表\双向链表-删除节点.png" alt="链表\双向链表-删除节点"></p>
+<p><img src="/2018/06/06/%E9%93%BE%E8%A1%A8/双向链表-删除节点.png" alt="双向链表-删除节点"></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line">①p.next = q.next; <span class="comment">// 先断了q的后继</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line">②q.next.prior = p; <span class="comment">// 在断了q后继的前驱</span></span></pre></td></tr></table></figure>
 
 <p>删除节点q的前驱节点p，把p和去前驱节点的关系转让给q即可：</p>
@@ -1356,7 +1374,7 @@
 <li><p>在判断是否到表尾时，是判断该结点链域的值是否是表头结点，当链域值等于表头 指针时，说明已到表尾。而非象单 链表那样判断链域值是否为NULL。</p>
 </li>
 </ol>
-<p><img src="/2018/06/06/%E9%93%BE%E8%A1%A8/链表\循环链表.png" alt="链表\循环链表"></p>
+<p><img src="/2018/06/06/%E9%93%BE%E8%A1%A8/循环链表.png" alt="循环链表"></p>
 <p><strong>参考文献</strong></p>
 <p><a href="https://www.cnblogs.com/wincai/p/5893475.html" target="_blank" rel="noopener">https://www.cnblogs.com/wincai/p/5893475.html</a></p>
 <p><a href="https://www.cnblogs.com/ysocean/p/7928988.html#\_label1\_0" target="_blank" rel="noopener">https://www.cnblogs.com/ysocean/p/7928988.html#\_label1\_0</a></p>
@@ -1453,13 +1471,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>

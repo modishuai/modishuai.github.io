@@ -54,17 +54,15 @@
 <meta property="og:description" content="在大多数情况下，重定向用于以下两个原因之一：  将用户从http重定向到https以强制执行SSL通信。  重定向具有过时URL的用户，通常在服务器场迁移或升级期间更改名称时。   从 HTTP 重定向到 HTTPS一、下载并安装URL重定向模块 URL 重写模块下载地址URL Rewrite  二、 确保正在使用的站点已经配置80端口  三、 创建 URL 重写规则，填写规则名称。  四、添加">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;08&#x2F;23&#x2F;%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS&#x2F;iis10.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;08&#x2F;23&#x2F;%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS&#x2F;使用IIS中的URL重写模块从HTTP重定向到HTTPS&#x2F;URL_Rewrite.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;08&#x2F;23&#x2F;%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS&#x2F;使用IIS中的URL重写模块从HTTP重定向到HTTPS&#x2F;80_app.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;08&#x2F;23&#x2F;%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS&#x2F;使用IIS中的URL重写模块从HTTP重定向到HTTPS&#x2F;add_rule.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;08&#x2F;23&#x2F;%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS&#x2F;使用IIS中的URL重写模块从HTTP重定向到HTTPS&#x2F;add_condition.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;08&#x2F;23&#x2F;%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS&#x2F;使用IIS中的URL重写模块从HTTP重定向到HTTPS&#x2F;edit_operation.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;08&#x2F;23&#x2F;%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS&#x2F;使用IIS中的URL重写模块从HTTP重定向到HTTPS&#x2F;disable_enable_rule.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;08&#x2F;23&#x2F;%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS&#x2F;URL_Rewrite.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;08&#x2F;23&#x2F;%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS&#x2F;80_app.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;08&#x2F;23&#x2F;%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS&#x2F;add_rule.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;08&#x2F;23&#x2F;%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS&#x2F;add_condition.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;08&#x2F;23&#x2F;%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS&#x2F;edit_operation.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;08&#x2F;23&#x2F;%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS&#x2F;disable_enable_rule.png">
 <meta property="article:published_time" content="2018-08-23T14:12:43.000Z">
-<meta property="article:modified_time" content="2018-08-24T12:22:45.336Z">
+<meta property="article:modified_time" content="2019-12-10T11:59:58.700Z">
 <meta property="article:author" content="mofei">
-<meta property="article:tag" content="iis">
-<meta property="article:tag" content="https">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2018&#x2F;08&#x2F;23&#x2F;%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS&#x2F;iis10.png">
 
@@ -224,7 +222,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-08-24 20:22:45" itemprop="dateModified" datetime="2018-08-24T20:22:45+08:00">2018-08-24</time>
+                <time title="修改时间：2019-12-10 19:59:58" itemprop="dateModified" datetime="2019-12-10T19:59:58+08:00">2019-12-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -232,8 +230,8 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index">
-                    <span itemprop="name">web</span>
+                  <a href="/categories/%E5%90%8E%E7%AB%AF%E7%AC%94%E8%AE%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">后端笔记</span>
                   </a>
                 </span>
             </span>
@@ -259,17 +257,17 @@
 </ol>
 <h1 id="从-HTTP-重定向到-HTTPS"><a href="#从-HTTP-重定向到-HTTPS" class="headerlink" title="从 HTTP 重定向到 HTTPS"></a>从 HTTP 重定向到 HTTPS</h1><p>一、下载并安装URL重定向模块</p>
 <p>URL 重写模块下载地址<a href="https://blogs.technet.microsoft.com/dawiese/2016/06/07/redirect-from-http-to-https-using-the-iis-url-rewrite-module/" target="_blank" rel="noopener">URL Rewrite</a></p>
-<p><img src="/2018/08/23/%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS/使用IIS中的URL重写模块从HTTP重定向到HTTPS\URL_Rewrite.png" alt="使用IIS URL重写模块从HTTP重定向到HTTPS\URL_Rewrite"></p>
+<p><img src="/2018/08/23/%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS/URL_Rewrite.png" alt="使用IIS URL重写模块从HTTP重定向到HTTPS\URL_Rewrite"></p>
 <p>二、 确保正在使用的站点已经配置80端口</p>
-<p><img src="/2018/08/23/%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS/使用IIS中的URL重写模块从HTTP重定向到HTTPS\80_app.png" alt="使用IIS中的URL重写模块从HTTP重定向到HTTPS\80_app"></p>
+<p><img src="/2018/08/23/%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS/80_app.png" alt="80_app"></p>
 <p>三、 创建 URL 重写规则，填写规则名称。</p>
-<p><img src="/2018/08/23/%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS/使用IIS中的URL重写模块从HTTP重定向到HTTPS\add_rule.png" alt="使用IIS URL重写模块从HTTP重定向到HTTPS\add_rule"></p>
+<p><img src="/2018/08/23/%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS/add_rule.png" alt="使用IIS URL重写模块从HTTP重定向到HTTPS\add_rule"></p>
 <p>四、添加条件，条件输入=<code>{HTTPS}</code>，检查输入字符串是否 = 与模式匹配，模式=off</p>
-<p><img src="/2018/08/23/%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS/使用IIS中的URL重写模块从HTTP重定向到HTTPS\add_condition.png" alt="使用IIS中的URL重写模块从HTTP重定向到HTTPS\add_condition"></p>
+<p><img src="/2018/08/23/%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS/add_condition.png" alt="add_condition"></p>
 <p>五、编辑操作，操作类型=重定向，重定向URL=<code>https://{HTTP_HOST}{REQUEST_URI}</code>，重定向类型= 永久301</p>
-<p><img src="/2018/08/23/%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS/使用IIS中的URL重写模块从HTTP重定向到HTTPS\edit_operation.png" alt="使用IIS URL重写模块从HTTP重定向到HTTPS\edit_operation"></p>
+<p><img src="/2018/08/23/%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS/edit_operation.png" alt="使用IIS URL重写模块从HTTP重定向到HTTPS\edit_operation"></p>
 <p>六、禁用规则后再启用规则，在IIS管理器窗口右侧面板。</p>
-<p><img src="/2018/08/23/%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS/使用IIS中的URL重写模块从HTTP重定向到HTTPS\disable_enable_rule.png" alt="使用IIS URL重写模块从HTTP重定向到HTTPS\disable_enable_rule"></p>
+<p><img src="/2018/08/23/%E4%BD%BF%E7%94%A8IIS%E4%B8%AD%E7%9A%84URL%E9%87%8D%E5%86%99%E6%A8%A1%E5%9D%97%E4%BB%8EHTTP%E9%87%8D%E5%AE%9A%E5%90%91%E5%88%B0HTTPS/disable_enable_rule.png" alt="使用IIS URL重写模块从HTTP重定向到HTTPS\disable_enable_rule"></p>
 <p>七、URL重写规则将写入您正在使用的站点的web.config文件。例如，上述配置应导致添加到web.config文件：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">2</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">3</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;<span class="name">system.webServer</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">4</span></pre></td><td class="code"><pre><span class="line">        <span class="tag">&lt;<span class="name">rewrite</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">5</span></pre></td><td class="code"><pre><span class="line">            <span class="tag">&lt;<span class="name">rules</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">6</span></pre></td><td class="code"><pre><span class="line">                <span class="tag">&lt;<span class="name">rule</span> <span class="attr">name</span>=<span class="string">"http to https"</span> <span class="attr">enabled</span>=<span class="string">"true"</span> <span class="attr">patternSyntax</span>=<span class="string">"Wildcard"</span> <span class="attr">stopProcessing</span>=<span class="string">"true"</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">7</span></pre></td><td class="code"><pre><span class="line">                    <span class="tag">&lt;<span class="name">match</span> <span class="attr">url</span>=<span class="string">"*"</span> /&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">8</span></pre></td><td class="code"><pre><span class="line">                    <span class="tag">&lt;<span class="name">conditions</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">9</span></pre></td><td class="code"><pre><span class="line">                        <span class="tag">&lt;<span class="name">add</span> <span class="attr">input</span>=<span class="string">"&#123;HTTPS&#125;"</span> <span class="attr">pattern</span>=<span class="string">"off"</span> /&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">10</span></pre></td><td class="code"><pre><span class="line">                    <span class="tag">&lt;/<span class="name">conditions</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">11</span></pre></td><td class="code"><pre><span class="line">                    <span class="tag">&lt;<span class="name">action</span> <span class="attr">type</span>=<span class="string">"Redirect"</span> <span class="attr">url</span>=<span class="string">"https://&#123;HTTP_HOST&#125;&#123;REQUEST_URI&#125;"</span> /&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">12</span></pre></td><td class="code"><pre><span class="line">                <span class="tag">&lt;/<span class="name">rule</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">13</span></pre></td><td class="code"><pre><span class="line">            <span class="tag">&lt;/<span class="name">rules</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">14</span></pre></td><td class="code"><pre><span class="line">        <span class="tag">&lt;/<span class="name">rewrite</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">15</span></pre></td><td class="code"><pre><span class="line">    <span class="tag">&lt;/<span class="name">system.webServer</span>&gt;</span></span></pre></td></tr><tr><td class="gutter"><pre><span class="line">16</span></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span></pre></td></tr></table></figure>
 
@@ -282,10 +280,6 @@
     
 
       <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/iis/" rel="tag"># iis</a>
-              <a href="/tags/https/" rel="tag"># https</a>
-          </div>
 
         
 
@@ -380,13 +374,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">6</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
